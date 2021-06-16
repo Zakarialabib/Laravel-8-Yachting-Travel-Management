@@ -1,0 +1,43 @@
+
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                
+<wmHotelAvail xmlns="http://traveltalk.com/wsHotelAvail">
+<OTA_HotelAvailRQ>
+     <POS>
+        <Source PseudoCityCode="MIA1S21AV" ISOCurrency="NGN">
+         <RequestorID Type="21" ID="RubyTravel"/>
+        </Source>
+         <TPA_Extensions>
+            <Provider>
+               <Name>Amadeus</Name> 
+               <System>Test</System> 
+               <Userid>RubyTravel</Userid> 
+               <Password>sTeBr+Fr3kEv</Password> 
+            </Provider>
+         </TPA_Extensions>
+      </POS>
+   <AvailRequestSegments>
+      <AvailRequestSegment>
+         <StayDateRange Start="2018-05-28" End="2018-05-31" />
+         <RoomStayCandidates>
+            <RoomStayCandidate>
+               <GuestCounts IsPerRoom="1">
+                  <GuestCount Count="2" />
+               </GuestCounts>
+            </RoomStayCandidate>
+         </RoomStayCandidates>
+         <HotelSearchCriteria>
+            <Criterion ExactMatch="1">
+               <HotelRef ChainCode="DV" HotelCode="FAR" HotelCityCode="LHR"  />
+            </Criterion>
+         </HotelSearchCriteria>
+         <RatePlanCandidates>
+            <RatePlanCandidate RatePlanID="C1DPRO"/>    
+          </RatePlanCandidates> 
+      </AvailRequestSegment>
+   </AvailRequestSegments>
+</OTA_HotelAvailRQ>
+</wmHotelAvail>
+            </soap:Body>
+        </soap:Envelope>

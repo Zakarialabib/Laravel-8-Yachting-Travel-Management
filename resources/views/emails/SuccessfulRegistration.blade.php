@@ -1,0 +1,1 @@
+Thanks for signing up on our portal. From now on, you can easily search and book affordable flights, hotels and holiday packages on our platform. We will also start providing you discounts on any of the bookings you make with us. You can view your bookings and manage all booking you have made with us through the button below.

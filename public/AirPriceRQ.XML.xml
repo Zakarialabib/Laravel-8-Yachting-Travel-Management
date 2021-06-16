@@ -1,0 +1,43 @@
+
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                
+       <wmAirPrice xmlns="http://traveltalk.com/wsAirPrice">
+		 <OTA_AirPriceRQ>
+		  <POS>
+        <Source PseudoCityCode="MIA1S21AV" ISOCurrency="NGN">
+         <RequestorID Type="21" ID="RubyTravel"/>
+        </Source>
+         <TPA_Extensions>
+            <Provider>
+               <Name>Amadeus</Name> 
+               <System>Test</System> 
+               <Userid>RubyTravel</Userid> 
+               <Password>sTeBr+Fr3kEv</Password> 
+            </Provider>
+         </TPA_Extensions>
+      </POS> 
+		  <AirItinerary>   
+		  <OriginDestinationOptions>    
+		  <OriginDestinationOption><FlightSegment DepartureDateTime="2018-07-10T15:35:00" ArrivalDateTime="2018-07-10T21:05:00" FlightNumber="203" ResBookDesigCode="X">    
+		  <DepartureAirport LocationCode="LOS"/>
+		  <ArrivalAirport LocationCode="KGL"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-07-10T23:59:00" ArrivalDateTime="2018-07-11T08:30:00" FlightNumber="304" ResBookDesigCode="X">    
+		  <DepartureAirport LocationCode="KGL"/>
+		  <ArrivalAirport LocationCode="DXB"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment></OriginDestinationOption>  
+		  </OriginDestinationOptions>  
+		  </AirItinerary>  
+		  <TravelerInfoSummary>   
+		  <SeatsRequested>1</SeatsRequested>   
+		  <AirTravelerAvail>    
+		  <PassengerTypeQuantity Code="ADT" Quantity="1"/> 
+		  </AirTravelerAvail>   
+		  <PriceRequestInformation PricingSource="Published"/>  
+		  </TravelerInfoSummary> 
+		 </OTA_AirPriceRQ>
+		</wmAirPrice> 
+            </soap:Body>
+        </soap:Envelope>

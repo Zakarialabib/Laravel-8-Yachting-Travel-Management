@@ -1,0 +1,72 @@
+
+        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+            <soap:Body>
+                
+  <wmTravelBuild xmlns="http://traveltalk.com/wsTravelBuild">
+  <OTA_TravelItineraryRQ>
+   <POS>
+        <Source PseudoCityCode="MIA1S21AV" ISOCurrency="NGN">
+         <RequestorID Type="21" ID="RubyTravel"/>
+        </Source>
+         <TPA_Extensions>
+            <Provider>
+               <Name>Amadeus</Name> 
+               <System>Test</System> 
+               <Userid>RubyTravel</Userid> 
+               <Password>sTeBr+Fr3kEv</Password> 
+            </Provider>
+         </TPA_Extensions>
+      </POS>
+   
+             <OTA_AirBookRQ>
+   <AirItinerary DirectionInd="OneWay">
+      <OriginDestinationOptions>
+         <OriginDestinationOption><FlightSegment DepartureDateTime="2018-07-10T15:35:00" ArrivalDateTime="2018-07-10T21:05:00" FlightNumber="203" ResBookDesigCode="X" RPH="1" NumberInParty="1">    
+		  <DepartureAirport LocationCode="LOS"/>
+		  <ArrivalAirport LocationCode="KGL"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment><FlightSegment DepartureDateTime="2018-07-10T23:59:00" ArrivalDateTime="2018-07-11T08:30:00" FlightNumber="304" ResBookDesigCode="X" RPH="2" NumberInParty="1">    
+		  <DepartureAirport LocationCode="KGL"/>
+		  <ArrivalAirport LocationCode="DXB"/>      
+		  <MarketingAirline Code="WB"/>     
+		  </FlightSegment></OriginDestinationOption>
+      </OriginDestinationOptions>
+   </AirItinerary>
+</OTA_AirBookRQ>
+           
+   <TPA_Extensions>
+      <PNRData>
+      
+                <Traveler>
+                  <PersonName>
+                    <NamePrefix>MR</NamePrefix>
+                    <GivenName>Fowl Junior</GivenName>
+                    <Surname>Artemis</Surname>
+                  </PersonName>
+                  <TravelerRefNumber RPH="1" />
+                </Traveler>
+                
+         <Telephone PhoneLocationType="Home" CountryAccessCode="234" AreaCityCode="LOS" PhoneNumber="09090909090" FormattedInd="0"/>
+         <Email>admin@travelportal.com</Email>
+         <Ticketing TicketTimeLimit="2018-07-10T23:59:00" TicketType="eTicket" />
+      </PNRData>
+      <PriceData PriceType="Published" AutoTicketing="false" ValidatingAirlineCode="WB" >
+       <PublishedFares>
+      <FareRestrictPref>
+      <AdvResTicketing><AdvReservation/>
+      </AdvResTicketing>
+      <StayRestrictions>
+      <MinimumStay/>
+      <MaximumStay/>
+      </StayRestrictions>
+      <VoluntaryChanges>
+      <Penalty/>
+      </VoluntaryChanges>
+      </FareRestrictPref>
+      </PublishedFares>
+      </PriceData>
+   </TPA_Extensions>
+  </OTA_TravelItineraryRQ>
+  </wmTravelBuild>
+            </soap:Body>
+        </soap:Envelope>
