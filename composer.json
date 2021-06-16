@@ -20,6 +20,7 @@
         "nilsenj/toastr-laravel": "dev-1.0-stable",
         "renatomarinho/laravel-page-speed": "^2.0",
         "spatie/laravel-menu": "^3.7",
+        "spatie/laravel-permission": "^4.2",
         "staudenmeir/eloquent-json-relations": "^1.5"
     },
     "require-dev": {

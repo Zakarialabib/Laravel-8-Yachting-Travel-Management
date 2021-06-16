@@ -53,7 +53,7 @@ class SaleController extends Controller
                     $booking->numbber_of_adult,
                     $booking->bookable->price
                 ));
-            } else if(get_class($booking->bookable) === 'App\Package') {
+            } else if(get_class($booking->bookable) === 'App\Models\Package') {
                 foreach ($booking->rates as $key => $rate) {
                     array_push($booking_items, new BookingItem(
                         $rate->id,

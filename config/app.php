@@ -166,8 +166,7 @@ return [
          * Package Service Providers...
          */
         nilsenj\Toastr\ToastrServiceProvider::class,
-   //     Zizaco\Entrust\EntrustServiceProvider::class,
-
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,7 +230,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Toastr' => nilsenj\Toastr\Facades\Toastr::class,
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
     ],
 

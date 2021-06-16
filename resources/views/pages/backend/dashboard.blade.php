@@ -587,7 +587,7 @@
                                     @endif
                                     @if(isset($booking['place']))
                                         <td><a href="{{route('place_detail', $booking['place']['slug'])}}" target="_blank">{{$booking['place']['name']}}</a></td>
-                                    @elseif($booking->bookable && (get_class($booking->bookable) === 'App\Package'))
+                                    @elseif($booking->bookable && (get_class($booking->bookable) === 'App\Models\Package'))
                                     <td><a href="{{route('offer.show', $booking->bookable->offer->slug)}}" target="_blank">{{$booking->bookable->offer->name}}</a></td>
                                     @endif
                                     <td>{{$booking->date}}</td>
