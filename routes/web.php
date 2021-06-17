@@ -62,8 +62,6 @@ Route::get('/user/wishlist', 'UserController@pageWishList')->name('user_wishlist
 
 Route::get('/get-logged-in-user',function(){
     return App\Models\User::findOrFail(auth()->user()->id)
-        ->join('profiles','profiles.user_id','=','users.id')
-        ->join('role_user','role_user.user_id','=','users.id')
         ->first();
 });
 

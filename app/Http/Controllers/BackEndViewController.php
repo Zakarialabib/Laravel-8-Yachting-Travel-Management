@@ -330,8 +330,8 @@ class BackEndViewController extends Controller
     public function usersManagement(){
 
         $users   = User::where('delete_status',0)
-            ->join('profiles','profiles.user_id','=','users.id')
-            ->join('role_user','role_user.user_id','=','users.id')
+    
+            
             ->get();
         $titles  = Title::all();
         $genders = Gender::all();

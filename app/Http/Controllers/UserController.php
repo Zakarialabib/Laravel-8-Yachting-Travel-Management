@@ -10,7 +10,6 @@ use App\Models\Role;
 use App\Models\Profile;
 use App\Models\Wallet;
 use App\Models\Place;
-use App\Models\RoleUser;
 use App\Models\Wishlist;
 use App\Services\PortalCustomNotificationHandler;
 use Illuminate\Support\Facades\Hash;
@@ -87,7 +86,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::join('profiles','profiles.user_id','=','users.id')
-                      ->join('role_user','role_user.user_id','=','users.id')
+                      
                       ->get();
          return view('pages.backend.settings.user-management',compact('users'));
     }
@@ -264,7 +263,6 @@ class UserController extends Controller
         $profile->phone_number = $request->phone;
         $profile->address      = $request->address;
         $updateProfile = $profile->update();
-        $userRole = RoleUser::where('user_id',$request->user_id)->first()->role_id;
 
         if($userRole != $request->user_type){
             $user->detachRole($userRole);

@@ -6,10 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -65,8 +67,8 @@ class User extends Authenticatable
     public static function getUserById($id)
     {
         $user = static::where('id', $id)->first()
-            ->join('profiles','profiles.user_id','=','users.id')
-            ->join('role_user','role_user.user_id','=','users.id')
+    
+            
             ->first();
         return $user;
 
@@ -276,8 +278,8 @@ class User extends Authenticatable
     {
 
         $user = static::where('id', auth()->id())->first()
-            ->join('profiles','profiles.user_id','=','users.id')
-            ->join('role_user','role_user.user_id','=','users.id')
+    
+            
             ->first();
         return $user;
 
@@ -291,8 +293,6 @@ class User extends Authenticatable
 
         $gender = new Gender();
 
-        $role = new Role();
-
         $data = [
             'title' => $title->getTitleById($user->title),
             'full_name' => $user->first_name." ".$user->last_name." ".$user->other_name,
@@ -305,7 +305,6 @@ class User extends Authenticatable
             'agent_id' => $user->agent_id,
             'office_number' => $user->office_number,
             'account_status' => $this->status($user->account_status),
-            'role' => $role->role($user->id),
             'created_on' => Carbon::parse($user->created_at)->toFormattedDateString()
         ];
 
