@@ -211,6 +211,7 @@
                                 @csrf
                                 <input type="hidden" id="package_id" name="package_id" value="{{$offer->packages->first()->id}}">
                                 <input type="hidden" name="type" value="{{\App\Models\Booking::TYPE_BOOKING_FORM}}">
+                                <input id="persons" name="numbber_of_adult" type="hidden">
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <label>{{__('Start')  }}</label>
@@ -221,31 +222,37 @@
                                         class="form-control" 
                                         value="{{\Carbon\Carbon::today()->format('Y-m-d')}}">
                                     </div>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>{{__('Person')}}</label>
-                                        <input class="form-control" id="persons" name="numbber_of_adult" min="1" type="number">
-                                    </div>
                                     <div class="tab-content">
                                         @foreach ($offer->packages as $key => $package)
                                         <div class="pack-{{$key + 1}} {{($loop->first ? 'active in' : '')}} tab-pane fade">
-                                            @foreach ($package->rates as $rate)    
+                                            @foreach ($package->rates as $rate)
+                                            @if($rate->capacity !== 0)
                                             <div class="room-price" data-start-date="{{$rate->start_date}}" data-end-date="{{$rate->end_date}}">
                                                 <div class="col-md-8 col-sm-8 col-xs-8">
                                                     <label>
-                                                        <input type="checkbox" class="rate" name="rate[]" value="{{$rate->id}}:1" data-id="{{$rate->id}}" data-capacity="{{$rate->capacity}}" data-price="{{$rate->price}}">
+                                                        <input type="checkbox" class="rate" name="rate[]" value="{{$rate->id}}:1" data-id="{{$rate->id}}"data-price="{{$rate->price}}" data-total="{{$rate->price}}" data-capacity="{{$rate->capacity}}">
                                                         <span>{{$rate->title}}</span>
-                                                        <span>
-                                                        @for ($i = 0; $i < $rate->capacity; $i++)
-                                                        <i class="fa fa-user"></i>
-                                                        @endfor
-                                                        </span>
+                                                        <span>x {{$rate->capacity}}</span>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-4 col-sm-4 col-xs-4">
-                                                    <h5>{{$rate->price}}</h5>
-                                                    <span data-capacity="{{$rate->capacity}}" class="price-factor"></span>
+                                                    <h5 class="rate-total">{{$rate->price}}</h5>
                                                 </div>
                                             </div>
+                                            @else
+                                            <div class="room-price" data-start-date="{{$rate->start_date}}" data-end-date="{{$rate->end_date}}">
+                                              <div class="col-md-8 col-sm-8 col-xs-8">
+                                                  <label>
+                                                      <input type="checkbox" class="rate" name="rate[]" value="{{$rate->id}}:1" data-id="{{$rate->id}}" data-price="{{$rate->price}}" data-total="{{$rate->price}}" data-capacity="1">
+                                                      <span>{{$rate->title}}</span>
+                                                      <input type="number" class="rate-counter" min="1" value="1">
+                                                  </label>
+                                              </div>
+                                              <div class="col-md-4 col-sm-4 col-xs-4">
+                                                  <h5 class="rate-total">{{$rate->price}}</h5>
+                                              </div>
+                                            </div>
+                                            @endif
                                             <div class="clearfix"></div>
                                             @endforeach
                                         </div>
@@ -306,23 +313,8 @@ $(document).ready(function() {
     });
 
     $('.rate').on('change', function() {
-        $('#total').text(calculateTotal($('#persons').val()));
-    });
-
-    $('#persons').on('change keyup', function() {
-        let numberOfPersons = $(this).val();
-
-        $('.price-factor').each(function(index) {
-            let factor = calculateFactor(numberOfPersons, parseInt($(this).data('capacity')));
-            $(this).text('x ' + factor);
-        });
-
-        $('.rate').each(function() {
-            let factor = calculateFactor(numberOfPersons, parseInt($(this).data('capacity')));
-            $(this).val(`${$(this).data('id')}:${factor}`)
-        });
-
-        $('#total').text(calculateTotal(numberOfPersons));
+        calculateTotal();
+        calculatePersons();
     });
 
     $('.package-tab').on('click', function() {
@@ -335,21 +327,39 @@ $(document).ready(function() {
             $(this).prop( "checked", false );
         });
     });
+
+    $('.rate-counter').on('change', function() {
+      let rateCounter = parseFloat($(this).val());
+      let ratePrice = parseFloat($(this).siblings('.rate').data('price'));
+      let rate = $(this).siblings('.rate');
+      rate.val(`${rate.data('id')}:${rateCounter}`);
+      rate.data('total', rateCounter * ratePrice);
+      rate.data('capacity', rateCounter);
+      $(this).closest('.rate-total').text(rateCounter * ratePrice);
+      calculateTotal();
+      calculatePersons();
+    })
 });
 
-function calculateFactor(numberOfPersons, capacity) {
-    return Math.ceil(numberOfPersons / capacity);
-}
-
-function calculateTotal(numberOfPersons) {
+function calculateTotal() {
     let total = 0;
     $('.rate').each(function(index) {
         if($(this).is(':checked')) {
-            let factor = calculateFactor(numberOfPersons, parseInt($(this).data('capacity')));
-            total += parseFloat($(this).data('price')) * factor;
+            total += parseFloat($(this).data('total'));
         }
     });
-    return total;
+    $('#total').text(total);
+}
+
+function calculatePersons() {
+  let total = 0;
+  $('.rate').each(function(index) {
+      if($(this).is(':checked')) {
+          total += parseFloat($(this).data('capacity'));
+      }
+  });
+  $('#persons').val(total);
+  console.log(total);
 }
 
 function handleRoomPrices(checkInDate) {
