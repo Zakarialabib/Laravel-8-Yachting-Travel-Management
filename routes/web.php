@@ -193,15 +193,6 @@ Route::group([
     
         });
 
-        Route::group(['prefix' => 'fournisseur'],function(){
-        Route::get('/', 'SupplierController@list')->name('supplier_list');
-        Route::get('/add', 'SupplierController@create')->name('supplier_create_view');
-        Route::post('/', 'SupplierController@store')->name('supplier_create');
-        Route::get('/edit/{id}', 'SupplierController@edit')->name('supplier_edit');
-        Route::put('/update/{id}', 'SupplierController@update')->name('supplier_update');
-        Route::delete('/{id}', 'SupplierController@destroy')->name('supplier_delete');
-      });
-        
       
         Route::group(['prefix' => 'facture'], function() {
         Route::get('create/{type}/{id}', 'InvoiceController@create')->name('invoice_create');
