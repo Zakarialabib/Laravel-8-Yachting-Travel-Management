@@ -289,18 +289,12 @@ class User extends Authenticatable
     {
         $user = static::where('id', $id)->first();
 
-        $title = new Title();
-
-        $gender = new Gender();
-
         $data = [
-            'title' => $title->getTitleById($user->title),
             'full_name' => $user->first_name." ".$user->last_name." ".$user->other_name,
             'date_of_birth' => Carbon::parse($user->date_of_birth)->toFormattedDateString(),
             'email' => $user->email,
             'phone_number' => $user->phone_number,
             'address' => $user->address,
-            'gender' => $gender->getGenderById($user->gender),
             'agency_name' => $user->agency_name,
             'agent_id' => $user->agent_id,
             'office_number' => $user->office_number,
@@ -392,11 +386,6 @@ class User extends Authenticatable
     public function returns()
     {
         return $this->hasMany(Returns::class);
-    }
-
-    public function wallet()
-    {
-        return $this->hasOne(Wallet::class);
     }
 
 }

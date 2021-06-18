@@ -25,26 +25,7 @@
                         <div class="modal-body">
                             <div class="col-sm-12 sign-up-form">
                                <div class="row">
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                           <label>{{__('Title')}}</label>
-                                           <select class="form-control" name="title_id" required>
-                                            @foreach($titles as $serial => $title)
-                                             <option value="{{$title->id}}">{{$title->name}}</option>
-                                            @endforeach
-                                           </select>
-                                       </div>
-                                   </div>
-                                   <div class="col-md-4">
-                                       <div class="form-group">
-                                         <label>{{__('Gender')}}</label>
-                                           <select class="form-control" name="gender_id" required>
-                                               @foreach($genders as $serial => $gender)
-                                                   <option value="{{$gender->id}}">{{$gender->type}}</option>
-                                               @endforeach
-                                           </select>
-                                       </div>
-                                   </div>
+                                  
                                    <div class="col-md-4">
                                        <label>{{__('User Type')}}</label>
                                        <select class="form-control" name="user_type" required>
@@ -166,35 +147,8 @@
                                                          <div class="col-sm-12 sign-up-form">
                                                              <div class="row">
                                                                  <div class="col-md-4">
-                                                                     <div class="form-group">
-                                                                         <label>{{__('Title')}}</label>
-                                                                         <select class="form-control" name="title_id" required>
-                                                                             <option value="{{$user->title_id}}">{{\App\Title::find($user->title_id)->name}}</option>
-                                                                             @foreach($titles as $serial => $title)
-                                                                                 <option value="{{$title->id}}">{{$title->name}}</option>
-                                                                             @endforeach
-                                                                         </select>
-                                                                     </div>
-                                                                 </div>
-                                                                 <div class="col-md-4">
-                                                                     <div class="form-group">
-                                                                         <label>{{__('Gender')}}</label>
-                                                                         <select class="form-control" name="gender_id" required>
-                                                                             <option value="{{$user->gender_id}}">{{\App\Gender::find($user->gender_id)->type}}</option>
-                                                                             @foreach($genders as $serial => $gender)
-                                                                                 <option value="{{$gender->id}}">{{$gender->type}}</option>
-                                                                             @endforeach
-                                                                         </select>
-                                                                     </div>
-                                                                 </div>
-                                                                 <div class="col-md-4">
                                                                      <label>{{__('User Type')}}</label>
-                                                                     <select class="form-control" name="user_type" required>
-                                                                         <option value="{{$user->role_id}}">{{\App\Role::find($user->role_id)->display_name}}</option>
-                                                                         @foreach($roles as $serial => $role)
-                                                                             <option value="{{$role->id}}">{{$role->display_name}}</option>
-                                                                         @endforeach
-                                                                     </select>
+                                                                   
                                                                  </div>
                                                              </div>
                                                              <div class="row">

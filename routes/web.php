@@ -43,9 +43,6 @@ Route::get('/get-flight-information-and-pricing/{id}','FlightController@getItine
 Route::post('/book-itinerary','FlightController@bookItinerary');
 Route::post('/bank-payment','BankPaymentController@itineraryBankPayment');
 Route::post('/hotel-bank-payment','BankPaymentController@hotelBankPayment');
-Route::post('/flight-wallet-payment','WalletController@itineraryWalletPayment');
-Route::post('/hotel-wallet-payment','WalletController@hotelWalletPayment');
-
 
 Route::get('/logout','Auth\LoginController@logout')->name('user.logout');
 
@@ -93,23 +90,6 @@ Route::group([
         Route::get('/ajax-search-listing', 'ViewController@searchListing');
         Route::get('/search', 'ViewController@search')->name('search');
 
-
-        Route::group(['prefix' => '/deals'],function(){
-
-            Route::get('','ViewController@hotDeals');
-            Route::get('flight','ViewController@flightDeals');
-            Route::get('hotel','ViewController@hotelDeals');
-            Route::get('attraction','ViewController@attractionDeals');
-            Route::get('details/{id}','ViewController@dealDetails');
-            Route::get('booking/{id}','ViewController@dealBooking');
-            Route::post('booking','TravelPackageController@bookDeal');
-            Route::get('payment-options','ViewController@dealPaymentOptions')->middleware('deals.booking.id');
-            Route::get('booking-confirmation','ViewController@dealBookingConfirmation')->middleware('payment.info','deals.booking.id');
-            Route::post('calculateBookingAmount','TravelPackageController@calculateBookingAmount');
-            Route::post('wallet-payment','WalletController@dealWalletPayment');
-            Route::post('bank-payment','BankPaymentController@dealBankPayment');
-        
-        });
 
         Route::post('/searchHotel','HotelController@searchHotel');
         Route::get('/get-selected-hotel-information/{id}','HotelController@getSelectedHotelInformation');
@@ -324,24 +304,6 @@ Route::group([
         Route::get('/settings/language', 'SettingController@pageLanguage')->name('settings_language');
         Route::get('/settings/translation', 'SettingController@pageTranslation')->name('settings_translation');
         
-        Route::get('/travel-package', 'TravelPackageController@travelPackages');
-        Route::get('/travel-package/create', 'TravelPackageController@packageCreate');
-        Route::post('/travel-package/createPackage','TravelPackageController@create');
-        Route::post('/travel-package/createFlightDeal','TravelPackageController@createFlightDeal');
-        Route::post('/travel-package/createHotelDeal','TravelPackageController@createHotelDeal');
-        Route::post('/travel-package/createAttraction','TravelPackageController@createAttraction');
-        Route::get('/travel-package/delete-sight-seeing/{id}','TravelPackageController@deleteSightSeeing');
-        Route::get('/travel-package/activate/{id}', 'TravelPackageController@activate')->name('activate');
-        Route::get('/travel-package/deactivate/{id}', 'TravelPackageController@deactivate')->name('deactivate');
-        Route::get('/travel-package/delete/{id}', 'TravelPackageController@deletePackage');
-        Route::get('/travel-package/edit/{id}', 'TravelPackageController@editPackage');
-        Route::post('/travel-package/delete-image','TravelPackageController@deleteImage');
-        Route::get('/travel-package/categories','TravelPackageController@categories');
-        Route::post('/travel-package/activate/category','TravelPackageController@activateCategory');
-        Route::post('/travel-package/deActivate/category','TravelPackageController@deActivateCategory');
-        Route::post('/travel-package/categoryCreateOrUpdate','TravelPackageController@categoryCreateOrUpdate');
-        Route::post('/travel-package/storeGalleryInfo','TravelPackageController@storeGalleryImages');
-
         // Newsletter Route
         Route::get('/subscriber', 'NewsletterController@newsletter')->name('admin.newsletter');
         Route::get('/mailsubscriber', 'NewsletterController@mailsubscriber')->name('admin.mailsubscriber');
