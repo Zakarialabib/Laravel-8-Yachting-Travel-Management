@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <lable>Select Category *</lable>
                                 <select class="form-control package_category" name="package_category">
-                                    <option value="{{$package->category_id}}">{{\App\PackageCategory::find($package->category_id)->category}}</option>
+                                    <option value="{{$package->category_id}}">{{\App\Models\PackageCategory::find($package->category_id)->category}}</option>
                                     @foreach($package_categories as $package_category)
                                         <option value="{{$package_category->id}}">{{$package_category->category}}</option>
                                     @endforeach

@@ -45,10 +45,10 @@
                                 </td>
                                 <td>{{$return->grand_total}}</td>
                                 <td>
-                                    @if($return->payment_status == App\Payment::STATUS_PENDING)<span class="status-pending">{{__('Pending')}}</span>
-                                    @elseif($return->payment_status == App\Payment::STATUS_DUE)<span class="status-due">{{__('Due')}}</span>
-                                    @elseif($return->payment_status == App\Payment::STATUS_PARTIAL)<span class="status-partial">{{__('Partial')}}</span>
-                                    @elseif($return->payment_status == App\Payment::STATUS_PAID)<span class="status-approved">{{__('Paid')}}</span>
+                                    @if($return->payment_status == App\Models\Payment::STATUS_PENDING)<span class="status-pending">{{__('Pending')}}</span>
+                                    @elseif($return->payment_status == App\Models\Payment::STATUS_DUE)<span class="status-due">{{__('Due')}}</span>
+                                    @elseif($return->payment_status == App\Models\Payment::STATUS_PARTIAL)<span class="status-partial">{{__('Partial')}}</span>
+                                    @elseif($return->payment_status == App\Models\Payment::STATUS_PAID)<span class="status-approved">{{__('Paid')}}</span>
                                     @endif
                                 </td>
                                 <td>{{formatDate($return->created_at, 'H:i d/m/Y')}}</td>
@@ -77,10 +77,10 @@
                                                         </p>
                                                         <p>
                                                             <strong>{{__('Payment Status')}}: </strong>
-                                                            @if($return->payment_status == App\Payment::STATUS_PENDING){{__('Pending')}}
-                                                            @elseif($return->payment_status == App\Payment::STATUS_DUE){{__('Due')}}
-                                                            @elseif($return->payment_status == App\Payment::STATUS_PARTIAL){{__('Partial')}}
-                                                            @elseif($return->payment_status == App\Payment::STATUS_PAID){{__('Paid')}}
+                                                            @if($return->payment_status == App\Models\Payment::STATUS_PENDING){{__('Pending')}}
+                                                            @elseif($return->payment_status == App\Models\Payment::STATUS_DUE){{__('Due')}}
+                                                            @elseif($return->payment_status == App\Models\Payment::STATUS_PARTIAL){{__('Partial')}}
+                                                            @elseif($return->payment_status == App\Models\Payment::STATUS_PAID){{__('Paid')}}
                                                             @endif
                                                         </p>
                                                         <h3>Orders Table</h3>

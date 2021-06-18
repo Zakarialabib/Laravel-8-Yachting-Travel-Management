@@ -45,7 +45,7 @@
                                             @endif
                                             {{--{{$package->packageType->type}}--}}
                                         </td>
-                                        <td>{{ \App\PackageCategory::find($package->category_id)->category}}</td>
+                                        <td>{{ \App\Models\PackageCategory::find($package->category_id)->category}}</td>
                                         <td>{{$package->name}}</td>
                                         <td>{{$package->phone_number}}</td>
                                         <td>{{number_format($package->adult_price)}}</td>

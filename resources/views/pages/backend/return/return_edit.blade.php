@@ -107,10 +107,10 @@
                                         <div class="form-group">
                                             <label>{{__('Payment Status')}} *</label>
                                             <select name="payment_status" class="form-control">
-                                                <option value="{{App\Payment::STATUS_DUE}}" {{$return->payment_status === App\Payment::STATUS_DUE ? 'selected="selected"' : ''}}>{{__('Due')}}</option>
-                                                <option value="{{App\Payment::STATUS_PENDING}}" {{$return->payment_status === App\Payment::STATUS_PENDING ? 'selected="selected"' : ''}}>{{__('Pending')}}</option>
-                                                <option value="{{App\Payment::STATUS_PARTIAL}}" {{$return->payment_status === App\Payment::STATUS_PARTIAL ? 'selected="selected"' : ''}}>{{__('Partial')}}</option>
-                                                <option value="{{App\Payment::STATUS_PAID}}" {{$return->payment_status === App\Payment::STATUS_PAID ? 'selected="selected"' : ''}}>{{__('Paid')}}</option>
+                                                <option value="{{App\Models\Payment::STATUS_DUE}}" {{$return->payment_status === App\Models\Payment::STATUS_DUE ? 'selected="selected"' : ''}}>{{__('Due')}}</option>
+                                                <option value="{{App\Models\Payment::STATUS_PENDING}}" {{$return->payment_status === App\Models\Payment::STATUS_PENDING ? 'selected="selected"' : ''}}>{{__('Pending')}}</option>
+                                                <option value="{{App\Models\Payment::STATUS_PARTIAL}}" {{$return->payment_status === App\Models\Payment::STATUS_PARTIAL ? 'selected="selected"' : ''}}>{{__('Partial')}}</option>
+                                                <option value="{{App\Models\Payment::STATUS_PAID}}" {{$return->payment_status === App\Models\Payment::STATUS_PAID ? 'selected="selected"' : ''}}>{{__('Paid')}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -118,10 +118,10 @@
                                         <div class="form-group">
                                             <label>{{__('Paid By')}}</label>
                                             <select name="paid_by" class="form-control">
-                                                <option value="{{App\Payment::MEDIUM_CASH}}" {{$return->paid_by === App\Payment::MEDIUM_CASH ? 'selected="selected"' : ''}}>{{__('Cash')}}</option>
-                                                <option value="{{App\Payment::MEDIUM_CHECK}}" {{$return->paid_by === App\Payment::MEDIUM_CHECK ? 'selected="selected"' : ''}}>{{__('Cheque')}}</option>
-                                                <option value="{{App\Payment::MEDIUM_TRAIT}}" {{$return->paid_by === App\Payment::MEDIUM_TRAIT ? 'selected="selected"' : ''}}>{{__('TRAIT')}}</option>
-                                                <option value="{{App\Payment::MEDIUM_WIRE}}" {{$return->paid_by === App\Payment::MEDIUM_WIRE ? 'selected="selected"' : ''}}>{{__('WIRE')}}</option>
+                                                <option value="{{App\Models\Payment::MEDIUM_CASH}}" {{$return->paid_by === App\Models\Payment::MEDIUM_CASH ? 'selected="selected"' : ''}}>{{__('Cash')}}</option>
+                                                <option value="{{App\Models\Payment::MEDIUM_CHECK}}" {{$return->paid_by === App\Models\Payment::MEDIUM_CHECK ? 'selected="selected"' : ''}}>{{__('Cheque')}}</option>
+                                                <option value="{{App\Models\Payment::MEDIUM_TRAIT}}" {{$return->paid_by === App\Models\Payment::MEDIUM_TRAIT ? 'selected="selected"' : ''}}>{{__('TRAIT')}}</option>
+                                                <option value="{{App\Models\Payment::MEDIUM_WIRE}}" {{$return->paid_by === App\Models\Payment::MEDIUM_WIRE ? 'selected="selected"' : ''}}>{{__('WIRE')}}</option>
                                             </select>
                                         </div>
                                     </div>

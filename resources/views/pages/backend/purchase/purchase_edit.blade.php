@@ -119,10 +119,10 @@
                                         <div class="form-group">
                                             <label>{{__('Payment Status')}} *</label>
                                             <select name="payment_status" class="form-control">
-                                                <option value="{{App\Payment::STATUS_DUE}}" {{$purchase->payment_status === App\Payment::STATUS_DUE ? 'selected="selected"' : ''}}>{{__('Due')}}</option>
-                                                <option value="{{App\Payment::STATUS_PENDING}}" {{$purchase->payment_status === App\Payment::STATUS_PENDING ? 'selected="selected"' : ''}}>{{__('Pending')}}</option>
-                                                <option value="{{App\Payment::STATUS_PARTIAL}}" {{$purchase->payment_status === App\Payment::STATUS_PARTIAL ? 'selected="selected"' : ''}}>{{__('Partial')}}</option>
-                                                <option value="{{App\Payment::STATUS_PAID}}" {{$purchase->payment_status === App\Payment::STATUS_PAID ? 'selected="selected"' : ''}}>{{__('Paid')}}</option>
+                                                <option value="{{App\Models\Payment::STATUS_DUE}}" {{$purchase->payment_status === App\Models\Payment::STATUS_DUE ? 'selected="selected"' : ''}}>{{__('Due')}}</option>
+                                                <option value="{{App\Models\Payment::STATUS_PENDING}}" {{$purchase->payment_status === App\Models\Payment::STATUS_PENDING ? 'selected="selected"' : ''}}>{{__('Pending')}}</option>
+                                                <option value="{{App\Models\Payment::STATUS_PARTIAL}}" {{$purchase->payment_status === App\Models\Payment::STATUS_PARTIAL ? 'selected="selected"' : ''}}>{{__('Partial')}}</option>
+                                                <option value="{{App\Models\Payment::STATUS_PAID}}" {{$purchase->payment_status === App\Models\Payment::STATUS_PAID ? 'selected="selected"' : ''}}>{{__('Paid')}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -130,10 +130,10 @@
                                         <div class="form-group">
                                             <label>{{__('Paid By')}}</label>
                                             <select name="paid_by" class="form-control">
-                                                <option value="{{App\Payment::MEDIUM_CASH}}" {{$purchase->paid_by === App\Payment::MEDIUM_CASH ? 'selected="selected"' : ''}}>{{__('Cash')}}</option>
-                                                <option value="{{App\Payment::MEDIUM_CHECK}}" {{$purchase->paid_by === App\Payment::MEDIUM_CHECK ? 'selected="selected"' : ''}}>{{__('Cheque')}}</option>
-                                                <option value="{{App\Payment::MEDIUM_WIRE}}" {{$purchase->paid_by === App\Payment::MEDIUM_WIRE ? 'selected="selected"' : ''}}>{{__('Wire')}}</option>
-                                                <option value="{{App\Payment::MEDIUM_TRAIT}}" {{$purchase->paid_by === App\Payment::MEDIUM_TRAIT ? 'selected="selected"' : ''}}>{{__('Trait')}}</option>
+                                                <option value="{{App\Models\Payment::MEDIUM_CASH}}" {{$purchase->paid_by === App\Models\Payment::MEDIUM_CASH ? 'selected="selected"' : ''}}>{{__('Cash')}}</option>
+                                                <option value="{{App\Models\Payment::MEDIUM_CHECK}}" {{$purchase->paid_by === App\Models\Payment::MEDIUM_CHECK ? 'selected="selected"' : ''}}>{{__('Cheque')}}</option>
+                                                <option value="{{App\Models\Payment::MEDIUM_WIRE}}" {{$purchase->paid_by === App\Models\Payment::MEDIUM_WIRE ? 'selected="selected"' : ''}}>{{__('Wire')}}</option>
+                                                <option value="{{App\Models\Payment::MEDIUM_TRAIT}}" {{$purchase->paid_by === App\Models\Payment::MEDIUM_TRAIT ? 'selected="selected"' : ''}}>{{__('Trait')}}</option>
                                             </select>
                                         </div>
                                     </div>

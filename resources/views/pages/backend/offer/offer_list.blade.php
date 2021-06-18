@@ -44,7 +44,7 @@
                                 {{$offer->categories->name}}
                                 </td>
                                 <td>
-                                    @if($offer->status === \App\Offer::STATUS_PENDING)
+                                    @if($offer->status === \App\Models\Offer::STATUS_PENDING)
                                         {{STATUS[$offer->status]}}
                                     @else
                                         <input type="checkbox" class="js-switch offer_status" name="status" data-id="{{$offer->id}}" {{isChecked(1, $offer->status)}} />
@@ -60,7 +60,7 @@
                                         <button type="button" class="btn-sm btn-danger offer_delete">{{__('Delete')}}</button>
                                     </form>
                                     @endif
-                                    @if($offer->status === \App\Offer::STATUS_PENDING)
+                                    @if($offer->status === \App\Models\Offer::STATUS_PENDING)
                                         <button type="button" class="btn-sm btn-success offer_approve" data-id="{{$offer->id}}">{{__('Approve')}}</button>
                                     @endif
                                         <a class="btn-sm btn-success" href="{{ route('package_index', ['offer' => $offer->id]) }}">{{__('Packages')}}</a>

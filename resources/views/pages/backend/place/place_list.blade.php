@@ -92,7 +92,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    @if($place->status === \App\Place::STATUS_PENDING)
+                                    @if($place->status === \App\Models\Place::STATUS_PENDING)
                                         {{STATUS[$place->status]}}
                                     @else
                                         <input type="checkbox" class="js-switch place_status" name="status" data-id="{{$place->id}}" {{isChecked(1, $place->status)}} />
@@ -108,7 +108,7 @@
                                         <button type="button" class="btn-sm btn-danger place_delete">{{__('Delete')}}</button>
                                     </form>
                                     @endif
-                                    @if($place->status === \App\Place::STATUS_PENDING)
+                                    @if($place->status === \App\Models\Place::STATUS_PENDING)
                                         <button type="button" class="btn-sm btn-success place_approve" data-id="{{$place->id}}">{{__('Approve')}}</button>
                                     @endif
                                     </div>
