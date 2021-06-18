@@ -70,13 +70,6 @@ Route::group([
         Route::get('/', 'ViewController@home');
         Route::get('/accueil', 'ViewController@home')->name('home');                
         Route::get('/langue/{locale}', 'ViewController@changeLanguage')->name('change_language');
-        Route::get('/itinerary-booking','ViewController@itineraryBooking')->middleware('flight.search.param','flight.selected','flight.pricing.info');
-        Route::get('/available-itineraries','ViewController@availableItineraries')->middleware('flight');
-        Route::get('/flight-booking-payment-page','ViewController@flightBookingPayment')->middleware('flight.search.param','flight.selected','flight.pricing.info','pnr');
-        Route::get('/flight-booking-confirmation','ViewController@flightPaymentConfirmation')->middleware('flight.search.param','flight.selected','flight.pricing.info','payment.info');
-        Route::get('/available-hotels','ViewController@availableHotels')->middleware('hotel','hotel.search.param');
-        Route::get('/hotel-information','ViewController@hotelInformation')->middleware('hotel.information');
-        Route::get('/hotel-room-booking/{id}','ViewController@hotelRoomBooking')->middleware('hotel.search.param');
         Route::get('/recherche', 'ViewController@search')->name('search');
         Route::get('/termes-et-conditions', 'ViewController@termsConditions')->name('page_terms_conditions');
         Route::get('/cgv', 'ViewController@saleConditions')->name('page_sale_conditions');

@@ -5,7 +5,7 @@
     @endif
     <textarea type="{{ $field['type'] }}"
               name="{{ $field['name'] }}"
-              class="form-control {{ array_get( $field, 'class') }}"
+              class="form-control {{ Arr::get( $field, 'class') }}"
               id="{{ $field['name'] }}"
               rows="3"
               placeholder="{{ $field['label'] }}">{{ old($field['name'], \setting($field['name'])) }}</textarea>

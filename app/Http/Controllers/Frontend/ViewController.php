@@ -81,6 +81,10 @@ class ViewController extends Controller
             ->limit(5)
             ->get();
 
+            $offers = Offer::query()
+             ->where('status', Offer::STATUS_ACTIVE)
+            ->get();
+
             $sliders = Slider::all();
 
             $categories = Category::query()
@@ -89,7 +93,7 @@ class ViewController extends Controller
             ->limit(5)
             ->get();
 
-        return view('pages.frontend.home',compact('blog_posts','places','sliders','categories'));
+        return view('pages.frontend.home',compact('blog_posts','offers','places','sliders','categories'));
 
     }
 

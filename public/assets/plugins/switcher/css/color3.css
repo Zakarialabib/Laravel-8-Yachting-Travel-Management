@@ -1,0 +1,137 @@
+/*//////////////////////////////////////////////////////////////////////////////////////////*/
+/* COLOR CSS 3*/
+/*//////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+a,
+.text-primary,
+.list > li > a:hover,
+.pager li > a:hover,
+.pager li > a:hover .icon,
+.search-close:hover,
+.breadcrumb > li > a:hover,
+.widget-list__link:hover,
+.footer a:hover,
+.btn-link:hover,
+.btn-default:hover,
+.breadcrumb-item + .breadcrumb-item::before,
+.b-main-filter__cat-item.active,
+.b-main-filter__cat-item:hover,
+.b-goods-other:hover .b-goods-other__link,
+.b-reviews__footer:before,
+.btns-switch__item.active, .btns-switch__item:hover,
+.b-steps__info,
+.btn-arr-wrap:hover,
+.entry-blockquote:before,
+.header-soc__link:hover,
+.navbar-nav .nav-link:hover {color: #28af0f;}
+
+
+.bg-primary,
+.btn-primary,
+.panel-default > .panel-heading,
+.list-tags__link:hover,
+.noUi-connect,
+.ui-accordion__link[aria-expanded="true"] .ui-accordion__number,
+.ui-accordion__link:hover .ui-accordion__number,
+
+.b-main-slider__label:after,
+.b-main-filter-nav__link,
+.b-services-nav__title,
+.b-services-nav__link.active .b-services-nav__inner:after,
+.b-services-nav__link:hover .b-services-nav__inner:after,
+.ui-slider_arr-prim .slick-arrow:after,
+.ui-gallery__img:before,
+.b-goods-3__img:after,
+.b-goods_list .b-goods__price,
+.b-post-soc__link:hover,
+.b-booking-main__cat-item.active,
+.b-booking-main__cat-item:hover,
+.b-title-page__label:after {background-color: #28af0f;}
+
+
+.btn-primary,
+.btn-default:hover,
+.ui-slider_arr-prim .slick-arrow:hover:before,
+.b-main-filter__cat-item.active,
+.noUi-handle,
+.b-main-filter__cat-item:hover,
+.flip-btn span,
+.b-booking-total,
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before,
+.b-semicircle_primary .b-semicircle__inner {border-color: #28af0f;}
+
+.nav-link.active:after,
+#page-preloader .spinner:before,
+.widget-title-2:after {border-top-color: #28af0f;}
+
+.nav-link.active:after {border-left-color: #28af0f;}
+
+.widget-title-2:after,
+.b-booking-nav__main {border-right-color: #28af0f;}
+
+.table_primary > thead > tr > th,
+.collapse.in,
+.btn-link:hover,
+.nav-link.active,
+.nav-link:focus,
+.nav-link:hover,
+.b-isotope-filter > li.current a,
+.b-isotope-filter > li:hover a {border-bottom-color: #28af0f;}
+
+
+/*////////////////////////////////*/
+/* Secondary */
+/*////////////////////////////////*/
+
+.text-secondary,
+.footer-soc .footer-soc__link:hover,
+.footer-list li a:hover:before,
+.b-offers-slider .slick-current + .slick-slide .b-offers__ic,
+.b-bnr-contacts__link:hover,
+.b-goods__title:hover,
+.entry-tag:hover,
+.nav-link.active,
+.nav-link:focus,
+.nav-link:hover,
+.b-post-full ul li:before {
+  color: #e2b71c;
+}
+
+.btn-secondary,
+.bg-secondary,
+.b-stages__number:after,
+.slick-dots li button:hover,
+.slick-dots .slick-active button,
+.btn-arr:hover:after,
+.ui-slider_dots-gray .slick-dots .slick-active button,
+.b-goods-other:hover .btn,
+.page-link:hover,
+.page-item.active .page-link,
+.b-steps__btn:after,
+.b-post-2 .btn:hover,
+.btn-arr_secondary:after,
+.b-booking-nav__item.active .b-booking-nav__main {
+  background-color: #E2B71C;
+}
+
+.slick-dots li button:hover,
+.slick-dots .slick-active button,
+.btn-arr:hover:before,
+.ui-slider_dots-gray .slick-dots .slick-active button,
+.b-goods-other:hover .btn,
+.page-item.active .page-link,
+.btn-arr_secondary:before,
+.ui-slider-nav .slick-slide.slick-current:after, .ui-slider-nav .slick-slide:hover:after,
+.b-semicircle_secondary .b-semicircle__inner {
+  border-color: #E2B71C;
+}
+
+.widget-title:after {
+  border-top-color: #E2B71C;
+}
+
+.widget-title:after,
+.b-booking-nav__item.active .b-booking-nav__main:before {
+  border-left-color: #E2B71C;
+}

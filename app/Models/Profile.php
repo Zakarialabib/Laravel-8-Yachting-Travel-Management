@@ -27,7 +27,7 @@ class Profile extends Model
                 'first_name'   => $data['first_name'],
                 'other_name'   => $data['other_name'],
                 'phone_number' => $data['phone'],
-                'address'      => array_get($data,'address',''),
+                'address'      => Arr::get($data,'address',''),
             ]
         );
 

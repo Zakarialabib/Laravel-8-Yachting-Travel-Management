@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html class="load-full-screen">
+<html>
 <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     {!! SEO::generate() !!}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,32 +13,18 @@
      @include('partials.frontend.css')
      @yield('css')
 
-     <script type="text/javascript">
-        var baseUrl = "{{url("/")}}";
-        var path = "{{ route('typeaheadJs') }}";
-        var airline_path = "{{route('airlineTypeAheadJs')}}";
-    </script>
 
 </head>
-<body>
+<body class="page">
 
 <!-- BEGIN: PRELOADER -->
-<div id="loader" class="hidden load-full-screen">
-    <div class="loading-animation">
-        <p> <i class="fa fa-plane"></i>    </p>
-        <p> <i class="fa fa-bed"></i>      </p>
-        <p> <i class="fa fa-ship"></i>     </p>
-        <p> <i class="fa fa-suitcase"></i> </p>
-    </div>
-</div>
+<div id="page-preloader"><span class="spinner border-t_second_b border-t_prim_a"></span></div>
 <!-- END: PRELOADER -->
 
 <!-- BEGIN: SITE-WRAPPER -->
-<div class="site-wrapper">
+<div class="l-theme animated-css" data-header="sticky" data-header-top="200" data-canvas="container">
     <!-- BEGIN: NAV SECTION -->
-    <section>
-        @include('partials.frontend.menu')
-    </section>
+    @include('partials.frontend.menu')
     <!-- END: NAV SECTION -->
 
    @yield('content')

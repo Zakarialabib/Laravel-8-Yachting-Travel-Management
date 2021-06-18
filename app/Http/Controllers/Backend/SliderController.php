@@ -43,10 +43,15 @@ class SliderController extends Controller
         $data = $this->validate($request, array(
             'title'=>'',
             'photo'=>'',
+            'slogan' =>'',
+            'label'=>'',
           ));
 
           $slider = new Slider;
           $slider->title = $request->input('title');
+          $slider->slogan = $request->input('slogan');
+          $slider->label = $request->input('label');
+
 
           if ($request->hasFile('photo')) {
             $photo = $request->file('photo');
@@ -101,13 +106,17 @@ class SliderController extends Controller
         $slider = Slider::find($id);
         $this->validate($request, array(
           'title'=>'',
-          'photo'=>''
+          'photo'=>'',
+          'slogan' =>'',
+          'label'=>'',
        ));
  
         $slider = Slider::where('id',$id)->first();
  
         $slider->title = $request->input('title');
- 
+        $slider->slogan = $request->input('slogan');
+        $slider->label = $request->input('label');
+
         if ($request->hasFile('photo')) {
          $photo = $request->file('photo');
          $filename = 'slide' . '-' . time() . '.' . $photo->getClientOriginalExtension();

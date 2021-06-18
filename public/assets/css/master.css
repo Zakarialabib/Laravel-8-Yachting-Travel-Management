@@ -1,0 +1,44 @@
+/*------------------------------------------------------------------
+[Master Stylesheet]
+
+Project:  Nevica
+Version:  1.0
+Assigned to:  Alex Zaymund
+Primary use:  Nevica
+-------------------------------------------------------------------*/
+
+
+/* FONTS*/
+@import 'https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Montserrat:400,500,600,700';
+@import '../fonts/fontawesome-free-5.8.1/css/all.min.css';
+@import '../fonts/stroke/style.css';
+@import '../fonts/elegant/style.css';
+@import '../fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css';
+@import '../fonts/simple-line-icons/css/simple-line-icons.css';
+@import '../fonts/nevica/font/flaticon.css';
+
+
+
+
+
+/* PLUGIN CSS */
+
+@import '../libs/bootstrap-4.1.3/bootstrap.css';                /* bootstrap */
+@import '../plugins/headers/header.css';                /* header */
+@import '../plugins/headers/yamm.css';                /* header */
+@import '../plugins/slider-pro/slider-pro.css';         /* main slider */
+@import '../plugins/slick/slick.css';         /* sliders */
+@import '../plugins/slick/slick-theme.css';         /* sliders */
+@import '../plugins/magnific-popup/magnific-popup.css';            /* modal */
+@import '../plugins/animate/animate.css';                        /* animations */
+@import '../plugins/flowplayer/skin/playful.css';          /* video-player */
+@import '../plugins/noUiSlider/nouislider.css';          /* slider number */
+@import '../plugins/bootstrap-select/css/bootstrap-select.min.css';                /* bootstrap-select */
+
+
+
+/* MAIN CSS */
+
+@import 'main.css';
+@import 'color.css';
+@import 'responsive.css';

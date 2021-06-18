@@ -204,7 +204,7 @@ class TravelPackageController extends Controller
         $gallery = new Gallery();
         $gallery->package_id = $r->package_id;
         $gallery->image_type_id = $r->image_type_id;
-        $gallery->parent_id = array_get($r,'parent_id',0);
+        $gallery->parent_id = Arr::get($r,'parent_id',0);
         $gallery->image_path = $image_path;
         $gallery->save();
         return response()->json(['success'=>$imageName]);

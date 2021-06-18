@@ -131,10 +131,10 @@ class UserController extends Controller
             'user_id'       => $user->id,
             'sur_name'      => $data['sur_name'],
             'first_name'    => $data['first_name'],
-            'other_name'    => array_get($data,'first_name',''),
+            'other_name'    => Arr::get($data,'first_name',''),
             'phone_number'  => $data['phone'],
             'address'       => $data['address'],
-            'photo'         => array_get($data,'photo',''),
+            'photo'         => Arr::get($data,'photo',''),
         ]);
 
     

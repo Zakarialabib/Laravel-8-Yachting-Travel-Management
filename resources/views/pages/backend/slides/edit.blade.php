@@ -13,6 +13,12 @@
         {{ Form::label('title', 'Titre') }}
         {{ Form::text('title', null, ['class' => 'form-control']) }}
         <br>
+        {{ Form::label('slogan', 'Slogan') }}
+        {{ Form::text('slogan', null, ['class' => 'form-control']) }}
+        <br>
+        {{ Form::label('label', 'Label') }}
+        {{ Form::text('label', null, ['class' => 'form-control']) }}
+        <br>
 
         {{ Form::label('photo', 'Image') }}
         {{ Form::file('photo', ['class' => 'form-control']) }}

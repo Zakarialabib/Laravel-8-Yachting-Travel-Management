@@ -13,7 +13,7 @@
                                     <div class="row x_title">
                                         <div class="col-md-6">
                                             <h4>
-                                                <i class="{{ array_get($fields, 'icon', 'glyphicon glyphicon-flash') }}"></i>
+                                                <i class="{{ Arr::get($fields, 'icon', 'glyphicon glyphicon-flash') }}"></i>
                                                 {{ $fields['title'] }}
                                                 <span class="small">{{$fields['desc']}}</span>
                                             </h4>

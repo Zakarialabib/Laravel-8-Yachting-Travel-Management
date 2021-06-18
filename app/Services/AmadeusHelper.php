@@ -97,9 +97,9 @@ class AmadeusHelper
                                     'resBookDesigCode'      => $flightSegment['@attributes']['ResBookDesigCode'],
                                     'departureAirportName'  => $flightSegment['DepartureAirport'],
                                     'arrivalAirportName'    => $flightSegment['ArrivalAirport'],
-                                    'equipment'             => array_get(array_get($flightSegment['Equipment'],'',$flightSegment['Equipment']),'AirEquipType',array_get($flightSegment['Equipment'],'',$flightSegment['Equipment'])),
+                                    'equipment'             => Arr::get(Arr::get($flightSegment['Equipment'],'',$flightSegment['Equipment']),'AirEquipType',Arr::get($flightSegment['Equipment'],'',$flightSegment['Equipment'])),
                                     'journeyDuration'       => $hours ." hr(s) ".$minutes." min(s)",
-                                    'journeyTotalDuration'  => array_get($flightSegment['TPA_Extensions'],'JourneyTotalDuration',0),
+                                    'journeyTotalDuration'  => Arr::get($flightSegment['TPA_Extensions'],'JourneyTotalDuration',0),
                                     'cabin'                 => $flightSegment['TPA_Extensions']['CabinType']['@attributes']['Cabin'],
                                     'operatingAirlineName'  => $flightSegment['OperatingAirline'],
                                     'marketingAirline'      => $flightSegment['MarketingAirline'],
@@ -132,9 +132,9 @@ class AmadeusHelper
                                 'resBookDesigCode'      => $flightSegment['@attributes']['ResBookDesigCode'],
                                 'departureAirportName'  => $flightSegment['DepartureAirport'],
                                 'arrivalAirportName'    => $flightSegment['ArrivalAirport'],
-                                'equipment'             => array_get(array_get($flightSegment['Equipment'],'',$flightSegment['Equipment']),'AirEquipType',array_get($flightSegment['Equipment'],'',$flightSegment['Equipment'])),
+                                'equipment'             => Arr::get(Arr::get($flightSegment['Equipment'],'',$flightSegment['Equipment']),'AirEquipType',Arr::get($flightSegment['Equipment'],'',$flightSegment['Equipment'])),
                                 'journeyDuration'       => $hours ." hr(s) ".$minutes." min(s)",
-                                'journeyTotalDuration'  => array_get($flightSegment['TPA_Extensions'],'JourneyTotalDuration',0),
+                                'journeyTotalDuration'  => Arr::get($flightSegment['TPA_Extensions'],'JourneyTotalDuration',0),
                                 'cabin'                 => $flightSegment['TPA_Extensions']['CabinType']['@attributes']['Cabin'],
                                 'operatingAirlineName'  => $flightSegment['OperatingAirline'],
                                 'marketingAirline'      => $flightSegment['MarketingAirline'],
@@ -170,9 +170,9 @@ class AmadeusHelper
                                 'resBookDesigCode'      => $flightSegment['@attributes']['ResBookDesigCode'],
                                 'departureAirportName'  => $flightSegment['DepartureAirport'],
                                 'arrivalAirportName'    => $flightSegment['ArrivalAirport'],
-                                'equipment'             => array_get(array_get($flightSegment['Equipment'],'',$flightSegment['Equipment']),'AirEquipType',array_get($flightSegment['Equipment'],'',$flightSegment['Equipment'])),
+                                'equipment'             => Arr::get(Arr::get($flightSegment['Equipment'],'',$flightSegment['Equipment']),'AirEquipType',Arr::get($flightSegment['Equipment'],'',$flightSegment['Equipment'])),
                                 'journeyDuration'       => $hours ." hr(s) ".$minutes." min(s)",
-                                'journeyTotalDuration'  => array_get($flightSegment['TPA_Extensions'],'JourneyTotalDuration',0),
+                                'journeyTotalDuration'  => Arr::get($flightSegment['TPA_Extensions'],'JourneyTotalDuration',0),
                                 'cabin'                 => $flightSegment['TPA_Extensions']['CabinType']['@attributes']['Cabin'],
                                 'operatingAirlineName'  => $flightSegment['OperatingAirline'],
                                 'marketingAirline'      => $flightSegment['MarketingAirline'],
@@ -205,9 +205,9 @@ class AmadeusHelper
                             'resBookDesigCode'      => $flightSegment['@attributes']['ResBookDesigCode'],
                             'departureAirportName'  => $flightSegment['DepartureAirport'],
                             'arrivalAirportName'    => $flightSegment['ArrivalAirport'],
-                            'equipment'             => array_get(array_get($flightSegment['Equipment'],'',$flightSegment['Equipment']),'AirEquipType',array_get($flightSegment['Equipment'],'',$flightSegment['Equipment'])),
+                            'equipment'             => Arr::get(Arr::get($flightSegment['Equipment'],'',$flightSegment['Equipment']),'AirEquipType',Arr::get($flightSegment['Equipment'],'',$flightSegment['Equipment'])),
                             'journeyDuration'       => $hours ." hr(s) ".$minutes." min(s)",
-                            'journeyTotalDuration'  => array_get($flightSegment['TPA_Extensions'],'JourneyTotalDuration',0),
+                            'journeyTotalDuration'  => Arr::get($flightSegment['TPA_Extensions'],'JourneyTotalDuration',0),
                             'cabin'                 => $flightSegment['TPA_Extensions']['CabinType']['@attributes']['Cabin'],
                             'operatingAirlineName'  => $flightSegment['OperatingAirline'],
                             'marketingAirline'      => $flightSegment['MarketingAirline'],
@@ -228,15 +228,15 @@ class AmadeusHelper
                             $baggageAllowances = $brakeDown['PassengerFare']['FreeBagAllowance'];
                             if(isset($baggageAllowaces[0])){
                                 foreach($baggageAllowances as $b => $baggageAllowance){
-                                    $baggageAllowanceInfo = array_get($baggageAllowance, 'Weight',array_get($baggageAllowance[''],'Quantity',0));
-                                    $baggageUnit          = array_get($baggageAllowance,'Unit',array_get($baggageAllowance[''],'Type',0));
+                                    $baggageAllowanceInfo = Arr::get($baggageAllowance, 'Weight',Arr::get($baggageAllowance[''],'Quantity',0));
+                                    $baggageUnit          = Arr::get($baggageAllowance,'Unit',Arr::get($baggageAllowance[''],'Type',0));
                                     $bagArray = $baggageAllowanceInfo."-".$baggageUnit;
                                     array_push($bags, $bagArray);
                                 }
                             }else{
                                 $baggageAllowance = $baggageAllowances;
-                                    $baggageAllowanceInfo = array_get($baggageAllowance, 'Weight',array_get($baggageAllowance,'Quantity',0));
-                                    $baggageUnit          = array_get($baggageAllowance,'Unit',array_get($baggageAllowance,'Type',0));
+                                    $baggageAllowanceInfo = Arr::get($baggageAllowance, 'Weight',Arr::get($baggageAllowance,'Quantity',0));
+                                    $baggageUnit          = Arr::get($baggageAllowance,'Unit',Arr::get($baggageAllowance,'Type',0));
                                     $bagArray = $baggageAllowanceInfo."-".$baggageUnit;
                                     array_push($bags, $bagArray);
 
@@ -512,15 +512,15 @@ class AmadeusHelper
                             $baggageAllowances = $brakeDown->PassengerFare->FreeBagAllowance;
                             if(isset($baggageAllowaces[0])){
                                 foreach($baggageAllowances as $b => $baggageAllowance){
-                                    $baggageAllowanceInfo = array_get($baggageAllowance, 'Weight',array_get($baggageAllowance[''],'Quantity',0));
-                                    $baggageUnit          = array_get($baggageAllowance,'Unit',array_get($baggageAllowance[''],'Type',0));
+                                    $baggageAllowanceInfo = Arr::get($baggageAllowance, 'Weight',Arr::get($baggageAllowance[''],'Quantity',0));
+                                    $baggageUnit          = Arr::get($baggageAllowance,'Unit',Arr::get($baggageAllowance[''],'Type',0));
                                     $bagArray = $baggageAllowanceInfo."-".$baggageUnit;
                                     array_push($bags, $bagArray);
                                 }
                             }else{
                                 $baggageAllowance = $baggageAllowances;
-                                $baggageAllowanceInfo = array_get($baggageAllowance, 'Weight',array_get($baggageAllowance,'Quantity',0));
-                                $baggageUnit          = array_get($baggageAllowance,'Unit',array_get($baggageAllowance,'Type',0));
+                                $baggageAllowanceInfo = Arr::get($baggageAllowance, 'Weight',Arr::get($baggageAllowance,'Quantity',0));
+                                $baggageUnit          = Arr::get($baggageAllowance,'Unit',Arr::get($baggageAllowance,'Type',0));
                                 $bagArray = $baggageAllowanceInfo."-".$baggageUnit;
                                 array_push($bags, $bagArray);
 
@@ -781,15 +781,15 @@ class AmadeusHelper
                         $baggageAllowances = $brakeDown->PassengerFare->FreeBagAllowance;
                         if(isset($baggageAllowaces[0])){
                             foreach($baggageAllowances as $b => $baggageAllowance){
-                                $baggageAllowanceInfo = array_get($baggageAllowance, 'Weight',array_get($baggageAllowance[''],'Quantity',0));
-                                $baggageUnit          = array_get($baggageAllowance,'Unit',array_get($baggageAllowance[''],'Type',0));
+                                $baggageAllowanceInfo = Arr::get($baggageAllowance, 'Weight',Arr::get($baggageAllowance[''],'Quantity',0));
+                                $baggageUnit          = Arr::get($baggageAllowance,'Unit',Arr::get($baggageAllowance[''],'Type',0));
                                 $bagArray = $baggageAllowanceInfo."-".$baggageUnit;
                                 array_push($bags, $bagArray);
                             }
                         }else{
                             $baggageAllowance = $baggageAllowances;
-                            $baggageAllowanceInfo = array_get($baggageAllowance, 'Weight',array_get($baggageAllowance,'Quantity',0));
-                            $baggageUnit          = array_get($baggageAllowance,'Unit',array_get($baggageAllowance,'Type',0));
+                            $baggageAllowanceInfo = Arr::get($baggageAllowance, 'Weight',Arr::get($baggageAllowance,'Quantity',0));
+                            $baggageUnit          = Arr::get($baggageAllowance,'Unit',Arr::get($baggageAllowance,'Type',0));
                             $bagArray = $baggageAllowanceInfo."-".$baggageUnit;
                             array_push($bags, $bagArray);
 
@@ -899,9 +899,9 @@ class AmadeusHelper
                     'resBookDesigCode'      => $originDestination['resBookDesigCode'][0],
                     'departureAirportName'  => $originDestination['departureAirportName'][0],
                     'arrivalAirportName'    => $originDestination['arrivalAirportName'][0],
-                    'equipment'             => array_get($originDestination['equipment'],'0',$originDestination['equipment']['@attributes']['AirEquipType']),
+                    'equipment'             => Arr::get($originDestination['equipment'],'0',$originDestination['equipment']['@attributes']['AirEquipType']),
                     'journeyDuration'       => $originDestination['journeyDuration'],
-                    'journeyTotalDuration'  => array_get($originDestination['journeyTotalDuration'],0,$originDestination['journeyTotalDuration']['0']),
+                    'journeyTotalDuration'  => Arr::get($originDestination['journeyTotalDuration'],0,$originDestination['journeyTotalDuration']['0']),
                     'cabin'                 => $originDestination['cabin'][0],
                     'operatingAirlineName'  => $originDestination['operatingAirlineName'][0],
                     'marketingAirline'      => $originDestination['marketingAirline'][0],
@@ -1014,7 +1014,7 @@ class AmadeusHelper
 
         $farePenalties = [];
         foreach($Itinerary['AirItineraryPricingInfo']['FareInfos']['FareInfo'] as $i => $fareInfo){
-            $farePenalty = array_get($fareInfo,'RuleInfo',0);
+            $farePenalty = Arr::get($fareInfo,'RuleInfo',0);
             if($farePenalty != 0){
                 $farePenalty = $fareInfo['RuleInfo']['ChargesRules']['VoluntaryChanges']['Penalty']['@attributes']['PenaltyType'];
             }
@@ -1424,7 +1424,7 @@ class AmadeusHelper
         $hotelMainText = '';
 
         foreach($hotelInformation as $serial => $info){
-            if(array_get($info['@attributes'],'SubTitle','') == "HotelMainText"){
+            if(Arr::get($info['@attributes'],'SubTitle','') == "HotelMainText"){
                 $data = $info['Paragraph']['Text'];
                 if(is_array($data)){
                     foreach($data as $i => $datum){
@@ -1447,7 +1447,7 @@ class AmadeusHelper
                 $bookingCode = $ratePlans[$serial]['@attributes']['BookingCode'];
                 $ratePlanCode = $ratePlans[$serial]['@attributes']['RatePlanCode'];
                 if(isset($ratePlans[$serial]['Guarantee'])){
-                    $guarantee    = array_get($ratePlans[$serial]['Guarantee']['@attributes'],'GuaranteeType',array_get($ratePlans[$serial]['Guarantee']['@attributes'],'HoldTime',''));
+                    $guarantee    = Arr::get($ratePlans[$serial]['Guarantee']['@attributes'],'GuaranteeType',Arr::get($ratePlans[$serial]['Guarantee']['@attributes'],'HoldTime',''));
                 }else{
                     $guarantee = "None";
                 }
@@ -1456,13 +1456,13 @@ class AmadeusHelper
                 $numOfBeds = 'Not Set';
                 $bedType = 'Not Set';
                 foreach($roomDetails as $i => $roomDetail){
-                    if(array_get($roomDetail['@attributes'],'Type','') == "Category"){
+                    if(Arr::get($roomDetail['@attributes'],'Type','') == "Category"){
                         $roomCategory = $roomDetail['DetailDescription']['@attributes']['Name'];
                     }
-                    if(array_get($roomDetail['@attributes'],'Type','') == "NumberOfBeds"){
+                    if(Arr::get($roomDetail['@attributes'],'Type','') == "NumberOfBeds"){
                         $numOfBeds = $roomDetail['DetailDescription']['@attributes']['Name'];
                     }
-                    if(array_get($roomDetail['@attributes'],'Type','') == "BedType"){
+                    if(Arr::get($roomDetail['@attributes'],'Type','') == "BedType"){
                         $bedType = $roomDetail['DetailDescription']['@attributes']['Name'];
                     }
                 }
@@ -1515,7 +1515,7 @@ class AmadeusHelper
             $bookingCode = $ratePlans['@attributes']['BookingCode'];
             $ratePlanCode = $ratePlans['@attributes']['RatePlanCode'];
             if(isset($ratePlans[$serial]['Guarantee'])){
-                $guarantee    = array_get($ratePlans['Guarantee']['@attributes'],'GuaranteeType',array_get($ratePlans['Guarantee']['@attributes'],'HoldTime',''));
+                $guarantee    = Arr::get($ratePlans['Guarantee']['@attributes'],'GuaranteeType',Arr::get($ratePlans['Guarantee']['@attributes'],'HoldTime',''));
             }else{
                 $guarantee = "None";
             }
@@ -1524,13 +1524,13 @@ class AmadeusHelper
             $numOfBeds = 'Not Set';
             $bedType = 'Not Set';
             foreach($roomDetails as $i => $roomDetail){
-                if(array_get($roomDetail['@attributes'],'Type','') == "Category"){
+                if(Arr::get($roomDetail['@attributes'],'Type','') == "Category"){
                     $roomCategory = $roomDetail['DetailDescription']['@attributes']['Name'];
                 }
-                if(array_get($roomDetail['@attributes'],'Type','') == "NumberOfBeds"){
+                if(Arr::get($roomDetail['@attributes'],'Type','') == "NumberOfBeds"){
                     $numOfBeds = $roomDetail['DetailDescription']['@attributes']['Name'];
                 }
-                if(array_get($roomDetail['@attributes'],'Type','') == "BedType"){
+                if(Arr::get($roomDetail['@attributes'],'Type','') == "BedType"){
                     $bedType = $roomDetail['DetailDescription']['@attributes']['Name'];
                 }
             }

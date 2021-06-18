@@ -8,7 +8,7 @@
     <input type="{{ $field['type'] }}"
            name="{{ $field['name'] }}"
            value="{{ old($field['name'], \setting($field['name'])) }}"
-           class="form-control {{ array_get( $field, 'class') }}"
+           class="form-control {{ Arr::get( $field, 'class') }}"
            id="{{ $field['name'] }}"
            placeholder="{{ $field['label'] }}">
     @if ($errors->has($field['name']))

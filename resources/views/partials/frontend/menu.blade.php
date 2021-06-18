@@ -1,159 +1,131 @@
-<header id="header" class="site-header">
-    <div class="container-fluid">
+<!-- ==========================-->
+<!-- SEARCH MODAL-->
+<!-- ==========================-->
+<div class="header-search open-search">
+    <div class="container">
         <div class="row">
-            <div class="col-md-3 col-xs-6 col-sm-6 clear-padding">
-                <div class="site">
-                    <div class="site__menu">
-                        <a title="Menu Icon" href="#" class="site__menu__icon">
-                            <i class="la la-bars la-20"></i>
-                        </a>
-                        <div class="popup-background"></div>
-                        <div class="popup popup--left">
-                            <a title="Close" href="#" class="popup__close">
-                                <i class="la la-times la-20"></i>
-                            </a><!-- .popup__close -->
-                            <div class="popup__content">
-                                @guest
-                                <div class="popup__user popup__box open-form">
-                                    <a title="Login" href="{{url('/login')}}" class="">{{__('Login')}}</a>
-                                    <a title="Sign Up" href="{{url('/register')}}" class="">{{__('Sign Up')}}</a>
+            <div class="col-sm-8 offset-sm-2 col-10 offset-1">
+                <div class="navbar-search">
+                    <form class="search-global" action="{{route('page_search_listing')}}" >
+                        <input class="search-global__input" name="keyword"  type="text" placeholder="Type to search" autocomplete="off" value="" />
+                        <input type="hidden" name="category[]" id="category_id">
+                        <input type="hidden" name="cities[]" id="city_id">
+                        <button class="search-global__btn"><i class="icon stroke icon-Search"></i></button>
+                        <div class="search-global__note">Begin typing your search above and press return to search.</div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="search-close close" type="button"><i class="fa fa-times"></i></button>
+</div>
+<!-- ==========================-->
+<!-- MOBILE MENU-->
+<!-- ==========================-->
+<div data-off-canvas="mobile-slidebar left overlay">
+    <ul class="navbar-nav">
+        <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">{{__('Home')}}</a></li>
+        <li class="nav-item "><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item "><a class="nav-link" href="listing.html">Boats Listing</a></li>
+        <li class="nav-item "><a class="nav-link" href="tours.html">Tours</a></li>
+        <li class="nav-item "><a class="nav-link" href="blog.html">News</a></li>
+        <li class="nav-item"><a class="nav-link" href="contacts.html">Contact</a></li>
+    </ul>
+</div>
+<header class="header header-slider">
+    <div class="top-bar">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-auto">
+                    <div class="top-bar__item"><i class="fas fa-phone-square"></i> <a href="tel:{{setting('home_phone')}}">{{setting('home_phone')}}</a> </div>
+                    <div class="top-bar__item"><i class="fas fa-envelope-square"></i> <a href="tel:{{setting('home_email')}}">{{setting('home_email')}}</a> </div>
+                </div>
+                <div class="col-auto">
+                    <ul class="header-soc list-unstyled">
+                        <li class="header-soc__item"><a class="header-soc__link" href="{{setting('social_linkedin')}}" target="_blank"><i class="ic fab fa-linkedin"></i></a></li>
+                        <li class="header-soc__item"><a class="header-soc__link" href="{{setting('social_facebook')}}" target="_blank"><i class="ic fab fa-facebook-f"></i></a></li>
+                        <li class="header-soc__item"><a class="header-soc__link" href="{{setting('social_instagram')}}" target="_blank"><i class="ic fab fa-instagram"></i></a></li>
+                        <li class="header-soc__item"><a class="header-soc__link" href="{{setting('social_youtube')}}" target="_blank"><i class="ic fab fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-main">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto">
+                    <a class="navbar-brand navbar-brand_light scroll" href="{{url('/')}}"> <img class="normal-logo img-fluid" src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="logo" /> </a>
+                    <a class="navbar-brand navbar-brand_dark scroll" href="{{url('/')}}"><img class="normal-logo img-fluid" src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="logo" /></a>
+                </div>
+                <div class="col-auto d-xl-none">
+                    <!-- Mobile Trigger Start-->
+                    <button class="menu-mobile-button js-toggle-mobile-slidebar toggle-menu-button"><i class="toggle-menu-button-icon"><span></span><span></span><span></span><span></span><span></span><span></span></i></button>
+                    <!-- Mobile Trigger End-->
+                </div>
+                <div class="col-xl d-none d-xl-block">
+                    <nav class="navbar navbar-expand-lg justify-content-end" id="nav">
+                        <ul class="yamm main-menu navbar-nav">
+                            <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">{{__('Home')}}</a> </li>
+                            <li class="nav-item "><a class="nav-link" href="about.html">About Us</a> </li>
+                            {{-- {!! $sidebar !!} --}}
+                            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#">Our Fleet</a>
+                                <div class="dropdown-menu"> 
+                                    <a class="dropdown-item" href="listing.html">Boats Listing 1</a> 
+                                    <a class="dropdown-item" href="listing-sidebar.html">Boats Listing 2</a> 
+                                    <a class="dropdown-item" href="details.html">Boats Details</a> 
                                 </div>
-                                @else
-                                <div class="account js-user-auth">
-                                    <a href="#" title="{{Auth::user()->name}}">
-                                        <span class="account-side">
-                                            {{Auth::user()->name}}
-                                            <i class="la la-angle-down la-12"></i>
-                                        </span>
-                                    </a>
-                                    <div class="account-sub">
-                                        <ul>
-                                            <li class=""><a href="{{route('user_wishlist')}}">{{__('Wishlist')}}</a>
-                                            </li>
-                                            <li>
-                                                <a href=""
-                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{__('Logout')}}</a>
-                                                <form class="d-none" id="logout-form" action="" method="POST">
-                                                    @csrf
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div><!-- .account -->
-                                @endguest
-
-                                <div class="popup__menu popup__box">
-                                    
-                                        {!! $sidebar !!}
-
-                                </div><!-- .popup__menu -->
-                            </div><!-- .popup__content -->
-                            <div class="menu-border">
-                                <a title="Facebook" target="_blank" rel="noopener noreferrer" href="{{setting('social_facebook')}}">
-                                    <i class="la la-facebook la-24"></i>
-                                </a>
-                                 <a title="Instagram" target="_blank" rel="noopener noreferrer" href="{{setting('social_instagram')}}">
-                                    <i class="la la-instagram la-24"></i>
-                                </a>
-                             <a title="Linkedin" target="_blank" rel="noopener noreferrer" href="{{setting('social_linkedin')}}">
-                                <i class="la la-linkedin la-24"></i>
-                                </a>
-                               <a title="Youtube" target="_blank" rel="noopener noreferrer" href="{{setting('social_youtube')}}">
-                                    <i class="la la-youtube la-24"></i>
-                                </a>
-                            </div><!-- .popup__button -->
-                        </div><!-- .popup -->
-                    </div><!-- .site__menu -->
-                    <div class="site__brand">
-                        <a title="Logo" href="{{url('/')}}" class="site__brand__logo"><img
-                                src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="logo"></a>
-                    </div><!-- .site__brand -->
-                </div><!-- .site -->
-            </div><!-- .col-md-6 -->
-
-
-            <div class="col-md-9 col-xs-6 col-sm-6 clear-padding user-logged">
-                <div class="right-header text-right">
-                   <div class="right-header social_md" style="line-height: 1;">
-                        <a title="Facebook" target="_blank" rel="noopener noreferrer" href="{{setting('social_facebook')}}">
-                            <i class="la la-facebook la-20"></i>
-                        </a>
-                        <a title="Instagram" target="_blank" rel="noopener noreferrer" href="{{setting('social_instagram')}}">
-                            <i class="la la-instagram la-20"></i>
-                        </a>
-                        <a title="linkedin" target="_blank" rel="noopener noreferrer" href="{{setting('social_linkedin')}}">
-                            <i class="la la-linkedin la-20"></i>
-                        </a>
-                        <a title="Youtube" target="_blank" rel="noopener noreferrer" href="{{setting('social_youtube')}}">
-                            <i class="la la-youtube la-20"></i>
-                        </a>
-                    </div>
-                    <!--.right-header__destinations -->
-                    <div class="right-header__languages">
-                        <a href="#" style="color: white;font-size: 17px;text-transform: capitalize;">
-                          {{ (app()->getLocale()) }}
-                             @if(count($languages) > 1)
-                            <i class="las la-angle-down la-12"></i>
-                            @endif
-                        </a>
-                        @if(count($languages) > 1)
-                        <ul>
-                            @foreach($languages as $language)
-                            @if(\Illuminate\Support\Facades\App::getLocale() !== $language->code)
-                            <li><a href="{{route('change_language', $language->code)}}" title="{{$language->name}}"><img
-                                        src="{{flagImageUrl($language->code)}}"></a></li>
-                            @endif
-                            @endforeach
-                        </ul>
-                        @endif
-                    </div>
-                        
-                    @if(auth()->guest())
-                     <div class="account">
-                       <a style="color: white;font-size: 17px;cursor: pointer;">
-                          {{__('account')}}
-                             <i class="la la-angle-down la-12"></i>
-                         </a>
-                      <div class="account-sub">
-                       <ul>
-                            <li>
-                                <a href="{{url('/login')}}" >{{__('Sign in')}} </a>
                             </li>
-                            <li>
-                                <a title="Sign Up"  href="{{url('/register')}}">{{__('Sign Up')}}</a>
+                            
+                            <li class="nav-item"><a class="nav-link" href="contacts.html">Contact</a></li>
+                          
+                            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#">{{ (app()->getLocale()) }}</a>
+                                @if(count($languages) > 1)
+                                <div class="dropdown-menu"> 
+                                    @foreach($languages as $language)
+                                        @if(\Illuminate\Support\Facades\App::getLocale() !== $language->code)
+                                        <a class="dropdown-item" href="{{route('change_language', $language->code)}}" title="{{$language->name}}"><img
+                                                    src="{{flagImageUrl($language->code)}}"></a>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                @endif
                             </li>
-                        </ul>
-                       </div> 
-                    </div><!-- .account -->
-                    @elseif(auth()->user())
-                    <div class="account js-user-auth">
-                        <a href="#" style="color: white;" title="{{Auth::user()->name}}">
-                            @if(!empty(\App\Models\Profile::getUserInfo(auth()->user()->id)->photo))
-                            <img src="{{asset(\App\Models\Profile::getUserInfo(auth()->user()->id)->photo)}}"
-                                alt="{{\App\Models\Profile::getUserInfo(auth()->user()->id)->first_name}}">
+
+                            @guest
+                            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"> Account</a>
+                                <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{url('/login')}}">{{__('Login')}}</a>
+                                <a class="dropdown-item" href="{{url('/register')}}">{{__('Sign Up')}}</a>
+                                </div>
+                            </li>
                             @else
-                            <img src="{{asset('frontend/assets/images/portal_images/user.png')}}" alt="user">
-                            @endif
-                            Hi, {{\App\Models\Profile::getUserInfo(auth()->user()->id)->first_name}}
-                            <span>
-                                {{Auth::user()->name}}
-                                <i class="la la-angle-down la-12"></i>
-                            </span>
-                        </a>
-                        <div class="account-sub">
-                            <ul>
-                                <li class=""><a href="{{route('dashboard')}}" target="_blank"
-                                        rel="nofollow">{{__('Dashboard')}}</a></li>
-                                <li class=""><a href="{{route('user_wishlist')}}"
-                                        rel="nofollow">{{__('Wishlist')}}</a></li>
-                                <li><a href="{{url('/logout')}}" target="_blank"
-                                        rel="nofollow">{{__('Log out')}}</a></li>
-                            </ul>
-                        </div>
-                    </div><!-- .account -->
-                    @endif
-                </div><!-- .right-header -->
-            </div><!-- .col-md-6 -->
-        </div><!-- .row -->
-    </div><!-- .container-fluid -->
-</header><!-- .site-header -->
+                            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"><i class="fa fa-user"></i>{{Auth::user()->name}}</a>
+                                <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{route('dashboard')}}">{{__('Dashboard')}}</a>
+                                <a class="dropdown-item" href="{{route('user_wishlist')}}">{{__('Wishlist')}}</a>
+                                <a class="dropdown-item" href=""
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{__('Logout')}}</a>
+                                <form class="d-none" id="logout-form" action="" method="POST">
+                                    @csrf
+                                </form>
+                                </div>
+                            </li>
+                            @endguest
+
+                        </ul> <span class="header-main__link btn_header_search"><i class="ic icon-magnifier"></i></span>
+                        <button class="header-main__btn btn btn-secondary">Book Now</button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- end .header-->
+
+
+                                   
+
+                           
+                

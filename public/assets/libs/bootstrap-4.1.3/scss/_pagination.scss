@@ -1,0 +1,79 @@
+.pagination {
+  display: flex;
+  @include list-unstyled();
+  @include border-radius();
+  margin-bottom: 0;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  width: 45px;
+  height: 45px;
+  line-height: 43px;
+  padding: 0 5px;
+  margin-left: 2px;
+  margin-right: 3px;
+  color: #222;
+  border: 1px solid #dddddd;
+  transition: all .3s;
+  text-align: center;
+  font-family: Montserrat;
+
+  &:hover {
+    z-index: 2;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  &:focus {
+    z-index: 2;
+    outline: $pagination-focus-outline;
+    box-shadow: $pagination-focus-box-shadow;
+  }
+
+  // Opinionated: add "hand" cursor to non-disabled .page-link elements
+  &:not(:disabled):not(.disabled) {
+    cursor: pointer;
+  }
+}
+
+.page-item {
+  .ic {}
+  &:first-child {
+    .page-link {
+      margin-left: 0;
+    }
+  }
+  &:last-child {
+    .page-link {
+    }
+  }
+
+  &.active .page-link {
+    z-index: 1;
+    color: #FFF;
+  }
+
+  &.disabled .page-link {
+    color: $pagination-disabled-color;
+    pointer-events: none;
+    // Opinionated: remove the "hand" cursor set previously for .page-link
+    cursor: auto;
+    background-color: $pagination-disabled-bg;
+    border-color: $pagination-disabled-border-color;
+  }
+}
+
+
+//
+// Sizing
+//
+
+.pagination-lg {
+  @include pagination-size($pagination-padding-y-lg, $pagination-padding-x-lg, $font-size-lg, $line-height-lg, $border-radius-lg);
+}
+
+.pagination-sm {
+  @include pagination-size($pagination-padding-y-sm, $pagination-padding-x-sm, $font-size-sm, $line-height-sm, $border-radius-sm);
+}
