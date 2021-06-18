@@ -6,7 +6,6 @@ use App\Models\Profile;
 use App\Services\PortalCustomNotificationHandler;
 use App\Models\User;
 use App\Models\Booking;
-use App\Models\Wallet;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -112,13 +111,7 @@ class RegisterController extends Controller
             PortalCustomNotificationHandler::bookingAttachedToUser($booking);
         }
 
-        $userWallet = $user->wallet()->create([
-            'balance' => 0,
-        ]);
-
         PortalCustomNotificationHandler::registrationSuccessful($user);
-
-        Toastr::success('Merci pour votre inscription');
 
         return $user;
     }

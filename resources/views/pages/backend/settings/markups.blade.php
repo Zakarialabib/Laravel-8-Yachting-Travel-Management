@@ -76,7 +76,7 @@
                         @foreach(\App\Markup::all() as $i => $markup)
                             <tr>
                                 <td>{{$i+1}}</td>
-                                <td>{{\App\Role::find($markup->role_id)->display_name}}</td>
+                                <td>{{\App\Models\Role::find($markup->role_id)->display_name}}</td>
                                 <td>Flight</td>
                                 <td>{{\App\MarkupValueType::find($markup->flight_markup_type)->type}}</td>
                                 <td>{{$markup->flight_markup_value}}</td>
@@ -84,7 +84,7 @@
                             </tr>
                             <tr>
                                 <td>{{$i+1}}</td>
-                                <td>{{\App\Role::find($markup->role_id)->display_name}}</td>
+                                <td>{{\App\Models\Role::find($markup->role_id)->display_name}}</td>
                                 <td>Hotel</td>
                                 <td>{{\App\MarkupValueType::find($markup->hotel_markup_type)->type}}</td>
                                 <td>{{$markup->hotel_markup_value}}</td>
@@ -92,7 +92,7 @@
                             </tr>
                             <tr>
                                 <td>{{$i+1}}</td>
-                                <td>{{\App\Role::find($markup->role_id)->display_name}}</td>
+                                <td>{{\App\Models\Role::find($markup->role_id)->display_name}}</td>
                                 <td>Car</td>
                                 <td>{{\App\MarkupValueType::find($markup->car_markup_type)->type}}</td>
                                 <td>{{$markup->car_markup_value}}</td>

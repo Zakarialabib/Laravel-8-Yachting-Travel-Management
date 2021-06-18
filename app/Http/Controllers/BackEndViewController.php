@@ -4,17 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\BankPayment;
 use App\Models\FlightBooking;
-use App\Models\Gender;
 use App\Models\HotelBooking;
 use App\Models\OnlinePayment;
 use App\Models\PackageBooking;
 use App\Models\Profile;
-use App\Models\Title;
 use App\Models\User;
 use App\Models\VisaApplication;
-use App\Models\Wallet;
 use App\Models\Newsletter;
-use App\Models\WalletLog;
 use App\Models\MarkupType;
 use App\Models\MarkupValueType;
 use App\Models\Vat;
@@ -66,8 +62,6 @@ class BackEndViewController extends Controller
 
         $count_purchases = Purchase::query()
         ->count();
-
-        $userWallet = Wallet::where('user_id',auth()->id())->first();
 
         $bookings = Auth::user()->bookings()->with(['place'])->get();
 
@@ -124,7 +118,7 @@ class BackEndViewController extends Controller
             ),
         );
         //dd($data);
-        return view('pages.backend.dashboard',compact('data','userWallet', 'count_cities', 'bookings', 'count_posts' ,'count_places', 'count_bookings','count_suscribers','count_users','count_sales','count_purchases','visaApplications','generalTotalPackageBookings','generalTotalFlightBookings','generalTotalHotelBookings','generalSuccessfulFlightBookingPrice','generalSuccessfulHotelBookingPrice','generalSuccessfulPackageBookingPrice','userGeneralTotalPackageBookings','userGeneralTotalFlightBookings','userGeneralTotalHotelBookings','userGeneralSuccessfulFlightBookingPrice','userGeneralSuccessfulHotelBookingPrice','userGeneralSuccessfulPackageBookingPrice'));
+        return view('pages.backend.dashboard',compact('data', 'count_cities', 'bookings', 'count_posts' ,'count_places', 'count_bookings','count_suscribers','count_users','count_sales','count_purchases','visaApplications','generalTotalPackageBookings','generalTotalFlightBookings','generalTotalHotelBookings','generalSuccessfulFlightBookingPrice','generalSuccessfulHotelBookingPrice','generalSuccessfulPackageBookingPrice','userGeneralTotalPackageBookings','userGeneralTotalFlightBookings','userGeneralTotalHotelBookings','userGeneralSuccessfulFlightBookingPrice','userGeneralSuccessfulHotelBookingPrice','userGeneralSuccessfulPackageBookingPrice'));
 
     }
     
@@ -329,15 +323,11 @@ class BackEndViewController extends Controller
 
     public function usersManagement(){
 
-        $users   = User::where('delete_status',0)
-    
-            
+        $users   = User::where('delete_status',0)            
             ->get();
-        $titles  = Title::all();
-        $genders = Gender::all();
         $roles   = Role::all();
 
-        return view('pages.backend.settings.user-management',compact('users','titles','genders','roles'));
+        return view('pages.backend.settings.user-management',compact('users','roles'));
 
     }
 
@@ -441,26 +431,7 @@ class BackEndViewController extends Controller
         return view('pages.backend.bookings.hotel.hotel_booking_information',compact('booking'));
     }
 
-    public function walletsManagement(){
-        $wallets = Wallet::orderBy('id','desc')->get();
-        $walletLogs = WalletLog::orderBy('id','desc')->get();
-        return view('pages.backend.settings.wallets_management',compact('wallets','walletLogs'));
-    }
 
-    public function userWallet(){
-        $userWallet = Wallet::where('user_id',auth()->id())->first();
-
-        $userWalletLogs = WalletLog::where('user_id',auth()->id())->get();
-        $walletCredits = WalletLog::where('user_id',auth()->id())
-            ->where('status',1)
-            ->sum('amount');
-        $walletDebits = WalletLog::where('user_id',auth()->id())
-            ->where('status',0)
-            ->sum('amount');
-        $InterswitchConfig = new InterswitchConfig();
-        $user = User::authenticatedUserInfo();
-        return view('pages.backend.user_wallet',compact('userWallet','userWalletLogs','walletCredits','walletDebits','InterswitchConfig','user'));
-    }
 
     public function bankPayment(){
         $bankPayments     = BankPayment::orderBy('id','desc')->get();

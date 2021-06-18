@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Profile;
-use App\Models\Wallet;
 use App\Models\Place;
 use App\Models\Wishlist;
 use App\Services\PortalCustomNotificationHandler;
@@ -130,8 +129,6 @@ class UserController extends Controller
 
         $profile = Profile::create([
             'user_id'       => $user->id,
-            'title_id'      => $data['title_id'],
-            'gender_id'     => $data['gender_id'],
             'sur_name'      => $data['sur_name'],
             'first_name'    => $data['first_name'],
             'other_name'    => array_get($data,'first_name',''),
@@ -140,13 +137,9 @@ class UserController extends Controller
             'photo'         => array_get($data,'photo',''),
         ]);
 
-        $wallet = Wallet::create([
-            'user_id' => $user->id,
-            'balance' => 0
-        ]);
+    
 
-
-        if($user && $profile && $wallet){
+        if($user && $profile){
             Toastr::success('Nouvelle inscription');
         }
         else{
@@ -255,8 +248,6 @@ class UserController extends Controller
         $updateUser = $user->update();
 
         $profile = Profile::where('user_id',$request->user_id)->first();
-        $profile->title_id     = $request->title_id;
-        $profile->gender_id    = $request->gender_id;
         $profile->sur_name     = $request->sur_name;
         $profile->first_name   = $request->first_name;
         $profile->other_name   = $request->other_name;
@@ -276,15 +267,6 @@ class UserController extends Controller
             Toastr::error('Erreur lors de la mise à jour des nouvelles informations');
         }
 
-        if($request->user_type != 3){
-            Wallet::updateOrCreate(
-                [
-                    'user_id' => $user->id,
-                ],
-                [
-                    'balance' => 0
-                ]);
-        }
         return back();
     }
 
