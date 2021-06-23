@@ -12,7 +12,7 @@ class Review extends Model
     protected $table = 'reviews';
 
     protected $fillable = [
-        'user_id', 'place_id', 'score', 'comment', 'status'
+        'user_id', 'place_id','offer_id', 'score', 'comment', 'status'
     ];
 
     protected $hidden = [];
@@ -20,6 +20,7 @@ class Review extends Model
     protected $casts = [
         'user_id' => 'integer',
         'place_id' => 'integer',
+        'offer_id' => 'integer',
         'score' => 'float',
         'status' => 'integer',
     ];
@@ -35,6 +36,11 @@ class Review extends Model
     public function place()
     {
         return $this->hasOne(Place::class, 'id', 'place_id');
+    }
+
+    public function offer()
+    {
+        return $this->hasOne(Offer::class, 'id', 'offer_id');
     }
 
     public function validateCreate($data)

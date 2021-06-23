@@ -152,8 +152,8 @@ function isRoute($name = '')
 }
 
 const STATUS = [
-    0 => "Desative",
+    0 => "InActive",
     1 => "Active",
-    2 => "En Cours",
-    4 => "Supprime",
+    2 => "Pending",
+    4 => "Deleted",
 ];

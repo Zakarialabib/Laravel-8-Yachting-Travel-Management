@@ -5584,9 +5584,8 @@ span.sign {
 }
 
 .cr-counters.bg-accent-1 {
-    background: #1cb6e2;
     color: #fff;
-    margin-top: -40px
+    margin: 20px 0;
 }
 
 .cr-counters.bg-accent-2 {
@@ -6215,4 +6214,29 @@ span.sign {
 
 .title-comments-block {
     padding-bottom: 40px;
+}
+
+.room-price h5{
+    margin-top: 30px;
+    margin-bottom: 0;
+    font-weight: 700;
+    color: #E2B71C;
+}
+
+.grand-total {
+    margin-top: 25px;
+    width: 100%;
+    overflow: hidden;
+    background: #30a8d5;
+    padding: 20px 0;
+    display: flex;
+}
+
+.grand-total button {
+    color: #fff;
+    border: 0;
+    background: 0 0;
+    border: 2px solid #fff;
+    padding: 8px 40px;
+    font-weight: 700;
 }

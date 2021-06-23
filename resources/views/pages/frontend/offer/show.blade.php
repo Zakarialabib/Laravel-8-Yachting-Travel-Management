@@ -1,305 +1,274 @@
 @extends('layouts.app')
 @section('content')
-
-<section class="breadcrumbs-custom bg-image context-dark">
-    <div class="breadcrumbs-custom-inner">
-        <div class="container breadcrumbs-custom-container">
-            <div class="breadcrumbs-custom-main" >
-                <h1 class="breadcrumbs-custom-title"> {{ $offer->name }}</h1>
-            </div>
-            <ul class="breadcrumbs-custom-path">
-                <li><a href="{{ route('home')}}">{{__('Home')}}</a></li>
-                <li><a href="">{{__('Offers')}}</a></li>
-                <li><a href="">{{ $offer->name }}</a></li>
-            </ul>
-        </div>
+  
+<div class="section-title-page area-bg area-bg_dark area-bg_op_60">
+  <div class="area-bg__inner">
+    <div class="container text-center">
+      <h1 class="b-title-page">{{ $offer->name }}</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('home')}}">{{__('Home')}}</a></li>
+          <li class="breadcrumb-item"><a href="">{{__('Offers')}}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ $offer->name }}</li>
+        </ol>
+      </nav>
+      <!-- end .breadcrumb-->
     </div>
-</section>  
+  </div>
+</div>
+<!-- end .b-title-page-->
 
-    <div class="row package-detail place-04">
-        <div class="container-fluid clear-padding">
-            <div class="main-content col-md-8">
-     <!-- START: HOLIDAY GALLERY -->
-        <div class="slick-sliders">
-            <div class="slick-slider photoswipe" data-item="1" data-arrows="true" data-itemscroll="1" data-dots="true" data-infinite="true" data-centermode="true" data-centerPadding="0">
-              @if(isset($offer->gallery))
-              @foreach($offer->gallery as $gallery)
-              <div class="place-slider__item photoswipe-item">
-                <a href="{{getImageUrl($gallery)}}" data-height="900" data-width="1200" data-caption="{{$gallery}}">
-                  <img src="{{getImageUrl($gallery)}}" alt="{{$gallery}}">
-                </a>
+
+<div class="l-main-content">
+  <div class="ui-decor ui-decor_sm-h ui-decor_mirror bg-primary"></div>
+  <div class="container">
+    <section class="b-goods-f">
+      <div class="row">
+        <div class="col-lg-8">
+          @php
+          $photos=explode(',',$offer->thumb);
+          // dd($photo);
+          @endphp
+          <div class="b-goods-f__slider">
+              <div class="ui-slider-main js-slider-for">
+                @foreach ($photos as $photo)
+                <img class="img-scale" src="{{$photo}}" alt="{{$photo}}"/>
+                @endforeach
+
               </div>
-              @endforeach
-              @else
-              <div class="place-slider__item">
-                <a href="#">
-                  <img src="https://via.placeholder.com/1280x500?text=Rentacstours" alt="slider no image">
-                </a>
-              </div>
-              @endif
-            </div>
-            <div class="place-share">
-              <a title="Share" href="#" class="share">
-                <i class="la la-share-square la-24">
-                </i>
-              </a>
-              <div class="social-share">
-                <div class="list-social-icon">
-                  <a class="facebook" href="#" onclick="window.open('https://www.facebook.com/sharer.php?u=' + window.location.href,'popUpWindow','height=550,width=600,left=200,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes');">
-                    <i class="la la-facebook">
-                    </i>
-                  </a>
-                  <a class="twitter" href="#" onclick="window.open('https://twitter.com/share?url=' + window.location.href,'popUpWindow','height=500,width=550,left=200,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes');">
-                    <i class="la la-twitter">
-                    </i>
-                  </a>
-                  <a class="linkedin" href="#" onclick="window.open('https://www.linkedin.com/shareArticle?mini=true&url=' + window.location.href,'popUpWindow','height=550,width=600,left=200,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes');">
-                    <i class="la la-linkedin">
-                    </i>
-                  </a>
-                  <a class="pinterest" href="#" onclick="window.open('https://pinterest.com/pin/create/button/?url=' + window.location.href,'popUpWindow','height=500,width=550,left=200,top=100,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=yes');">
-                    <i class="la la-pinterest">
-                    </i>
-                  </a>
+             
+              <div class="ui-slider-nav js-slider-nav">
+                @foreach ($photos as $photo)
+                <img class="img-scale" src="{{$photo}}" alt="{{$photo}}"/>
+                @endforeach
                 </div>
-              </div>
-            </div>
-            <!-- .place-share -->
-            <div class="place-gallery">
-              <a class="show-gallery" title="Gallery" href="#">
-                <i class="la la-images la-24">
-                </i>
-                {{__('Gallery')}}
-              </a>
-            </div>
-            <!-- .place-item__photo -->
-            <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-              <!-- Background of PhotoSwipe.It's a separate element as animating opacity is faster than rgba(). -->
-              <div class="pswp__bg">
-              </div>
-              <!-- Slides wrapper with overflow:hidden. -->
-              <div class="pswp__scroll-wrap">
-                <!-- Container that holds slides.PhotoSwipe keeps only 3 of them in the DOM to save memory.Don't modify these 3 pswp__item elements, data is added later on. -->
-                <div class="pswp__container">
-                  <div class="pswp__item">
+          </div>
+
+
+          <h2 class="b-goods-f__title">Boat Specifications</h2>
+          <ul class="nav nav-tabs">
+            @foreach ($offer->packages as $key => $package)
+            <li class="{{$loop->first ? 'active' : ''}} nav-item">
+                <a class="nav-link" data-toggle="tab" data-period="{{$package->period}}" data-title="{{$package->title}}" data-id="{{$package->id}}" data-target=".pack-{{$key + 1}}"><i class="fa fa-suitcase"></i> <span>{{__('Package')}} {{$key + 1}}</span></a>
+            </li>    
+            @endforeach
+          </ul>
+          <div class="tab-content">
+            @foreach ($offer->packages as $key => $package)
+            <div class="pack-{{$key + 1}} {{($loop->first ? 'active in' : '')}} tab-pane w-100" >
+                  <div class="col-md-12">
+                        <dl class="data-list-descriptions">
+                            <!-- Make -->
+                            <div class="dd-item">                    
+                                  @foreach ($package->features as $feature)    
+                                  <dt class="left">  <i class="fa fa-check-circle"></i> </dt>
+                                  <dd class="right">   {{$feature->title}} </dd>
+                                  @endforeach
+                            </div>
+                        </dl>
                   </div>
-                  <div class="pswp__item">
-                  </div>
-                  <div class="pswp__item">
-                  </div>
-                </div>
-                <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-                <div class="pswp__ui pswp__ui--hidden">
-                  <div class="pswp__top-bar">
-                    <!--  Controls are self-explanatory. Order can be changed. -->
-                    <div class="pswp__counter">
-                    </div>
-                    <button class="pswp__button pswp__button--close" title="Close (Esc)">
-                    </button>
-                    <button class="pswp__button pswp__button--share" title="Share">
-                    </button>
-                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen">
-                    </button>
-                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out">
-                    </button>
-                    <!-- element will get class pswp__preloader--active when preloader is running -->
-                    <div class="pswp__preloader">
-                      <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                          <div class="pswp__preloader__donut">
+                  <div class="col-md-12">
+                      <dl class="data-list-descriptions">
+                          <!-- Make -->                   
+                          <div class="dd-item">
+                              @foreach ($package->conditions as $condition)    
+                                <dt class="left">  <i class="fa fa-check-circle"></i> </dt>
+                                <dd class="right"> {{$condition->title}}<br></dd>
+                              @endforeach
                           </div>
-                        </div>
+                      </dl>
+                  </div>
+              </div>   
+              @endforeach
+          </div>
+
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item"><a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a></li>
+            <li class="nav-item"><a class="nav-link" id="features-tab" data-toggle="tab" href="#features" role="tab" aria-controls="features" aria-selected="false">Features & Services</a></li>
+            <li class="nav-item"><a class="nav-link" id="location-tab" data-toggle="tab" href="#location" role="tab" aria-controls="location" aria-selected="false">Boats Location</a></li>
+            <li class="nav-item"><a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a></li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+             
+              {!! $offer->description !!}
+            </div>
+
+            <div class="tab-pane fade" id="features" role="tabpanel" aria-labelledby="features-tab">
+                @if(isset($offer['itinerary']))
+                  @foreach($offer['itinerary'] as $itinerary)
+                      <div>
+                          <h3> {{$itinerary['title']}}</h3>
+                          <p>{!! $itinerary['description'] !!}<p>
+                        </div>                                         
+                    @endforeach
+                  @endif
+              </div>
+                
+                <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+                  <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo cons equat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    
+                        <div class="map" id="map"></div>
+                    
+                    
+                </div>
+                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                  
+                    <ul class="comments-list list-unstyled">
+                      @foreach($reviews as $review)
+                      <li>
+                        <article class="comment b-goods-reviews__comment clearfix">
+                          <header class="comment-header clearfix">
+                            <div class="pull-left">
+                              <cite class="comment-author">{{$review['user']['name']}}</cite>
+                              <time datetime="20219-10-27" class="comment-datetime">{{formatDate($review->created_at, 'd/m/Y')}}</time>
+                            </div>
+                            <ul class="rating-list list-inline pull-right">
+                               <li class="fa fa-star color-star"></li>
+                              <li class="fa fa-star color-star"></li>
+                              <li class="fa fa-star color-star"></li>
+                              <li class="fa fa-star color-star"></li>
+                              <li class="fa fa-star "></li>
+                            </ul>
+                          </header>
+                          <div class="comment-body">
+                            <p>{{$review->comment}}</p>
+                          </div>
+                        </article>
+                      </li>
+                      @endforeach
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <aside class="l-sidebar">
+                <div class="b-goods-f-price">
+                  <h5><i class="fa fa-heart"></i>{{__('Offer')}}</h5>
+                  <p>{{$offer->name}}</p>
+                  <h5><i class="fa fa-map-marker"></i>{{__('Package')}}</h5>
+                  <p><span id="package-title">
+                    {{$offer->packages ?? $offer->packages->first()->title}}
+                  </span></p>
+                  <h5><i class="fa fa-globe"></i>{{__('City')}}</h5>
+                  <p>{{$offer->city->name}}</p>
+                  <h5><i class="fa fa-globe"></i>{{__('Min Stay')}}</h5>
+                  <p><span id="min-stay">{{$offer->packages ?? $offer->packages->first()->period}}</span> {{__('nights')}}</p>
+                  <div class="b-goods-f-price__header bg-secondary">Starting from<span class="b-goods-f-price__main">$ {{$offer->price}}</span></div>
+                </div>
+                
+                <div class="b-goods__wrap-bnrs">
+                    
+                    <img class="b-goods__bnr" src="assets/img/payment-icon_02.png" alt="photo"/>
+                    
+                     <div class="b-goods-f-price__note">Included Taxes & Checkup*</div>
+                  
+                  </div>
+
+                  <div class="b-seller">
+                    <div class="b-seller__header bg-primary">
+                      <div class="b-seller__title">
+                        <div class="b-seller__name">{{__('Need Assistance')}}</div>
+                      </div>
+                    </div>
+                    <div class="b-seller__main"><i class="b-seller__ic flaticon-phone-call text-primary"></i>
+                      <div class="b-seller__contact"><span class="d-block">Contact Us</span><a class="b-seller__phone" href="tel:{{setting('home_phone')}}">{{setting('home_phone')}}</a></div>
+                    </div>
+                  </div>
+                  <!-- end .b-seller-->
+
+                  <div class="widget-2 section-sidebar bg-gray">
+                    <h3 class="widget-title-2"><span class="widget-title__inner">Book Now</span></h3>
+                    <div class="widget-content">
+                      <div class="widget-inner">
+                        <form action="{{route('booking_submit')}}" method="POST">
+                          @csrf
+                          <input type="hidden" id="package_id" name="package_id" value="{{$offer->packages ?? $offer->packages->first()->id}}">
+                          <input type="hidden" name="type" value="{{\App\Models\Booking::TYPE_BOOKING_FORM}}">
+                          <input id="persons" name="numbber_of_adult" type="hidden">
+                          <div class="row">
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                  <label>{{__('Start')  }}</label>
+                                  <input 
+                                  type="date" 
+                                  id="check_in" 
+                                  name="date" 
+                                  class="form-control" 
+                                  value="{{\Carbon\Carbon::today()->format('Y-m-d')}}">
+                              </div>
+                              <div class="tab-content w-100">
+                                  @foreach ($offer->packages as $key => $package)
+                                  <div class="pack-{{$key + 1}} {{($loop->first ? 'active in' : '')}} tab-pane fade show">
+                                      @foreach ($package->rates as $rate)
+                                      @if($rate->capacity !== 0)
+                                      <div class="room-price row" data-start-date="{{$rate->start_date}}" data-end-date="{{$rate->end_date}}">
+                                          <div class="col-md-8 col-sm-8 col-xs-8">
+                                              <label style="margin-top: 30px;">
+                                                  <input type="checkbox" class="rate" name="rate[]" value="{{$rate->id}}:1" data-id="{{$rate->id}}"data-price="{{$rate->price}}" data-total="{{$rate->price}}" data-capacity="{{$rate->capacity}}">
+                                                  <span>{{$rate->title}}</span>
+                                                  <span>x {{$rate->capacity}}</span>
+                                              </label>
+                                          </div>
+                                          <div class="col-md-4 col-sm-4 col-xs-4">
+                                              <h5 class="rate-total">{{$rate->price}}</h5>
+                                          </div>
+                                      </div>
+                                      @else
+                                      <div class="room-price row" data-start-date="{{$rate->start_date}}" data-end-date="{{$rate->end_date}}">
+                                        <div class="col-md-8 col-sm-8 col-xs-8">
+                                            <label style="margin-top: 30px;">
+                                                <input type="checkbox" class="rate" name="rate[]" value="{{$rate->id}}:1" data-id="{{$rate->id}}" data-price="{{$rate->price}}" data-total="{{$rate->price}}" data-capacity="1">
+                                                <span>{{$rate->title}}</span>
+                                                <input type="number" class="rate-counter" min="1" value="1">
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4 col-sm-4 col-xs-4">
+                                            <h5 class="rate-total">{{$rate->price}}</h5>
+                                        </div>
+                                      </div>
+                                      @endif
+                                      <div class="clearfix"></div>
+                                      @endforeach
+                                  </div>
+                                  @endforeach
+                              </div>
+                              <div class="col-md-12 col-sm-12 col-xs-12 py-3">
+                                  <label>{{__('Name')}}</label>
+                                  <input class="form-control" type="text" id="name" name="name" placeholder="{{__('Enter your name')}} *" required>
+                              </div>
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                  <label>{{__('Email')}}</label>
+                                  <input class="form-control" type="text" id="email" name="email" placeholder="{{__('Enter your email')}} *" required>
+                              </div>
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                  <label>{{__('Phone')}}</label>
+                                  <input class="form-control" type="text" id="phone_number" name="phone_number" placeholder="{{__('Enter your phone')}}" required>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="grand-total text-center">
+                                  <div class="col-sm-6 col-md-6 col-lg-6">
+                                      <h4>{{__('Total')}} <span id="total">0</span> DH</h4>
+                                  </div>
+                                  <div class="col-sm-6 col-md-6 col-lg-6">
+                                      <button class="btn btn-secondary w-100" type="submit">{{__('BOOK')}}</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </form>
+
                       </div>
                     </div>
                   </div>
-                  <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                    <div class="pswp__share-tooltip">
-                    </div>
-                  </div>
-                  <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-                  </button>
-                  <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-                  </button>
-                  <div class="pswp__caption">
-                    <div class="pswp__caption__center">
-                    </div>
-                  </div>
-                </div>
+                </aside>
               </div>
             </div>
-            <!-- .pswp -->
-          </div>
-          <!-- .place-slider -->
-                <!-- END: HOLIDAY GALLRY -->
-                <div class="package-complete-detail">
-                    <ul class="nav nav-tabs">
-                        @foreach ($offer->packages as $key => $package)
-                        <li class="{{$loop->first ? 'active' : ''}}">
-                            <a class="package-tab" data-toggle="tab" data-period="{{$package->period}}" data-title="{{$package->title}}" data-id="{{$package->id}}" data-target=".pack-{{$key + 1}}"><i class="fa fa-suitcase"></i> <span>{{__('Package')}} {{$key + 1}}</span></a>
-                        </li>    
-                        @endforeach
-                    </ul>
-                    <div class="tab-content">
-                    @foreach ($offer->packages as $key => $package)
-                    <div class="pack-{{$key + 1}} {{($loop->first ? 'active in' : '')}} tab-pane fade" >
-                        <h4 class="tab-heading">{{__('Features')}}</h4>
-                        <p class="inc">
-                            @foreach ($package->features as $feature)    
-                            <i class="fa fa-check-circle"></i> {{$feature->title}}<br>
-                            @endforeach
-                        </p>
-                        <h4 class="tab-heading">{{__('Conditions')}}</h4>
-                        <p class="inc">
-                            @foreach ($package->conditions as $condition)    
-                            <i class="fa fa-check-circle"></i> {{$condition->title}}<br>
-                            @endforeach
-                        </p>
-                    </div>   
-                    @endforeach
-                    </div>
-                    
-                </div>
-              <div class="inclusion-wrapper">
-                
-                    <h3 class="text-center">{{__('Detail')}}</h3>
-            
-                <div class="daily-schedule-body">
-                    <p>
-                      {!! $offer->description !!}
-                    </p>
-                </div>
-                    @if(isset($offer['itinerary']))
-                  <div class="daily-schedule">
-                    @foreach($offer['itinerary'] as $itinerary)
-                    <div class="title">
-                      <p>
-                        <span>{{$itinerary['title']}}
-                        </span>
-                      </p>
-                    </div>
-                    <div class="daily-schedule-body">
-                      <p>{!! $itinerary['description'] !!}
-                      </p>                                               
-                    </div>
-                    @endforeach
-                  </div>
-                  @endif
-                </div>
-              
-                
-              
-            </div>
-            <div class="col-md-4 package-detail-sidebar">
-                <div class="col-md-12 sidebar-wrapper clear-padding">
-                    <div class="package-summary sidebar-item">
-                        <h4><i class="fa fa-bookmark"></i>{{__('Package Summary')}}</h4>
-                        <div class="package-summary-body">
-                            <h5><i class="fa fa-heart"></i>{{__('Offer')}}</h5>
-                            <p>{{$offer->name}}</p>
-                            <h5><i class="fa fa-map-marker"></i>{{__('Package')}}</h5>
-                            <p><span id="package-title">{{$offer->packages->first()->title}}</span></p>
-                            <h5><i class="fa fa-globe"></i>{{__('City')}}</h5>
-                            <p>{{$offer->city->name}}</p>
-                            <h5><i class="fa fa-globe"></i>{{__('Min Stay')}}</h5>
-                            <p><span id="min-stay">{{$offer->packages->first()->period}}</span> {{__('nights')}}</p>
-                        </div>
-                    </div>
-                    <div class="sidebar-booking-box">
-                        <h3 class="text-center">{{__('Make a Booking')}}</h3>
-                        <div class="booking-box-body">
-                            <form action="{{route('booking_submit')}}" method="POST">
-                                @csrf
-                                <input type="hidden" id="package_id" name="package_id" value="{{$offer->packages->first()->id}}">
-                                <input type="hidden" name="type" value="{{\App\Models\Booking::TYPE_BOOKING_FORM}}">
-                                <input id="persons" name="numbber_of_adult" type="hidden">
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>{{__('Start')  }}</label>
-                                        <input 
-                                        type="date" 
-                                        id="check_in" 
-                                        name="date" 
-                                        class="form-control" 
-                                        value="{{\Carbon\Carbon::today()->format('Y-m-d')}}">
-                                    </div>
-                                    <div class="tab-content">
-                                        @foreach ($offer->packages as $key => $package)
-                                        <div class="pack-{{$key + 1}} {{($loop->first ? 'active in' : '')}} tab-pane fade">
-                                            @foreach ($package->rates as $rate)
-                                            @if($rate->capacity !== 0)
-                                            <div class="room-price" data-start-date="{{$rate->start_date}}" data-end-date="{{$rate->end_date}}">
-                                                <div class="col-md-8 col-sm-8 col-xs-8">
-                                                    <label>
-                                                        <input type="checkbox" class="rate" name="rate[]" value="{{$rate->id}}:1" data-id="{{$rate->id}}"data-price="{{$rate->price}}" data-total="{{$rate->price}}" data-capacity="{{$rate->capacity}}">
-                                                        <span>{{$rate->title}}</span>
-                                                        <span>x {{$rate->capacity}}</span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-md-4 col-sm-4 col-xs-4">
-                                                    <h5 class="rate-total">{{$rate->price}}</h5>
-                                                </div>
-                                            </div>
-                                            @else
-                                            <div class="room-price" data-start-date="{{$rate->start_date}}" data-end-date="{{$rate->end_date}}">
-                                              <div class="col-md-8 col-sm-8 col-xs-8">
-                                                  <label>
-                                                      <input type="checkbox" class="rate" name="rate[]" value="{{$rate->id}}:1" data-id="{{$rate->id}}" data-price="{{$rate->price}}" data-total="{{$rate->price}}" data-capacity="1">
-                                                      <span>{{$rate->title}}</span>
-                                                      <input type="number" class="rate-counter" min="1" value="1">
-                                                  </label>
-                                              </div>
-                                              <div class="col-md-4 col-sm-4 col-xs-4">
-                                                  <h5 class="rate-total">{{$rate->price}}</h5>
-                                              </div>
-                                            </div>
-                                            @endif
-                                            <div class="clearfix"></div>
-                                            @endforeach
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>{{__('Name')}}</label>
-                                        <input class="form-control" type="text" id="name" name="name" placeholder="{{__('Enter your name')}} *" required>
-                                    </div>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>{{__('Email')}}</label>
-                                        <input class="form-control" type="text" id="email" name="email" placeholder="{{__('Enter your email')}} *" required>
-                                    </div>
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                        <label>{{__('Phone')}}</label>
-                                        <input class="form-control" type="text" id="phone_number" name="phone_number" placeholder="{{__('Enter your phone')}}" required>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="grand-total text-center">
-                                        <div class="col-sm-6 col-md-6 col-lg-6">
-                                            <h4>{{__('Total')}} <span id="total">0</span> DH</h4>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-6">
-                                            <button type="submit">{{__('BOOK')}}</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <div class="assistance-box sidebar-item">
-                        <h4><i class="fa fa-phone"></i> {{__('Need Assistance')}}</h4>
-                        <div class="assitance-body text-center">
-                            <h5>{{__('Need Help? Call us or drop a message. Our agents will be in touch shortly.')}}</h5>
-                            <h2><a href="tel:{{setting('home_phone')}}"></a>{{setting('home_phone')}}</h2>
-                            <h3>{{__('Or')}}</h3>
-                            <a href="mailto:{{setting('home_email')}}"><i class="fa fa-envelope-o"></i> {{__('Email Us')}}</a>
-                        </div>
-                    </div>  
-                </div>
-            </div>
+          </section>
+          <!-- end .b-goods-f-->
+          
         </div>
-    </div>
-    <!-- END: ROOM GALLERY -->
-
+      </div>
 @endsection
 
 @push('scripts')

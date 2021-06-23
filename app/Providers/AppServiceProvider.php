@@ -36,30 +36,9 @@ class AppServiceProvider extends ServiceProvider
                 ->get();
         });
 
-        $footer_menu = Menu::new()
-        ->addClass('footer-nav')
-        ->add(Link::to('/', __('Home')))
-        ->add(Link::to('/meilleures-offres', __('BEST OFFERS')))
-        ->add(Link::to('/ville-a-visiter', __('Cities to visit')))
-        ->add(Link::to('/blog/tout', __('Blog')))
-        ->add(Link::to('/a-propos-21', __('About Us')))
-        ->add(Link::to('/termes-et-conditions', __('Termes et Conditions')))
-        ->add(Link::to('/cgv', __('Terms and Conditions')));
-
-
-        $sidebar = Menu::new()
-        ->addClass('menu-arrow')
-        ->add(Link::to('/', __('Home')))
-        ->add(Link::to('/categorie/golf-tours', __('Golf Tours')))
-        ->add(Link::to('/categorie/trekking', __('Trekking')))
-        ->add(Link::to('/categorie/motorcycle', __('Motorcycle')))
-        ->add(Link::to('/categorie/surf', __('Surf')))
-        ->add(Link::to('/categorie/bivouacs', __('Bivouacs')))
-        ->add(Link::to('/meilleures-offres', __('BEST OFFERS')))
-        ->add(Link::to('/ville-a-visiter', __('Cities to visit')))
-        ->add(Link::to('/a-propos-21', __('About Us')))
-        ->add(Link::to('/termes-et-conditions', __('Termes et Conditions')))
-        ->add(Link::to('/cgv', __('Terms and Conditions')));
+        $cat_menu = Category::query()
+        ->where('categories.type', Category::TYPE_OFFER)
+        ->get();
 
         if (Schema::hasTable('languages')) {
             $languages = Language::query()
@@ -74,8 +53,7 @@ class AppServiceProvider extends ServiceProvider
             $languages = [];
         }
         View::share([
-            'footer_menu' => $footer_menu,
-            'sidebar' => $sidebar,
+            'cat_menu' => $cat_menu,
             'languages' => $languages,
             'language_default' => $language_default,
             'destinations' => $destinations,

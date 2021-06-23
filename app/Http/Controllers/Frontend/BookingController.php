@@ -139,7 +139,7 @@ class BookingController extends Controller
 
         if($user)
         {
-            $user->attachRole(3);
+            $user->assignRole('customer');
     
             $user->profile()->create([
                 'sur_name' => $data['last_name'],

@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="col-xs-5">
 			  <h1>
-				<img src="{{asset('backend/app-assets/images/logo/logo.png')}}" width="120px" height="100px" style="margin:10px 0">
+				<img src="{{getImageUrl(setting('logo'))}}" width="120px" height="100px" style="margin:10px 0">
 			  </h1>
 			</div>
 			<div class="col-xs-5 text-right">

@@ -12,13 +12,13 @@
                 <div class="text-center">
                     <div class="card-body">
                         @if(empty($profile->photo))
-                            <img src="{{asset('backend/app-assets/images/logo/logo.png')}}" id="user_image" class="rounded-circle  height-150" alt="Card image">
+                            <img src="{{getImageUrl(setting('logo'))}}" id="user_image" class="rounded-circle  height-150" alt="Card image">
                         @else
                             <img src="{{asset($profile->photo)}}" class="rounded-circle  height-150" id="user_image" alt="Card image">
                         @endif
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title customer_full_name">{{$profile->sur_name}} {{$profile->first_name}} {{$profile->other_name}}</h4>
+                        <h4 class="card-title customer_full_name">{{$profile->sur_name}} {{$profile->first_name}}</h4>
                     </div>
                 </div>
             </div>
@@ -41,22 +41,16 @@
                             <form method="post" action="{{route('update-profile')}}">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{__('Surname')}}</label>
                                             <input type="text" name="customer_sur_name" required class="form-control" value="{{$profile->sur_name}}"/>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{__('First Name')}}</label>
                                             <input type="text" name="customer_first_name" required class="form-control" value="{{$profile->first_name}}"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>{{__('Other Name')}}</label>
-                                            <input type="text" name="customer_other_name" required class="form-control" value="{{$profile->other_name}}"/>
                                         </div>
                                     </div>
                                 </div>

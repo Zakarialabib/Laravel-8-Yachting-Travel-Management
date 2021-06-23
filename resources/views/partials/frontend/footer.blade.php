@@ -1,60 +1,63 @@
-<section>
-    <footer id="footer" class="footer">
-            <div class="container-fluid">
-                <div class="footer__top row">
-                        <div class="col-lg-4 col-sm-4">
-                            <div class="footer__top__info">
-                                <a title="Logo" href="#" class="footer__top__info__logo"><img src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="logo"></a>
-                                <p class="footer__top__info__desc">{{setting('footer_description')}}</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-4">
-                            <aside class="footer__top__nav">
-                             <h3>{{__('Quick Links')}}</h3>
-                               {!! $footer_menu !!}
-                            </aside>
-                        </div>
-                        <div class="col-lg-4 col-sm-4">
-                            <aside class="footer__top__nav footer__top__nav--contact">
-                                <h3>{{__('Contact Us')}}</h3>
-                                <p><i class="la la-map-marker la-24" style="color: #ee5000;"></i><a target="_blank" rel="noopener noreferrer" href="https://goo.gl/maps/JmDVU6ChhN8TWtj28" style="color: #fff;" title="{{__('Get Direction')}}">  {{setting('home_adresse')}}</a> </p>
-                                <p><i class="la la-envelope la-24" style="color: #ee5000;"></i><a title="email" target="_blank" rel="noopener noreferrer" href="mailto:{{setting('home_email')}}" style="color: #fff;">  {{setting('home_email')}}</a> </p>
-                                <p><i class="la la-phone la-24" style="color: #ee5000;"></i> <a title="phone" target="_blank" rel="noopener noreferrer"  href="tel:{{setting('home_phone')}}" style="color: #fff;"> {{setting('home_phone')}}</a></p>
-                            </aside>
-                                <form action="#" class="footer-subscribe">
-                                    <div class="footer_subscribe">
-                                        <input type="email" name="email" placeholder="{{__('Enter your email')}}" value="">
-                                    </div>
-                                    <button><i class="las la-arrow-right"></i></button>
-                                </form>
-                                <p class="footer_subscribe_desc">{{__('Sign up to receive our best offers.')}}</p>
-                        </div>
-                </div><!-- .top-footer -->
-                <div class="footer__bottom">
-            <p class="footer__bottom__copyright">
-               <a class="social-media" title="Facebook" target="_blank" rel="noopener noreferrer" href="{{setting('social_facebook')}}">
-                  <i class="la la-facebook la-24"></i>
-                </a>
-               <a class="social-media" title="Instagram" target="_blank" rel="noopener noreferrer" href="{{setting('social_instagram')}}">
-                        <i class="la la-instagram la-24"></i>
-                    </a>
-                           <a class="social-media" title="Linkedin" target="_blank" rel="noopener noreferrer" href="{{setting('social_linkedin')}}">
-                        <i class="la la-linkedin la-24"></i>
-                    </a>
-                <a class="social-media" title="Youtube" target="_blank" rel="noopener noreferrer" href="{{setting('social_youtube')}}">
-                        <i class="la la-youtube la-24"></i>
-               </a>
-             
-             </p>
-              <p class="footer__bottom__copyright">
-                    <a title="CMI">
-                    <img class="footer_icns" src="{{asset('images/cmi/cmi_logo_1.png')}}" alt="CMI">
-                    <img class="footer_icns" src="{{asset('images/cmi/cmi_logo_2.png')}}" alt="CMI">
-                    <img class="footer_icns" src="{{asset('images/cmi/cmi_logo_3.png')}}" alt="CMI">
-                    </a>
-                </p>
-                <p class="footer__bottom__copyright">{{now()->year}} &copy; {{setting('app_name')}}. {{__('All rights reserved.')}}</p>
-                </div><!-- .top-footer -->
-            </div><!-- .container -->
-        </footer><!-- site-footer -->
-</section>
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-section">
+                    <a class="footer__logo" href="{{__('Home')}}"><img class="img-fluid" src="{{getImageUrl(setting('logo'))}}" alt="Logo"></a>
+                    <div class="footer-info">{{setting('footer_description')}}</div>
+                </div>
+                <section class="footer-section">
+                    <h3 class="footer-section__title footer-section__title_sm">Subscribe Newsletter</h3>
+                    <form action="#" class="footer-form">
+                        <div class="form-group">
+                            <input class="footer-form__input form-control" type="email" placeholder="{{__('Enter your email')}}"><i class="ic far fa-envelope-open"></i> </div>
+                    </form>
+                </section>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <section class="footer-section footer-section_link pl-5">
+                    <h3 class="footer-section__title">Boat Services</h3>
+                    <ul class="footer-list list-unstyled">
+                        @foreach ($cat_menu as $cat)
+                        <li><a href="{{route('category_detail', $cat->slug)}}">{{$cat->name}}</a></li>
+                        @endforeach
+                    </ul>
+                </section>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <section class="footer-section footer-section_link footer-section_link_about">
+                    <h3 class="footer-section__title">About Saint Yachting</h3>
+                    <ul class="footer-list list-unstyled">
+                        <li><a href="{{url('/')}}"> Home</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">Boat Fleet</a></li>
+                        <li><a href="#">Parts Shop </a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Buy or Sell Boats</a></li>
+                        <li><a href="{{url('/termes-et-conditions')}}">Terms and conditions</a></li>
+                    </ul>
+                </section>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <section class="footer-section">
+                    <h3 class="footer-section__title">Get In Touch</h3>
+                    <div class="footer-contacts">
+                        <div class="footer-contacts__item"><i class="ic icon-location-pin"></i>{{setting('home_adresse')}}</div>
+                        <div class="footer-contacts__item"><i class="ic icon-envelope"></i><a href="mailto:support@domain.com">{{setting('home_email')}}</a></div>
+                        <div class="footer-contacts__item"><i class="ic icon-earphones-alt"></i> Phone: <a class="footer-contacts__phone" href="tel:{{setting('home_phone')}}">{{setting('home_phone')}}</a> </div>
+                    </div>
+                    <ul class="footer-soc list-unstyled">
+                        <li class="footer-soc__item"><a class="footer-soc__link"  href="{{setting('social_linkedin')}}"  target="_blank"><i class="ic fab fa-linkedin"></i></a></li>
+                        <li class="footer-soc__item"><a class="footer-soc__link"  href="{{setting('social_facebook')}}"  target="_blank"><i class="ic fab fa-facebook-f"></i></a></li>
+                        <li class="footer-soc__item"><a class="footer-soc__link"  href="{{setting('social_instagram')}}" target="_blank"><i class="ic fab fa-instagram"></i></a></li>
+                        <li class="footer-soc__item"><a class="footer-soc__link"  href="{{setting('social_youtube')}}"   target="_blank"><i class="ic fab fa-youtube"></i></a></li>
+                    </ul><a class="btn btn-white" href="#">confirm booking</a> </section>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">{{now()->year}} &copy; {{setting('app_name')}}. {{__('All rights reserved.')}}</div>
+    </div>
+</footer>
+<!-- .footer-->

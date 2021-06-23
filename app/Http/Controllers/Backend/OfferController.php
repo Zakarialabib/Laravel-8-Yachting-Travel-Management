@@ -82,15 +82,15 @@ class OfferController extends Controller
             'price' => 'required|numeric',
             'category_id' => '',
             'city_id' => '',
-            'thumb' => 'mimes:jpeg,jpg,png,gif|max:10000',
-            'gallery' => '',
+            'thumb' => '',
             'seo_title' => '',
             'seo_description' => '',
             'itinerary' => '',
+            'is_featured'=> '',
+
             ]);
             $data = $this->validate($request, $rule_factory);
 
-        //dd($data);
 
         if (!isset($data['itinerary'])) {
             $data['itinerary'] = null;
@@ -146,16 +146,16 @@ class OfferController extends Controller
             'price' => 'required|numeric',
             'category_id' => '',
             'city_id' => '',
-            'gallery' => '',
-            'thumb' => 'mimes:jpeg,jpg,png,gif|max:10000',
+            'thumb' => '',
             'seo_title' => '',
             'seo_description' => '',
             'itinerary' => '',
+            'is_featured'=> '',
             ]);
 
         $data = $this->validate($request, $rule_factory);
-    
 
+        dd($data);
         if (!isset($data['itinerary'])) {
             $data['itinerary'] = null;
         }

@@ -36,22 +36,16 @@
                                    </div>
                                </div>
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{__('Surname')}}</label>
                                             <input name="sur_name" type="text" class="form-control" placeholder="{{__('Surname (Family name)')}}" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{__('First name')}}</label>
                                             <input name="first_name" type="text" class="form-control" placeholder="{{__('First name (Your name)')}}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>{{__('Other name')}}</label>
-                                            <input name="other_name" type="text" class="form-control" placeholder="{{__('Other name (Your other name)')}}">
                                         </div>
                                     </div>
                                 </div>
@@ -152,22 +146,16 @@
                                                                  </div>
                                                              </div>
                                                              <div class="row">
-                                                                 <div class="col-md-4">
+                                                                 <div class="col-md-6">
                                                                      <div class="form-group">
                                                                          <label>{{__('Surname')}}</label>
                                                                          <input name="sur_name" value="{{$user->sur_name}}" type="text" class="form-control" placeholder="Surname (Family name)" required>
                                                                      </div>
                                                                  </div>
-                                                                 <div class="col-md-4">
+                                                                 <div class="col-md-6">
                                                                      <div class="form-group">
                                                                          <label>{{__('First name')}}</label>
                                                                          <input name="first_name" type="text" value="{{$user->first_name}}" class="form-control" placeholder="First name (Your name)" required>
-                                                                     </div>
-                                                                 </div>
-                                                                 <div class="col-md-4">
-                                                                     <div class="form-group">
-                                                                         <label>{{__('Other name')}}</label>
-                                                                         <input name="other_name" type="text" value="{{$user->other_name}}" class="form-control" placeholder="Other name (Your other name)">
                                                                      </div>
                                                                  </div>
                                                              </div>
@@ -206,7 +194,7 @@
                                      </div>
 
                                      <tr class="user_id_{{$user->user_id}}">
-                                         <td>{{$user->sur_name}} {{$user->first_name}} {{$user->other_name}}</td>
+                                         <td>{{$user->sur_name}} {{$user->first_name}}</td>
                                          <td>{{$user->email}}</td>
                                          <td>{{$user->phone_number}}</td>
                                          <td>

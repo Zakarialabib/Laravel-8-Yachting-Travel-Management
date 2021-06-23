@@ -27,6 +27,8 @@
         });
     });
 
+    $('#lfm').filemanager('image');
+
     /**
      * Upload gallery
      */

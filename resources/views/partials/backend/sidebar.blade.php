@@ -81,48 +81,7 @@
                 </ul>
             </li>
 
-            <li class="@yield('activeCommercial') nav-item"><a href="#"><i class="la la-home"></i><span
-                        class="menu-title">{{ __('Administration') }}</span></a>
-                <ul class="menu-content">
-                    <li><a class="menu-item" href="#">{{ __('Users') }}</a>
-                        <ul class="menu-content">
-                            <li><a class="menu-item"
-                                    href="{{ route('users.management') }}">{{ __('Users List') }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="menu-item" href="#">{{ __('Sales') }}</a>
-                        <ul class="menu-content">
-                            <li><a class="menu-item"
-                                    href="{{ route('sale_create_view') }}">{{ __('Create New') }}</a>
-                            </li>
-                            <li><a class="menu-item"
-                                    href="{{ route('sale_list') }}">{{ __('Sale List') }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="menu-item" href="#">{{ __('Purchase') }}</a>
-                        <ul class="menu-content">
-                            <li><a class="menu-item"
-                                    href="{{ route('purchase_create_view') }}">{{ __('Create New') }}</a>
-                            </li>
-                            <li><a class="menu-item"
-                                    href="{{ route('purchase_list') }}">{{ __('Purchase List') }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a class="menu-item" href="#">{{ __('Return') }}</a>
-                        <ul class="menu-content">
-                            <li><a class="menu-item"
-                                    href="{{ route('return_create_view') }}">{{ __('Create New') }}</a>
-                            </li>
-                            <li><a class="menu-item"
-                                    href="{{ route('return_list') }}">{{ __('Return List') }}</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
+        
             <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main"><i
                         class="la la-money"></i>{{ __('Subscribers') }}</a>
                 <ul class="menu-content">
@@ -134,28 +93,30 @@
                 </ul>
             </li>
 
-            
-
-            <li class="nav-item @yield('activeSettings')"><a href="#"><i class="la la-cogs"></i><span
-                        class="menu-title">{{ __('Settings') }}</span></a>
+            <li class="nav-item @yield('activeSettings')">
+                <a href="#"><i class="la la-cogs"></i>
+                    <span class="menu-title">{{ __('Settings') }}</span></a>
                 <ul class="menu-content">
-                    <li class="menu-item"><a
-                            href="{{ route('profile') }}">{{ __('Manage Profile') }}</a>
+                    <li><a class="menu-item" href="{{ route('users.management') }}">
+                           {{ __('Users List') }}</a>
                     </li>
-                    <li><a class="menu-item"
-                            href="{{ route('clear-cache') }}">{{ __('Clear Cache') }}
-                        </a></li>
                     <li><a class="menu-item" href="{{ route('settings') }}">
-                            {{ __('Home Settings') }}</a></li>
-                    <li><a class="menu-item"
-                            href="{{ url('settings/vats') }}">{{ __('Vats') }}</a>
+                            {{ __('General Settings') }}</a>
                     </li>
-               
-            <li><a href="{{ url('settings/language') }}"> {{ __('Language') }}</a>
+                    <li><a class="menu-item" href="{{ route('home_settings') }}">
+                            {{ __('Home Settings') }}</a>
+                    </li>
+                    <li class="menu-item"><a href="{{ route('profile') }}">
+                            {{ __('Manage Profile') }}</a>
+                    </li>
+                    <li><a class="menu-item" href="{{ route('clear-cache') }}">
+                            {{ __('Clear Cache') }}</a>
+                    </li>           
+                     <li><a href="{{ url('settings/language') }}">
+                            {{ __('Language') }}</a>
+                    </li>
+                </ul>
             </li>
-          
-        </ul>
-        </li>
         <li class="nav-item">
             <a href="{{ route('user.logout') }}">
                 <i class="la la-sign-out"></i>

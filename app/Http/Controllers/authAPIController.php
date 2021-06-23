@@ -47,7 +47,7 @@ class authAPIController extends Controller
         ]);
 
 
-        $user->attachRole(3);
+        $user->assignRole('customer');
 
         $data['user'] = $user;
 

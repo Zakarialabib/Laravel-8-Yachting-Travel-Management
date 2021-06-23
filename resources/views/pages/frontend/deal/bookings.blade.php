@@ -78,22 +78,16 @@
                             </div>
                             <div class="sign-up-container">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{ __('Surname') }}</label>
                                             <input name="sur_name" type="text" class="form-control sur_name dynax_input_2" placeholder="{{ __('Surname (Family name)') }}" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>{{ __('First name') }}</label>
                                             <input name="first_name" type="text" class="form-control first_name dynax_input_2" placeholder="{{ __('First name (Your name)') }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>{{ __('Other name') }}</label>
-                                            <input name="other_name" type="text" class="form-control other_name dynax_input_2" placeholder="{{ __('Other name (Your other name)') }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -221,12 +215,6 @@
                                                 <div class="form-group">
                                                     <label><i class="fa fa-user"></i> {{ __('First name') }}</label>
                                                     <input name="first_name" type="text" class="form-control booking_first_name dynax_input_2" placeholder="First name (Your name)" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label><i class="fa fa-user"></i> {{ __('Other name') }}</label>
-                                                    <input name="other_name" type="text" class="form-control booking_other_name dynax_input_2" placeholder="Other name (Your other name)" required>
                                                 </div>
                                             </div>
                                         </div>

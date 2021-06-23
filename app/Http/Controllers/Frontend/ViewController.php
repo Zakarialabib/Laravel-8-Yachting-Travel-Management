@@ -22,10 +22,14 @@ use App\Models\PlaceType;
 use App\Models\Post;
 use App\Models\Page;
 use App\Models\Review;
+use App\Models\Booking;
 use App\Models\Testimonial;
 use App\Models\Offer;
 use App\Models\Faq;
+use App\Models\HomeSettings;
 use App\Commons\Response;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -33,6 +37,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use function Symfony\Component\VarDumper\Dumper\esc;
+use App\Services\PortalCustomNotificationHandler;
 
 
 class ViewController extends Controller
@@ -89,11 +94,51 @@ class ViewController extends Controller
 
             $categories = Category::query()
             ->where('categories.type', Category::TYPE_OFFER)
-            //->orWhere('categories.type', Category::TYPE_PLACE)
-            ->limit(5)
             ->get();
 
-        return view('pages.frontend.home',compact('blog_posts','offers','places','sliders','categories'));
+            $faqs = Faq::query()
+            ->where('status', 1)
+            ->limit(2)
+            ->get();
+
+            $home_settings = HomeSettings::all();
+
+        return view('pages.frontend.home',compact('blog_posts','faqs','home_settings','offers','places','sliders','categories'));
+
+    }
+
+    public function booking(Request $request)
+    {
+    
+        $data = $this->validate($request, [
+            'name' => '',
+            'email' => '',
+            'date' => '',
+            'phone_number' => '',
+            'message' => '',
+            'type' => ''
+        ]);
+    
+        // generate refenrce number
+        $reference = Carbon::now()->format('ymd') . mt_rand(1000000, 9999999);
+
+        $booking = new Booking();
+        $booking->fill([
+            'user_id' => Auth::id() ?? NULL,
+            'reference' => $reference,
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'date' => $data['date'],
+            'phone_number' => $data['phone_number'],
+            'type' => $data['type'],
+        ]);
+
+        $booking->save();
+                    
+        PortalCustomNotificationHandler::bookingCreated($booking);
+
+         
+        return back()->with('success', 'Form sent with succes!');
 
     }
 

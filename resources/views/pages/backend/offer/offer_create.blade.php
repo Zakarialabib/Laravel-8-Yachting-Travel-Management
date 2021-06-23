@@ -7,7 +7,6 @@
     </div>
 </div>
 <div class="clearfix"></div>
-
 <div class="col-12 col-lg-12 offer_create">
     <form action="{{ route('offer_store') }}" enctype="multipart/form-data" method="post">
         @csrf
@@ -21,7 +20,6 @@
                     </li>
                 @endforeach
             </ul>
-
             <div class="form-group row">
                 <div class="col-md-12">
                     <div class="tab-content">
@@ -37,13 +35,12 @@
                                         autocomplete="off"
                                         {{ $index !== 0 ?: "required" }}>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="offer_description">Description
                                         <small>({{ $language->code }})</small>
                                         : *</label>
-                                    <textarea type="text" class="form-control" id="ckeditor"
-                                        required name="{{ $language->code }}[description]" rows="6"
+                                    <textarea type="text" class="form-control" id="ckeditor" required
+                                        name="{{ $language->code }}[description]" rows="6"
                                         {{ $index !== 0 ?: "required" }}></textarea>
                                 </div>
                             </div>
@@ -52,27 +49,28 @@
                 </div>
             </div>
             <div class="row">
-            <div class="form-group col-lg-6">
-                <label for="category">{{ __('City') }}: *</label>
-                <select class="form-control myselect" id="city_id" name="city_id" required>
-                    @foreach($cities as $city)
-                        <option value="{{ $city->id }}">{{ $city->name }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="form-group col-lg-6">
-                <label for="category">{{ __('Category') }}: *</label>
-                <select class="form-control myselect" id="category_id" name="category_id" required>
-                    @foreach($categories as $cat)
-                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <div class="form-group col-lg-6">
+                    <label for="category">{{ __('City') }}: *</label>
+                    <select class="form-control myselect" id="city_id" name="city_id" required>
+                        @foreach($cities as $city)
+                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-lg-6">
+                    <label for="category">{{ __('Category') }}: *</label>
+                    <select class="form-control myselect" id="category_id" name="category_id" required>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div class="form-group">
-                <label for="price">{{__('Price')}}: *</label>
-                 <input type="text" class="form-control" id="price" name="price" placeholder="{{__('Price')}}" autocomplete="off" required>        
-             </div>
+                <label for="price">{{ __('Price') }}: *</label>
+                <input type="text" class="form-control" id="price" name="price"
+                    placeholder="{{ __('Price') }}" autocomplete="off" required>
+            </div>
             <div class="form-group">
                 <p class="lead">{{ __('itinerary') }}</p>
                 <div id="itinerary_list">
@@ -97,27 +95,28 @@
             </div>
 
             <div class="form-group">
-                <p class="lead">{{ __('Media') }}</p>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p><strong>{{ __('Thumbnail image') }}:</strong></p>
-                        <img id="preview_thumb" src="https://via.placeholder.com/120x150?text=thumbnail">
-                        <input type="file" class="form-control" id="thumb" name="thumb" accept="image/*">
+                <div class="form-group">
+                    <label for="inputthumb" class="col-form-label">{{ __('thumb') }} <span
+                            class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                <i class="fa fa-picture-o"></i> {{ __('Choose') }}
+                            </a>
+                        </span>
+                        <input id="thumbnail" class="form-control" type="text" name="thumb"
+                            value="{{ old('thumb') }}">
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 gallery">
-                        <p><strong>{{ __('Gallery images') }}:</strong></p>
-                        <div id="offer_gallery_thumbs"></div>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="file" class="form-control" id="gallery" accept="image/*">
-                    </div>
+                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                    @error('thumb')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
-            <div id="map"></div>
-            <div id="golo_seo">
-                <p class="lead">{{ __('SEO') }}</p>
+            <div class="form-group">
+                <label for="is_featured">{{ __('Is Featured')}}</label><br>
+                <input type="checkbox" name='is_featured' id='is_featured' value='1' checked> Yes                        
+              </div>
                 <div class="form-group">
                     <label for="seo_title">{{ __('SEO title') }} -
                         <small>{{ __('60 characters or less') }}</small>:</label>

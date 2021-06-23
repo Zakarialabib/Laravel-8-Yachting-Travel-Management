@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Support\Arr;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,6 @@ class Profile extends Model
         'user_id',
         'sur_name',
         'first_name',
-        'other_name',
         'phone_number',
         'address'
     ];
@@ -25,7 +25,6 @@ class Profile extends Model
             [
                 'sur_name'     => $data['sur_name'],
                 'first_name'   => $data['first_name'],
-                'other_name'   => $data['other_name'],
                 'phone_number' => $data['phone'],
                 'address'      => Arr::get($data,'address',''),
             ]

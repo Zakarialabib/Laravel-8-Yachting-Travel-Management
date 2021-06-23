@@ -25,7 +25,7 @@
                 <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
                     <div class="card-header border-0 pb-0">
                         <div class="card-title text-center">
-                            <img style="width: 120px;" src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="{{config('app.name')}}">
+                            <img style="width: 120px;" src="{{getImageUrl(setting('logo'))}}" style="-webkit-filter: invert(1);filter: invert(1);width:100px" alt="{{config('app.name')}}">
                         </div>
                     </div>
                     <div class="card-content">
@@ -35,7 +35,7 @@
                                 @csrf
                                 <input type="hidden" name="booking_id" value="{{$booking}}">
                                 <div class="row">
-                                    <div class="col-12 col-sm-4 col-md-4">
+                                    <div class="col-12 col-sm-6 col-md-6">
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <input type="text" name="sur_name" id="sur_name" class="form-control" required placeholder="{{__('Last Name')}}" tabindex="1">
                                             <div class="form-control-position">
@@ -43,19 +43,11 @@
                                             </div>
                                         </fieldset>
                                     </div>
-                                    <div class="col-12 col-sm-4 col-md-4">
+                                    <div class="col-12 col-sm-6 col-md-6">
                                         <fieldset class="form-group position-relative has-icon-left">
                                             <input type="text" name="first_name" id="first_name" class="form-control" required placeholder="{{__('First Name')}}" tabindex="1">
                                             <div class="form-control-position">
                                                 <i class="fas fa-user"></i>
-                                            </div>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-12 col-sm-4 col-md-4">
-                                        <fieldset class="form-group position-relative has-icon-left">
-                                            <input type="text" name="other_name" id="other_name" class="form-control" placeholder="{{__('Other Name')}}" tabindex="2">
-                                            <div class="form-control-position">
-                                                <i class="la la-user"></i>
                                             </div>
                                         </fieldset>
                                     </div>

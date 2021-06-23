@@ -129,13 +129,12 @@ $(function(){
     });
 
     $('.sign-up-submit').on('click',function(){
-        var classes = ['sur_name','first_name','other_name','register_email','register_phone','password','password_confirmation'];
+        var classes = ['sur_name','first_name','register_email','register_phone','password','password_confirmation'];
         if(!validateFormWithClasses(classes)){
             return false;
         }
         var sur_name               = $('.sur_name').val();
         var first_name             = $('.first_name').val();
-        var other_name             = $('.other_name').val();
         var register_email         = $('.register_email').val();
         var register_phone         = $('.register_phone').val();
         var password               = $('.password').val();
@@ -146,7 +145,6 @@ $(function(){
         axios.post(baseUrl+'/custom-sign-up',{
             sur_name               : sur_name,
             first_name             : first_name,
-            other_name             : other_name,
             email                  : register_email,
             phone                  : register_phone,
             password               : password,

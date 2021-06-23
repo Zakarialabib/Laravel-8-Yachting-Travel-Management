@@ -15,11 +15,14 @@ use App\Models\MarkupType;
 use App\Models\MarkupValueType;
 use App\Models\Vat;
 use App\Models\Role;
+use App\Models\Offer;
 use App\Models\Markdown;
 use App\Models\Booking;
 use App\Models\City;
+use App\Models\Category;
 use App\Models\Place;
 use App\Models\Review;
+use App\Models\HomeSettings;
 use App\Models\Post;
 use App\Models\Sale;
 use App\Models\Purchase;
@@ -34,10 +37,12 @@ class BackEndViewController extends Controller
 {
 
     public function dashboard(){
-        $count_cities = City::query()
+
+        $count_categories = Category::query()
+        ->where('type', Category::TYPE_OFFER)
         ->count();
         
-        $count_places = Place::query()
+        $count_offers = Offer::query()
         ->count();
 
         $count_bookings = Booking::query()
@@ -49,76 +54,34 @@ class BackEndViewController extends Controller
         $count_users = User::query()
         ->count();
 
-        $count_sales = Sale::query()
-        ->count();
-
-        $count_purchases = Purchase::query()
-        ->count();
-        
         $count_posts = Post::query()
         ->where('type', Post::TYPE_BLOG)
         ->where('status', Post::STATUS_ACTIVE)
         ->count();
 
-        $count_purchases = Purchase::query()
-        ->count();
-
         $bookings = Auth::user()->bookings()->with(['place'])->get();
 
-        $visaApplications = VisaApplication::orderBy('id','desc')->get();
-        $generalTotalFlightBookings = FlightBooking::where('payment_status','1')->count();
-        $generalTotalHotelBookings = HotelBooking::where('payment_status','1')->count();
-        $generalTotalPackageBookings    = PackageBooking::where('payment_status','1')->count();
-        $generalSuccessfulFlightBookingPrice =  FlightBooking::where('payment_status',1)->sum('total_amount');
-        $generalSuccessfulHotelBookingPrice  = HotelBooking::where('payment_status',1)->sum('total_amount');
-        $generalSuccessfulPackageBookingPrice = PackageBooking::where('payment_status',1)->sum('total_amount');
-        $userGeneralTotalFlightBookings = FlightBooking::where('payment_status','1')->where('user_id',auth()->id())->count();
-        $userGeneralTotalHotelBookings = HotelBooking::where('payment_status','1')->where('user_id',auth()->id())->count();
-        $userGeneralTotalPackageBookings    = PackageBooking::where('payment_status','1')->where('user_id',auth()->id())->count();
-        $userGeneralSuccessfulFlightBookingPrice =  FlightBooking::where('payment_status',1)->where('user_id',auth()->id())->sum('total_amount');
-        $userGeneralSuccessfulHotelBookingPrice  = HotelBooking::where('payment_status',1)->where('user_id',auth()->id())->sum('total_amount');
-        $userGeneralSuccessfulPackageBookingPrice = PackageBooking::where('payment_status',1)->where('user_id',auth()->id())->sum('total_amount');
 
         $data = array(
             'today' => array(
                 'package_bookings' => Booking::whereDate('created_at', '>=' , Carbon::now())->count(),
-                'sales' => Sale::whereDate('created_at', '>=' , Carbon::now())->count(),
-                'purchases' => Purchase::whereDate('created_at', '>=' , Carbon::now())->count(),
                 'users' => User::whereDate('created_at', '>=' , Carbon::now())->count(),
-                'sales_total' => Sale::whereDate('created_at', '>=' , Carbon::now())->sum('grand_total'),
-                'purchases_total' => Purchase::whereDate('created_at', '>=' , Carbon::now())->sum('grand_total'),
-                'return_total' => Returns::whereDate('created_at', '>=' , Carbon::now())->sum('grand_total'),
             ),
             'month' => array(
                 'package_bookings' => Booking::whereDate('created_at', '>=' , Carbon::now()->subMonth())->count(),
-                'sales' => Sale::whereDate('created_at', '>=' , Carbon::now()->subMonth())->count(),
-                'purchases' => Purchase::whereDate('created_at', '>=' , Carbon::now()->subMonth())->count(),
                 'users' => User::whereDate('created_at', '>=' , Carbon::now()->subMonth())->count(),
-                'sales_total' => Sale::whereDate('created_at', '>=' , Carbon::now()->subMonth())->sum('grand_total'),
-                'purchases_total' => Purchase::whereDate('created_at', '>=' , Carbon::now()->subMonth())->sum('grand_total'),
-                'return_total' => Returns::whereDate('created_at', '>=' , Carbon::now()->subMonth())->sum('grand_total'),
             ),
             'semi' => array(
                 'package_bookings' => Booking::whereDate('created_at', '>=' , Carbon::now()->subMonths(6))->count(),
-                'sales' => Sale::whereDate( 'created_at', '>=' , Carbon::now()->subMonths(6))->count(),
-                'purchases' => Purchase::whereDate('created_at', '>=' , Carbon::now()->subMonths(6))->count(),
                 'users' => User::whereDate('created_at', '>=' , Carbon::now()->subMonths(6))->count(),
-                'sales_total' => Sale::whereDate('created_at', '>=' , Carbon::now()->subMonths(6))->sum('grand_total'),
-                'purchases_total' => Purchase::whereDate('created_at', '>=' , Carbon::now()->subMonths(6))->sum('grand_total'),
-                'return_total' => Returns::whereDate('created_at', '>=' , Carbon::now()->subMonths(6))->sum('grand_total'),
             ),
             'year' => array(
                 'package_bookings' => Booking::whereDate('created_at', '>=' , Carbon::now()->subYear())->count(),
-                'sales' => Sale::whereDate('created_at', '>=' , Carbon::now()->subYear())->count(),
-                'purchases' => Purchase::whereDate('created_at', '>=' , Carbon::now()->subYear())->count(),
                 'users' => User::whereDate('created_at', '>=' , Carbon::now()->subYear())->count(),
-                'sales_total' => Sale::whereDate('created_at', '>=' , Carbon::now()->subYear())->sum('grand_total'),
-                'purchases_total' => Purchase::whereDate('created_at', '>=' , Carbon::now()->subYear())->sum('grand_total'),
-                'return_total' => Returns::whereDate('created_at', '>=' , Carbon::now()->subYear())->sum('grand_total'),
             ),
         );
         //dd($data);
-        return view('pages.backend.dashboard',compact('data', 'count_cities', 'bookings', 'count_posts' ,'count_places', 'count_bookings','count_suscribers','count_users','count_sales','count_purchases','visaApplications','generalTotalPackageBookings','generalTotalFlightBookings','generalTotalHotelBookings','generalSuccessfulFlightBookingPrice','generalSuccessfulHotelBookingPrice','generalSuccessfulPackageBookingPrice','userGeneralTotalPackageBookings','userGeneralTotalFlightBookings','userGeneralTotalHotelBookings','userGeneralSuccessfulFlightBookingPrice','userGeneralSuccessfulHotelBookingPrice','userGeneralSuccessfulPackageBookingPrice'));
+        return view('pages.backend.dashboard',compact('data', 'count_categories', 'bookings', 'count_posts' ,'count_offers', 'count_bookings','count_suscribers','count_users'));
 
     }
     
@@ -329,6 +292,37 @@ class BackEndViewController extends Controller
 
         return view('pages.backend.settings.user-management',compact('users','roles'));
 
+    }
+
+    public function settings(){
+
+        $data = HomeSettings::first();
+        return view('pages.backend.settings.home_settings')->with('data',$data);
+  
+    }
+
+    public function settingsUpdate(Request $request){
+
+        $this->validate($request,[
+            'short_des'=>'',
+            'description'=>'',
+            'section_photo_1'=>'',
+            'section_photo_2'=>'',
+            'headscript'=>'',
+            'bodyscript'=>'',
+        ]);
+        $data=$request->all();
+        // return $data;
+        $settings=HomeSettings::first();
+        // return $settings;
+        $status=$settings->fill($data)->save();
+        if($status){
+            request()->session()->flash('success','Setting successfully updated');
+        }
+        else{
+            request()->session()->flash('error','Please try again');
+        }
+        return back();
     }
 
     public function userHotelBookings(){

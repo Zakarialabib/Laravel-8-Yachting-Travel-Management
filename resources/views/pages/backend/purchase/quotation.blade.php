@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="{{asset('backend/app-assets/images/logo/logo.png')}}" />
+    <link rel="icon" type="image/png" href="{{getImageUrl(setting('logo'))}}" />
     <title>{{setting('app_name')}}</title>
     <meta name="description" content="">
     <meta name="robots" content="all,follow">
@@ -218,7 +218,7 @@
                 <div class="row">
                     <div class="col">
                         <a target="_blank" href="">
-                            <img src="{{asset('backend/app-assets/images/logo/logo.png')}}" width="120px" height="100px" style="margin:10px 0">
+                            <img src="{{getImageUrl(setting('logo'))}}" width="120px" height="100px" style="margin:10px 0">
                         </a>
                     </div>
                     <div class="col company-details">

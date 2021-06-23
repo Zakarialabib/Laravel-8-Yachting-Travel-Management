@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" style="padding: 60px;" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Ajouté une nouvelle activité</h4>
+                <h4 class="modal-title">{{__('Add new Category')}}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
             </div>
 
@@ -26,7 +26,7 @@
                                 @foreach($languages as $index => $language)
                                     <div class="tab-pane fade show {{$index !== 0 ?: "active"}}" id="language_{{$language->code}}" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="form-group">
-                                            <label for="name">Nom de l'activité
+                                            <label for="name">{{__('Category Name')}}
                                                 <small>({{$language->code}})</small>
                                                 : *</label>
                                             <input type="text" class="form-control" name="{{$language->code}}[name]" {{$index !== 0 ?: "required"}}>
@@ -52,17 +52,19 @@
                                     </div>
                                 </div>
                             @endif
-                             {{--   <div class="col-md-6">
+                            <div class="row mt-2">
+                             <div class="col-md-6">
                                       <div class="form-group">
                                             <p><strong>{{__('Color')}} :</strong></p>
-                                            <div class="input-group demo2">
+                                            <div class="input-group ">
                                                 <input class="form-control" id="category_color_code" type="text" name="color_code"/>
                                                 <span class="input-group-addon"><i></i></span>
                                             </div>
                                       </div>
-                                </div>
-                             </div>
-                               --}}
+                              </div>
+                            </div>
+
+                             
                            
                             <div class="row">
                                 <div class="col-md-12">
@@ -70,6 +72,7 @@
                                     <img id="preview_image" src="https://via.placeholder.com/100x100?text=icon" style="width:60px;height:60px;object-fit:cover;margin-bottom:10px">
                                     <input type="file" class="form-control" id="image" name="image">
                                 </div>
+                                
                             </div>
 
                             <div class="row mt-2">

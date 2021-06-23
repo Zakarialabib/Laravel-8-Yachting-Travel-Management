@@ -4,14 +4,12 @@ $(function(){
        buttonClicked('update_customer_information','Update Customer Information',1);
        var sur_name       = $('input[name="customer_sur_name"]').val();
        var first_name        = $('input[name="customer_first_name"]').val();
-       var other_name      = $('input[name="customer_other_name"]').val();
        var phone_number     = $('input[name="customer_phone_number"]').val();
        var address          = $('textarea[name="customer_address"]').val();
        toastr.info("Updating your information. Please hold on for some seconds ...");
        axios.post(baseUrl+'/settings/update/user/profile',{
           customer_first_name   : first_name,
           customer_sur_name    : sur_name,
-          customer_other_name  : other_name,
           customer_phone_number : phone_number,
           customer_address      : address
        })

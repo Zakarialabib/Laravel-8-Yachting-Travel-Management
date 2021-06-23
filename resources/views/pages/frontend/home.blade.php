@@ -31,12 +31,10 @@
 <div class="b-about">
     <div class="ui-decor ui-decor_down"></div>
     <div class="container">
-        <div class="b-main-filter-content tab-content" id="findTabContent">
+        {{-- <div class="b-main-filter-content tab-content" id="findTabContent">
             <div class="tab-pane fade show active" id="content-allCar">
                 <div class="row align-items-end no-gutters">
                     <div class="b-main-filter__main col-lg">
-                        
-                        
                           <div class="b-main-filter__inner row no-gutters">
                             <div class="b-main-filter__item col-md-4">
                                 <div class="b-main-filter__label">Select Boat Type</div>
@@ -69,11 +67,6 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
-                    
-                        
-                        
                     </div>
                     <div class="col-lg-auto">
                         <button class="b-main-filter__btn btn btn-secondary">Search</button>
@@ -162,25 +155,18 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="row">
             <div class="col-lg-6 ">
                 <div class="text-left">
-                    <h2 class="ui-title">Providing a large fleet
-                        of Boats for a perfect
-                        and dreamy experience</h2>
                     <div class="ui-content">
-                        <p>{{setting('home_description')}}</p>
-                        <ul class="arrow-list">
-                            <li><i class="fas fa-long-arrow-alt-right"></i>Stunning Cruise Paths You Follow</li>
-                            <li><i class="fas fa-long-arrow-alt-right"></i>Premium Boats & Yachts</li>
-                            <li><i class="fas fa-long-arrow-alt-right"></i>Our Professional Approach</li>
-                            <li><i class="fas fa-long-arrow-alt-right"></i>Quality Service Guaranteed</li>
-                        </ul>
+                        @foreach ($home_settings as $home)
+                        {!!$home->short_des!!}
+                        @endforeach
                         <div class="gap25"></div> <img src="assets/img/sign.jpg" alt="sign" class="sign"> <span class="sign">CEO, Autlines Boat Rentals</span> </div>
                 </div>
             </div>
-            <div class="col-lg-6"> <img src="assets/img/2356456.png" alt="photo" class="about-image"> </div>
+            <div class="col-lg-6"> <img src="@foreach($home_settings as $home){{$home->section_photo_1}}@endforeach" alt="photo" class="about-image"> </div>
         </div>
     </div>
 </div>
@@ -192,9 +178,9 @@
                 <div class="b-advantages">
                     <div class="ic flaticon-rudder-1 text-secondary"></div>
                     <div class="b-advantages__main">
-                        <div class="b-advantages__title">Priceless Experience</div>
+                        <div class="b-advantages__title">SEMI-PRIVATE CRUISES</div>
                         <div class="decore01"></div>
-                        <div class="b-advantages__info">Asmod tempor incididunt labore magna ust enim sed veniams quis nostrud sed commodo ipsum duals.</div>
+                        <div class="b-advantages__info">Explore the mesmerizing Santorinian seas, sail towards the volcano and float on the blue seas of the island. Book now your semi private cruise and enjoy the ride with one of our fleet’s vessels.</div>
                     </div>
                 </div>
             </div>
@@ -202,9 +188,10 @@
                 <div class="b-advantages">
                     <div class="ic flaticon-snorkel text-secondary"></div>
                     <div class="b-advantages__main">
-                        <div class="b-advantages__title">Custom Packages</div>
+                        <div class="b-advantages__title">PRIVATE CRUISES</div>
                         <div class="decore01"></div>
-                        <div class="b-advantages__info">Asmod tempor incididunt labore magna ust enim sed veniams quis nostrud sed commodo ipsum duals.</div>
+                        <div class="b-advantages__info">Indulge yourself with the absolute sailing experience. Book one of our vessels and sail into the absolute bliss surrounded by the beauties of the island and your beloved ones.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -212,9 +199,10 @@
                 <div class="b-advantages">
                     <div class="ic flaticon-sailor text-secondary"></div>
                     <div class="b-advantages__main">
-                        <div class="b-advantages__title">Peoples Oriented </div>
+                        <div class="b-advantages__title">SPECIAL OCCASIONS</div>
                         <div class="decore01"></div>
-                        <div class="b-advantages__info">Asmod tempor incididunt labore magna ust enim sed veniams quis nostrud sed commodo ipsum duals.</div>
+                        <div class="b-advantages__info">Our team’s knowledge and dedication will attend your special moments. Spend your unique day on board, surrounded by the sea and the energy of Santorini.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -240,27 +228,38 @@
                 @foreach ($offers as $offer)
                 <div class="col-xl-3 col-md-6">
                     <div class="b-goods">
-                        <a class="b-goods__img" href="{{route('offer.show', $offer->slug)}}"><img class="img-scale" src="{{getImageUrl($offer->thumb)}}" alt="{{$offer->name}}" /></a>
+                        <a class="b-goods__img" href="{{route('offer.show', $offer->slug)}}">
+                            @php
+                            $photos=explode(',',$offer->thumb);
+                            // dd($photo);
+                            @endphp
+                            <img class="img-scale" src="{{$photos[0]}}" alt="{{$offer->name}}" />
+                        </a>
                         <div class="b-goods__main">
                             <div class="row no-gutters">
-                                <div class="col"><a class="b-goods__title" href="#">{{$offer->name}}</a>
-                                    <div class="b-goods__info">{{Str::limit('$offer->description',50)}}</div>
+                                <div class="col"><a class="b-goods__title" href="{{route('offer.show', $offer->slug)}}">{{$offer->name}}</a>
+                                    <div class="b-goods__info">{!! Str::limit($offer->description, 100) !!}</div>
                                 </div>
                                 <div class="col-auto">
-                                    <div class="b-goods__price text-primary"><span class="b-goods__price-title">PRICE</span><span class="b-goods__price-number">{{$offer->price}}
-                                            <span class="b-goods__price-after-price">Per Day</span></span>
+                                    <div class="b-goods__price text-primary">
+                                        <span class="b-goods__price-title">PRICE</span>
+                                        <span class="b-goods__price-number">{{$offer->price}}</span>
+                                        <span class="b-goods__price-after-price">Starting from</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="b-goods-descrip_nev_wrap">
-                                <div class="b-goods-descrip_nev">
-                                    <div class="b-goods-descrip__nev"> <i class="fas fa-user"></i> <span class="b-goods-descrip__info">12 Guests</span> </div>
-                                    <div class="b-goods-descrip__nev"> <i class="fas fa-bed"></i> <span class="b-goods-descrip__info">2 Master Bedroom</span> </div>
-                                </div>
-                                <div class="b-goods-descrip_nev">
-                                    <div class="b-goods-descrip__nev"> <i class="fas fa-arrows-alt-h"></i> <span class="b-goods-descrip__info"> 44 Feet</span> </div>
-                                    <div class="b-goods-descrip__nev"> <i class="fas fa-columns"></i> <span class="b-goods-descrip__info"> Sun Deck, Kitchen ...</span> </div>
-                                </div>
+                                @foreach ($offer->packages as $key => $package)
+                        
+                                    @foreach ($package->features->take(2) as $feature)    
+                                    <div class="b-goods-descrip__nev"><span class="b-goods-descrip__info">{{$feature->title}}</span> </div>
+                                  @endforeach
+
+                                    @foreach ($package->conditions->take(2) as $condition)    
+                                    <div class="b-goods-descrip__nev"> <span class="b-goods-descrip__info"> {{$condition->title}}</span> </div>
+                                    @endforeach
+                              
+                                @endforeach
                             </div>
                             
                         </div>
@@ -269,11 +268,12 @@
                 @endforeach
 
             </div>
-            <div class="text-center mt-3"><a class="btn btn-border view-all-boats" href="listing.html">view all boats</a></div>
+            <div class="text-center mt-3"><a class="btn btn-border view-all-boats" href="{{route('offer.index')}}">view all boats</a></div>
         </div>
     </div>
 </section>
-<section class="section-progress  ">
+
+<section class="section-progress">
     <div class="container">
         <div class="dw-wrap">
             <div class="row">
@@ -293,95 +293,24 @@
             </div>
         </div>
         <!-- Counters -->
-        <div class="row bg-counters">
-            <!-- Counter #1 -->
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="b-progress-list cr-counters bg-accent-1 bg-accent-color1">
-                    <div class="cr-counters__icon"> <i class="flaticon-sailor"></i> </div>
-                    <div class="cr-counters__numbers js-chart" data-percent="240"> <span class="js-percent"></span> <span>+</span> </div>
-                    <div class="cr-counters__description">Travel Destinations Offered</div>
+        <div class="row bg-counters py-5">
+            <!-- Counter -->
+            @foreach ($categories as $category)
+            <div class="col-12 col-md-6 col-lg-4">                   
+                 <a href="{{route('category_detail', $category->slug)}}">
+                <div class="b-progress-list cr-counters bg-accent-1 " style="background:url({{getImageUrl($category->image)}}) {{$category->color_code}};  background-blend-mode: luminosity;  background-size:cover;height:38vh" >
+                    <div class="cr-counters__description">{{$category->name}}</div>
                 </div>
+            </a>
             </div>
-            <!-- Counter #2 -->
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="cr-counters bg-accent-2 bg-accent-color2 ">
-                    <div class="cr-counters__icon"> <i class="flaticon-snorkel"></i> </div>
-                    <div class="cr-counters__numbers js-chart" data-percent="980"> <span class="js-percent"></span> <span>+</span></div>
-                    <div class="cr-counters__description">Travel Destinations Offered</div>
-                </div>
-            </div>
-            <!-- Counter #3 -->
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="cr-counters bg-accent-1 bg-accent-color3">
-                    <div class="cr-counters__icon"> <i class="flaticon-island-1"></i> </div>
-                    <div class="cr-counters__numbers js-chart" data-percent="175"> <span class="js-percent"></span> <span>+</span></div>
-                    <div class="cr-counters__description">Travel Destinations Offered</div>
-                </div>
-            </div>
-            <!-- Counter #4 -->
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="cr-counters  bg-accent-color4">
-                    <div class="cr-counters__icon"> <i class="flaticon-chef-hat"></i> </div>
-                    <div class="cr-counters__numbers js-chart" data-percent="630"> <span class="js-percent"></span> <span>+</span></div>
-                    <div class="cr-counters__description">Travel Destinations Offered</div>
-                </div>
-            </div>
-        </div>
+            @endforeach
         <!-- End of Counters -->
-    </div>
+      </div>
 </section>
-<section class="section-goods-offers">
-    <div class="row">
-        <div class="col-12 col-md-6 col-lg-4">
-            <div class="text-left offers-left">
-                <h2 class="ui-title">Premium Boat<br>
-                    Rental Services</h2> <img src="assets/img/decore02.png" alt="photo">
-                <div class="offers-left-text">
-                    <p>Eorem ipsum dolor amet consectetur sed adipisicing elit sed eiusmod tempor et dolore magna aliqua minim veniam, quis nostrud exercitation aliquip ex ea consequat duis aute irure dolorin.</p>  </div>
-                
-                <a class="btn btn-primary" href="#">view more</a>
-                
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-8">
-            <div class="b-offers-slider ui-slider_arr-prim js-slider" data-slick="{&quot;slidesToShow&quot;: 3, &quot;slidesToScroll&quot;: 1, &quot;dots&quot;: false, &quot;arrows&quot;: true, &quot;autoplay&quot;: true,   &quot;responsive&quot;: [{&quot;breakpoint&quot;: 992, &quot;settings&quot;: {&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}}]}">
-                <div class="b-offers-nevica">
-                    <div class="b-offers-nevica-photo"> <img src="assets/img/offers001.jpg" alt="photo"> </div>
-                    <h6>Water Sports Boat</h6>
-                    <div class="decore01"></div>
-                    <p>Adipisicing eiusmod tempor incidids labore dolore magna aliqa ust enim ad minim veniams quis nostrs sed citation ullam coy laboris nisit.</p>
-                </div>
-                <!-- end .b-offers-->
-                <div class="b-offers-nevica">
-                    <div class="b-offers-nevica-photo"> <img src="assets/img/offers002.jpg" alt="photo"> </div>
-                    <h6>Family Gathering</h6>
-                    <div class="decore01"></div>
-                    <p>Adipisicing eiusmod tempor incidids labore dolore magna aliqa ust enim ad minim veniams quis nostrs sed citation ullam coy laboris nisit.</p>
-                </div>
-                <!-- end .b-offers-->
-                <div class="b-offers-nevica">
-                    <div class="b-offers-nevica-photo"> <img src="assets/img/offers003.jpg" alt="photo"> </div>
-                    <h6>Corporate Events</h6>
-                    <div class="decore01"></div>
-                    <p>Adipisicing eiusmod tempor incidids labore dolore magna aliqa ust enim ad minim veniams quis nostrs sed citation ullam coy laboris nisit.</p>
-                </div>
-                <!-- end .b-offers-->
-                <div class="b-offers-nevica">
-                    <div class="b-offers-nevica-photo"> <img src="assets/img/offers004.jpg" alt="photo"> </div>
-                    <h6>Celebrations events</h6>
-                    <div class="decore01"></div>
-                    <p>Adipisicing eiusmod tempor incidids labore dolore magna aliqa ust enim ad minim veniams quis nostrs sed citation ullam coy laboris nisit.</p>
-                </div>
-                <!-- end .b-offers-->
-            </div>
-        </div>
-    </div>
-</section>
+
+
 <section class="section-video section-default section-goods__inner bg-dark ">
-    
     <div class="ui-decor ui-decor_mirror ui-decor_center"></div>
-    
-    
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-10 col-lg-10">
@@ -390,18 +319,16 @@
                     <h4>We’ve Exclusive Boats With Charter Offers</h4>
                     <h5>LET’S PLAN YOUR NEXT TOUR!</h5>
                     <ul>
-                        <li><i class="fas fa-phone-square"></i> Call Us Today: +1 755 302 8549</li>
-                        <li><i class="fas fa-envelope-square"></i> Email: <a href="mailto:name@rmy-domain.com">support@my-domain.com</a></li>
+                        <li><i class="fas fa-phone-square"></i> Call Us Today: {{setting('home_phone')}}</li>
+                        <li><i class="fas fa-envelope-square"></i> Email: <a href="mailto:{{setting('home_email')}}">{{setting('home_email  ')}}</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-12 col-md-2 col-lg-2"> 
-                <a class="video-btn venobox ternary-video-btn-style vbox-item popup-youtube" data-vbtype="video" data-autoplay="true" href="https://www.youtube.com/watch?v=JAIvWg4iQHo"><i class="fa fa-play"></i>
+                <a class="video-btn venobox ternary-video-btn-style vbox-item popup-youtube" data-vbtype="video" data-autoplay="true" href="https://youtu.be/ZHsROGnEmb8?list=TLGGjh4C7bM5_w0xODA2MjAyMQ"><i class="fa fa-play"></i>
                     <div class="pulsing-bg"></div>
                        <span>Watch A Tour</span> 
                 </a> 
-        
-            
             </div>
         </div>
     </div>
@@ -418,32 +345,18 @@
     </div>
     <div class="ui-gallery js-zoom-gallery">
         <div class="row no-gutters">
+           
+            @foreach ($home_settings as $home)
+            @php
+            $photos=explode(',',$home->section_photo_2);
+            // dd($photo);
+            @endphp
+            @foreach ($photos as $photo)         
             <div class="col-lg-3 col-sm-6">
-                <a class="ui-gallery__img js-zoom-gallery__item" href="assets/img/_gal001.jpg"><img class="img-scale" src="assets/img/gal001.jpg" alt="photo"></a>
+                <a class="ui-gallery__img js-zoom-gallery__item" href="{{$photo}}"><img class="img-scale" src="{{$photo}}" alt="photo"></a>
             </div>
-            <div class="col-lg-3 col-sm-6">
-                <a class="ui-gallery__img js-zoom-gallery__item" href="assets/img/_gal003.jpg"><img class="img-scale" src="assets/img/gal003.jpg" alt="photo"></a>
-            </div>
-            <div class="col-lg-2 col-sm-6">
-                <a class="ui-gallery__img js-zoom-gallery__item" href="assets/img/_gal009.jpg"><img class="img-scale" src="assets/img/gal009.jpg" alt="photo"></a>
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <a class="ui-gallery__img js-zoom-gallery__item" href="assets/img/_gal005.jpg"><img class="img-scale" src="assets/img/gal005.jpg" alt="photo"></a>
-            </div>
-        </div>
-        <div class="row no-gutters">
-            <div class="col-lg-5 col-sm-6">
-                <a class="ui-gallery__img js-zoom-gallery__item" href="assets/img/_gal006.jpg"><img class="img-scale" src="assets/img/gal006.jpg" alt="photo"></a>
-            </div>
-            <div class="col-lg-2 col-sm-6">
-                <a class="ui-gallery__img js-zoom-gallery__item" href="assets/img/_gal008.jpg"><img class="img-scale" src="assets/img/gal008.jpg" alt="photo"></a>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <a class="ui-gallery__img js-zoom-gallery__item" href="assets/img/_gal007.jpg"><img class="img-scale" src="assets/img/gal007.jpg" alt="photo"></a>
-            </div>
-            <div class="col-lg-2 col-sm-6">
-                <a class="ui-gallery__img js-zoom-gallery__item" href="assets/img/_gal004.jpg"><img class="img-scale" src="assets/img/gal004.jpg" alt="photo"></a>
-            </div>
+            @endforeach
+            @endforeach
         </div>
     </div>
 </section>
@@ -455,40 +368,38 @@
                     <h2 class="ui-title">Booking Form</h2>
                     <p>Dolore magna aliqua enim ad minim veniam, quis nostrudreprehenderits
                         <br> dolore fugiat nulla pariatur lorem ipsum dolor sit amet. </p> <img src="assets/img/decore03.png" alt="photo">
-                    <form action="#">
-                        
+                    <form action="{{route('home_booking')}}" method="POST">
+                        @csrf
+                        <input type="hidden" name="type" value="{{\App\Models\Booking::TYPE_BOOKING_FORM}}">
+                        <input type="hidden" name="date" value="">
                         <div class="row row-form-b">
-                        
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="First Name"> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Last Name"> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Email"> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Phone"> </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Subject"> </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <textarea class="form-control" rows="6" placeholder="Message"></textarea>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="name" name="name"  placeholder="Name"> </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" type="date" id="date" name="name"  value="{{\Carbon\Carbon::today()->format('Y-m-d')}}"> 
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="email" name="email"  placeholder="Email"> </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input class="form-control" type="text" id="phone_number" name="phone_number" placeholder="Phone"> </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea class="form-control" rows="6" id="message" name="message" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="b-main-filter__btn btn btn-secondary">Submit</button>
                             </div>
                         </div>
-                    <div class="col-md-12">
-                        <button class="b-main-filter__btn btn btn-secondary">Submit</button>
-                    </div>
-                    </div>
-                  </form>
+                    </form>
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">
@@ -496,52 +407,25 @@
                     <h2 class="ui-title">Boat Rental FAQ’s</h2>
                     <p>Dolore magna aliqua enim ad minim veniam, quis nostrudreprehenderits
                         <br> dolore fugiat nulla pariatur lorem ipsum dolor sit amet. </p> <img src="assets/img/decore03.png" alt="photo"> </div>
-                
-                   <div class="ui-accordion accordion" id="accordion-1">
+        
+        @foreach ($faqs as $faq)
+            
+        <div class="ui-accordion accordion" id="accordion-{{$faq->id}}">
           <div class="card">
             <div class="card-header" id="heading1">
               <h3 class="mb-0">
-                <button class="ui-accordion__link collapsed" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"><span class="ui-accordion__number">01</span>How to book a yacht/boat from Nevica?<i class="ic fas fa-chevron-down"></i></button>
+                <button class="ui-accordion__link collapsed" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"><span class="ui-accordion__number">{{$faq->id}}</span>{{$faq->title}}<i class="ic fas fa-chevron-down"></i></button>
               </h3>
             </div>
-            <div class="collapse show" id="collapse1" data-aria-labelledby="heading1" data-parent="#accordion-1">
-              <div class="card-body">Quis nostrud exercitate laboridy aliquip duis irure sed dolor ipsum excpture fugiat estan veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex velit esse cillum dolore eu fugiat nulla pariatur.</div>
+            <div class="collapse show" id="collapse1" data-aria-labelledby="heading1" data-parent="#accordion-{{$faq->id}}">
+              <div class="card-body">{!! $faq->content !!}</div>
             </div>
           </div>
-          <div class="card">
-            <div class="card-header" id="heading2">
-              <h3 class="mb-0">
-                <button class="ui-accordion__link collapsed" type="button" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2"><span class="ui-accordion__number">02</span>What are the safety precautions maintained by you?<i class="ic fas fa-chevron-down"></i></button>
-              </h3>
-            </div>
-            <div class="collapse" id="collapse2" data-aria-labelledby="heading2" data-parent="#accordion-1">
-              <div class="card-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson</div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="heading3">
-              <h3 class="mb-0">
-                <button class="ui-accordion__link collapsed" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3"><span class="ui-accordion__number">03</span>What if the weather gets unfavourable for boating?<i class="ic fas fa-chevron-down"></i></button>
-              </h3>
-            </div>
-            <div class="collapse" id="collapse3" data-aria-labelledby="heading3" data-parent="#accordion-1">
-              <div class="card-bodyFood">truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.</div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="heading4">
-              <h3 class="mb-0">
-                <button class="ui-accordion__link collapsed" type="button" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4"><span class="ui-accordion__number">04</span>Can I bring my own food or drinking water?<i class="ic fas fa-chevron-down"></i></button>
-              </h3>
-            </div>
-            <div class="collapse" id="collapse4" data-aria-labelledby="heading4" data-parent="#accordion-1">
-              <div class="card-body">Nliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson</div>
-            </div>
-          </div>
+          @endforeach
+
                        
         </div>
         <!-- end .accordion-->
-
                 
             </div>
         </div>
@@ -618,7 +502,7 @@
                     <div class="entry-main">
                         <div class="entry-header">
                             <h2 class="entry-title"><a href="{{route('post_detail', [$post->slug, $post->id])}}">{{$post->title}}</a></h2> </div>
-                        <div class="entry-content">{{Str::limit('$post->content',50)}}</div>
+                        <div class="entry-content"> {!! Str::limit($post->content, 150) !!} </div>
                     </div> <a class="btn-post" href="{{route('post_detail', [$post->slug, $post->id])}}">Read More</a> </section>
                 <!-- end .b-post-->
             </div>
@@ -637,51 +521,3 @@
 
 @endsection
 
-@section('javascript')
-    <script type="text/javascript" async>
-        /* SLIDER SETTINGS */
-        jQuery(function($){
-            "use strict";
-            $.supersized({
-                //Functionality
-                slideshow               :   1,		//Slideshow on/off
-                autoplay				:	1,		//Slideshow starts playing automatically
-                start_slide             :   1,		//Start slide (0 is random)
-                random					: 	0,		//Randomize slide order (Ignores start slide)
-                slide_interval          :   10000,	//Length between transitions
-                transition              :   1, 		//0-None, 1-Fade, 2-Slide Top, 3-Slide Right, 4-Slide Bottom, 5-Slide Left, 6-Carousel Right, 7-Carousel Left
-                transition_speed		:	500,	//Speed of transition
-                new_window				:	1,		//Image links open in new window/tab
-                pause_hover             :   0,		//Pause slideshow on hover
-                keyboard_nav            :   0,		//Keyboard navigation on/off
-                performance				:	1,		//0-Normal, 1-Hybrid speed/quality, 2-Optimizes image quality, 3-Optimizes transition speed // (Only works for Firefox/IE, not Webkit)
-                image_protect			:	1,		//Disables image dragging and right click with Javascript
-                //Size & Position
-                min_width		        :   0,		//Min width allowed (in pixels)
-                min_height		        :   0,		//Min height allowed (in pixels)
-                vertical_center         :   1,		//Vertically center background
-                horizontal_center       :   1,		//Horizontally center background
-                fit_portrait         	:   1,		//Portrait images will not exceed browser height
-                fit_landscape			:   0,		//Landscape images will not exceed browser width
-                //Components
-                navigation              :   1,		//Slideshow controls on/off
-                thumbnail_navigation    :   1,		//Thumbnail navigation
-                slide_counter           :   1,		//Display slide numbers
-                slide_captions          :   1,		//Slide caption (Pull from "title" in slides array)
-                slides 					:  	[		//Slideshow Images
-                @foreach ($sliders as $slider)
-                        {image : '{{ asset('images/' . $slider->photo) }}', title : '{{ $slider->title }}' },
-                @endforeach
-                ]
-            });
-        });
-    
-    </script>
-    <script src="{{asset('frontend/assets/js/pages/flight/flight_search_management.js')}}" defer></script>
-    <script src="{{asset('frontend/assets/js/pages/hotel/hotel_search_management.js')}}" defer></script>
-
-@endsection
-
-@section('css')
-
-@endsection

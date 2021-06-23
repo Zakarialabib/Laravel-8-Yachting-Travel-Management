@@ -20,7 +20,7 @@
   <div class="mw-box">
     <div class="row">
       <div class="col-sm-6 col-md-6 col-lg-6 mx-auto">
-      <h3 class="text-center">{{__('Login with')}} {{config('app.name')}}</h3>
+      <h3 class="text-center">{{__('Login with email')}}</h3>
         <form action="{{route('booking_user_signin')}}" method="POST" >
           @csrf
           <input type="hidden" name="booking_id" value="{{$booking->id}}">

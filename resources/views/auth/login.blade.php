@@ -21,9 +21,9 @@
                 <div class="card border-grey border-lighten-3 m-0">
                     <div class="card-header border-0">
                         <div class="card-title text-center">
-                            <div class="p-1"><img style="width: 120px;" src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="{{config('app.name')}}"></div>
+                            <div class="p-1"><img style="width: 120px;" src="{{getImageUrl(setting('logo'))}}" style="-webkit-filter: invert(1);filter: invert(1);width:100px" alt="{{config('app.name')}}"></div>
                         </div>
-                        <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><p>{{__('Login with')}} {{config('app.name')}}</p></h6>
+                        <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><p>{{__('Login with Email')}}</p></h6>
                     </div>
                     <div class="card-content">
                         <div class="card-body">

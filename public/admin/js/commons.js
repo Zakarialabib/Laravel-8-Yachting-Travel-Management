@@ -27,9 +27,6 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     $(document).ready(function () {
 
         $('.col-5-datatable').DataTable({
-            language: {
-                url: '/admin/vendors/datatables.net/js/french.json'
-            },
             dom: 'Bfrtip',
             responsive: true,
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
@@ -64,9 +61,6 @@ var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         });
 
         $('.col-4-datatable').DataTable({
-            language: {
-                url: '/admin/vendors/datatables.net/js/french.json'
-            },
             dom: 'Bfrtip',
             responsive: true,
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],

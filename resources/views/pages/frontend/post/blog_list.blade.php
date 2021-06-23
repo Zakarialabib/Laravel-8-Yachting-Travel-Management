@@ -1,66 +1,85 @@
 @extends('layouts.app')
-@php
-    $blog_title_bg = "style='background-image:url(/assets/images/img-bg-blog.png)'";
-@endphp
+
 @section('content')
-    <main id="main" class="site-main">
-    <section class="breadcrumbs-custom bg-image context-dark">
-            <div class="breadcrumbs-custom-inner">
-                <div class="container breadcrumbs-custom-container">
-                    <div class="breadcrumbs-custom-main" >
-                        <h1 class="breadcrumbs-custom-title"> 
-                        @if($category)
-                            {{$category->name}}
-                        @else
-                            {{__('Blog')}}
-                        @endif
-                        </h1>
-                    </div>
-                    <ul class="breadcrumbs-custom-path">
-                        <li><a href="{{ route('home')}}">{{__('Home')}}</a></li>
-                        @if($category)
-                        <li>{{$category->name}}</li>
-                        @else
-                        <li><a href="{{ route('post_list_all')}}">{{__('Blog')}}</a></li>
-                        @endif
-                    </ul>
-                </div>
-             </div>
-        </section>
-        <div class="page-content isotope">
-            <div class="container">
-                <div class="isotope__nav">
+
+<div class="section-title-page area-bg area-bg_dark area-bg_op_60">
+    <div class="area-bg__inner">
+      <div class="container text-center">
+        <h1 class="b-title-page">
+            @if($category)
+            {{$category->name}}
+        @else
+            {{__('Blog')}}
+        @endif
+        </h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home')}}">{{__('Home')}}</a></li>
+            @if($category)
+            <li class="breadcrumb-item active" aria-current="page">
+                {{$category->name}}
+            </li>
+            @else
+            <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('post_list_all')}}">
+                {{__('Blog')}}
+            </a>
+            </li>
+            @endif
+          </ol>
+        </nav>
+        <!-- end .breadcrumb-->
+        
+      </div>
+    </div>
+  </div>
+  <!-- end .b-title-page-->
+  
+  
+  <div class="l-main-content">
+    <div class="ui-decor ui-decor_mirror ui-decor_sm-h bg-primary"></div>
+    <div class="container">
+
+
+                <div class="text-center mb-4">
                     <ul>
-                        <li><a class="{{!isRoute('post_list_all')?: 'active'}}" href="{{route('post_list_all')}}" title="All"><span class="entry-name">{{__('All')}}</span> <span class="count">({{$post_total}})</span></a></li>
+                        <li><a class="{{!isRoute('post_list_all')?: 'active'}}" href="{{route('post_list_all')}}" title="All"><span class="entry-label">{{__('All')}}</span> <span class="count">({{$post_total}})</span></a></li>
                         @foreach($categories as $cat)
-                            <li><a class="{{isActive($cat_slug, $cat->slug)}}" href="{{route('post_list', $cat->slug)}}" title="{{$cat->name}}"><span class="entry-name">{{$cat->name}}</span> <span class="count">({{$cat->post_count}})</span></a></li>
+                            <li><a class="{{isActive($cat_slug, $cat->slug)}}" href="{{route('post_list', $cat->slug)}}" title="{{$cat->name}}"><span class="entry-label">{{$cat->name}}</span> <span class="count">({{$cat->post_count}})</span></a></li>
                         @endforeach
                     </ul>
                 </div><!-- .isotope__nav -->
 
-                <div class="post-grid columns-3">
-                    @foreach($posts as $post)
-                        <article class="hover__box isotope__grid__item post">
-                            <div class="post__thumb hover__box__thumb">
-                                <a title="{{$post->title}}" href="{{route('post_detail', [$post->slug, $post->id])}}"><img src="{{getImageUrl($post->thumb)}}" alt="{{$post->title}}"></a>
-                            </div>
-                            <div class="post__info">
-                                <ul class="post__category">
-                                    @foreach($post['categories'] as $cat)
-                                        <li><a href="{{route('post_list', $cat->slug)}}" title="{{$cat->name}}">{{$cat->name}}</a></li>
-                                    @endforeach
-                                </ul>
-                                <h3 class="post__title"><a title="{{$post->title}}" href="{{route('post_detail', [$post->slug, $post->id])}}">{{$post->title}}</a></h3>
-                            </div>
-                        </article>
-                    @endforeach
-                </div><!-- .isotope__grid -->
+        <main class="b-post-group_main">
+            <div class="js-scroll-content">
+                @foreach($posts as $post)
+                <section class="b-post b-post-2 row">
+                    <div class="entry-media col-lg-6"><a href="{{route('post_detail', [$post->slug, $post->id])}}"><img class="img-scale" src="{{getImageUrl($post->thumb)}}" alt="photo"/></a></div>
+                    <div class="entry-main col-lg-6">
+                      <div class="entry-header">
+                        <h2 class="entry-title"><a href="post.html">{{$post->title}}</a></h2>
+                      </div>
+                      <div class="entry-meta">
+                         @foreach($post['categories'] as $cat)
+                            <span class="entry-meta__item">
+                                <a class="entry-meta__link text-primary" href="{{route('post_list', $cat->slug)}}" title="{{$cat->name}}">
+                                    {{$cat->name}}
+                                </a>
+                            </span>
+                        @endforeach
+                      </div>
+                      <div class="entry-content">{!! Str::limit($post->content, 200) !!}
+                        </div>
+                      <div class="entry-footer"><a class="btn text-primary" href="{{route('post_detail', [$post->slug, $post->id])}}">Read More</a></div>
+                    </div>
+                </section>
+                  @endforeach                 
 
                 <div class="pagination">
                     {{$posts->render('frontend.common.pagination')}}
                 </div><!-- .pagination -->
 
             </div>
-        </div>
-    </main><!-- .site-main -->
-@stop
+        </main>
+      </div>
+    </div>
+@endsection

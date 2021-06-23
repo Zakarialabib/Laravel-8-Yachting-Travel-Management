@@ -48,7 +48,9 @@
                                     @if($booking->bookable && (get_class($booking->bookable) === 'App\Models\Place'))
                                         <td><a href="{{route('place_detail', $booking->bookable->slug)}}" target="_blank">{{$booking->bookable->name}}</a></td>
                                     @elseif($booking->bookable && (get_class($booking->bookable) === 'App\Models\Package'))
-                                    <td><a href="{{route('offer.show', $booking->bookable->offer->slug)}}" target="_blank">{{$booking->bookable->offer->name}}</a></td>
+                                    <td><a href="{{route('offer.show', $booking->bookable->offer->slug)}}" target="_blank">{{$booking->bookable->offer->name}}</a></td>                                        
+                                    @else
+                                    <td> Booking Form  </td>  
                                     @endif
                                     <td>{{$booking->date}}</td>
                                 <td>{{formatDate($booking->created_at, 'd/m/Y H:i')}}</td>
@@ -110,6 +112,22 @@
                                                 data-type="{{$booking->bookable->offer->type}}"
                                         >{{__('Detail')}}
                                         </button>
+                                        @else()
+                                        <button type="button" data-target="modal_booking_detail"  class="dropdown-item booking_detail"
+                                        data-id="{{$booking->id}}"
+                                        data-reference="{{$booking->reference}}"
+                                        data-name="{{$booking_name}}"
+                                        data-email="{{$booking_email}}"
+                                        data-phone="{{$booking_phone}}"
+                                        data-bookingdatetime="{{$booking->time}} {{formatDate($booking->date, 'd/m/Y')}}"
+                                        data-bookingat="{{formatDate($booking->created_at, 'H:i d/m/Y')}}"
+                                        data-status="{{STATUS[$booking->status]}}"
+                                        data-message="{{$booking->message}}"
+                                        data-adult="{{$booking->numbber_of_adult}}"
+                                        data-children="{{$booking->numbber_of_children}}"
+                                        data-type="{{$booking->type}}"
+                                        >{{__('Detail')}}
+                                        </button>
                                     @endif
                                     @if($booking->status === \App\Models\Booking::STATUS_PENDING || $booking->status === \App\Models\Booking::STATUS_DEACTIVE)
                                             <form class="d-inline" action="{{route('booking_update_status')}}" method="POST">
@@ -127,13 +145,6 @@
                                                 <input type="hidden" name="booking_id" value="{{$booking->id}}">
                                                 <input type="hidden" name="status" value="{{\App\Models\Booking::STATUS_DEACTIVE}}">
                                                 <button type="button" class="dropdown-item booking_cancel">{{__('Cancel')}}</button>
-                                            </form>
-                                        @endif
-                                        @if($booking->status === \App\Models\Booking::STATUS_PENDING || $booking->status === \App\Models\Booking::STATUS_ACTIVE)
-                                            <form class="d-inline" action="{{route('sale_create_view')}}" method="POST">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{$booking->id}}">
-                                                <button type="submit" class="dropdown-item">{{__('Sales')}}</button>
                                             </form>
                                         @endif
                                     @if($user->is_admin === 1)

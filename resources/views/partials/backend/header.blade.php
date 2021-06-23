@@ -3,8 +3,7 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="fa fa-bars font-large-1"></i></a></li>
-                <li class="nav-item"><a class="navbar-brand" href="{{url('/')}}"><img class="brand-logo" alt="{{config('app.name')}}" src="{{asset('backend/app-assets/images/logo/logo.png')}}">
-                        <h3 class="brand-text">{{config('app.name')}}</h3></a></li>
+                <li class="nav-item"><a class="navbar-brand" href="{{url('/')}}"><img alt="{{config('app.name')}}" src="{{getImageUrl(setting('logo'))}}" style="-webkit-filter: invert(1);filter: invert(1);width:100px"></a></li>
                 <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>
             </ul>
         </div>
@@ -65,7 +64,7 @@
                         <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <span class="mr-1">{{__('Hello')}},<span class="user-name text-bold-700">{{\App\Models\Profile::where('user_id',auth()->user()->id)->first()->first_name}}</span></span>
                             <span class="avatar avatar-online">
-                                <img src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="avatar"><i></i>
+                                <img src="{{getImageUrl(setting('logo'))}}" alt="avatar"><i></i>
                             </span></a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{route('profile')}}"><i class="fa fa-user"></i> {{__('Edit Profile')}}</a>

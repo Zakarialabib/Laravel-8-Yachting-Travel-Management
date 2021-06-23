@@ -66,6 +66,9 @@ $('#select_country').change(function () {
     });
 });
 
+$('#lfm').filemanager('image');
+
+
 $('#gallery').change(function () {
     var form_data = new FormData();
     form_data.append('image', this.files[0]);

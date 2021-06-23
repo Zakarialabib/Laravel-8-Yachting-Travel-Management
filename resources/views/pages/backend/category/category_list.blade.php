@@ -1,16 +1,16 @@
 @extends('layouts.backend')
 
-@section('page-title')  {{__('Activity List')}}  @endsection
+@section('page-title')  {{__('Category List')}}  @endsection
 
 @section('content')
 
     <div class="page-title">
         <div class="title_left">
-            <h3>{{__('Activity')}}</h3>
+            <h3>{{__('Category')}}</h3>
         </div>
         <div class="title_right">
             <div class="pull-right">
-                <button class="btn btn-primary" id="btn_add_category">{{__('Add Activity')}}</button>
+                <button class="btn btn-primary" id="btn_add_category">{{__('Add Category')}}</button>
             </div>
         </div>
     </div>
@@ -36,8 +36,12 @@
                         <tbody>
                         @foreach($categories as $category)
                             <tr>
-                                <td>{{$category->id}}</td>
-                                <td>{{$category->name}}</td>
+                                <td>
+                                    {{$category->id}}
+                                </td>
+                                <td><a href="{{route('category_detail', $category->slug)}}">
+                                    {{$category->name}}
+                                </a></td>
                                 @if($type === \App\Models\Category::TYPE_PLACE)
                                 <td>{{$category->priority}}</td>
                                 <td>

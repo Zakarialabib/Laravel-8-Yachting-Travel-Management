@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 
-use App\Models\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +15,14 @@ class PostController extends Controller
 {
     public function list($cat_slug = null)
     {
-
+        $categories = Category::query()
+        ->where('categories.type', Category::TYPE_POST)
+        ->where('categories.status', Category::STATUS_ACTIVE)
+        ->join('posts', 'posts.category', 'like', DB::raw("CONCAT('%', categories.id, '%')"))
+        ->select('categories.id as id', 'categories.name as name', 'categories.slug as slug', DB::raw("count(posts.category) as post_count"))
+        ->groupBy('categories.id')
+        ->orderBy('categories.name')
+        ->get();
 
         $posts = Post::query()
             ->with('categories')
@@ -48,6 +55,7 @@ class PostController extends Controller
 
         return view('pages.frontend.post.blog_list', [
             'category' => $category,
+            'categories' => $categories,
             'posts' => $posts,
             'post_total' => $post_total,
             'cat_slug' => $cat_slug,

@@ -3,71 +3,57 @@
 @section('page-title')  {{__('Category detail')}}  @endsection
 
 @section('content')
-    <main class="site-main normal_view">
-        <section class="breadcrumbs-custom bg-image context-dark">
-            <div class="breadcrumbs-custom-inner">
-                <div class="container breadcrumbs-custom-container">
-                    <div class="breadcrumbs-custom-main" >
-                        <h1 class="breadcrumbs-custom-title">{{ $category->name }}</h1>
+ 
+<div class="section-title-page area-bg area-bg_dark area-bg_op_60">
+    <div class="area-bg__inner">
+        <div class="container text-center">
+            <h1 class="b-title-page">{{ $category->name }}</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('home')}}">{{__('Home')}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
+                </ol>
+            </nav>
+            <!-- end .breadcrumb-->
+
+        </div>
+    </div>
+</div>
+<!-- end .b-title-page-->
+
+<div class="l-main-content">
+    <div class="ui-decor ui-decor_mirror ui-decor_sm-h bg-primary"></div>
+
+
+    <div class="container">
+        @foreach ($category->offers as $offer)
+        <div class="fl--events-wrap">
+            <div class="fl--events-featured-content-vc">
+                <div class="fl-events--featured-post post-209 events type-events status-publish has-post-thumbnail hentry">
+                    <div class="fl-events-left-content col-md-6"> 
+                        @php
+                        $photos=explode(',',$offer->thumb);
+                        // dd($photo);
+                        @endphp
+                        <img src="{{$photos[0]}}" alt="{{$offer->name}}" />
+
                     </div>
-                    <ul class="breadcrumbs-custom-path">
-                        <li><a href="{{ route('home')}}">{{__('Home')}}</a></li>
-                        <li><a href="{{ url('/categorie')}}">{{__('Category')}}</a></li>
-                        <li class="active"><a href="{{ route('category_detail' , $category->slug)}}"  style="color: #ee5000;">{{ $category->name }}</li>
-                    </ul>
-                </div>
-             </div>
-        </section><!-- .page-title -->
-        <div class="container">
-        <div class="radio-tile-group">
-        @foreach($categorytype as $cat)
-            <div class="input-container">
-                <div class="radio-tile" style="border-color: {{ $cat->color }}">
-                    <label class="radio-tile-label">{{ $cat->name }}</label>
+                    <div class="fl-events-right-content col-md-6">
+
+                        <h3 class="fl-entry-title"><a href="{{ route('offer.show', $offer->slug) }}">{{ $offer->name }}</a></h3>
+
+                        <div class="fl-events-excerpt">
+                            <p> {!!Str::limit($offer->description) !!}</p>
+                        </div>
+                        <a class="btn btn-primary" href="{{ route('offer.show', $offer->slug) }}">Join This Tour</a>
+                    </div>
                 </div>
             </div>
-          @endforeach
-           </div>
         </div>
-        <div class="mw-box container">
-            <div class="city-content__panel" id="inspire">
-            @if(count($offers))
-                @foreach($offers as $key => $city)
-                <div class="city-content__item">
-                    <h2 class="title title--more">{{ $key }}</h2> 
-                    <div class="city-slider">
-                        <div class="city-slider__grid">
-                        @foreach($city as $offer)    
-                            <div>
-                                <div class="places-item hover__box">
-                                    <div class="places-item__thumb hover__box__thumb">
-                                        <a title="{{ $offer->name }}"
-                                            href="{{ route('offer.show', $offer->slug) }}"><img
-                                                src="{{ getImageUrl($offer->image) }}" alt="{{ $offer->name }}"></a>
-                                    </div>
-                                    <div class="places-item__info">
-                                        <h3>
-                                            <a href="{{ route('place_detail', $offer->slug) }}"
-                                                title="{{ $offer->name }}">{{ $offer->name }}</a>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                        </div><!-- .city-slider__grid -->
-                        <div class="city-slider__nav slick-nav">
-                            <div class="city-slider__prev slick-nav__prev">
-                                <i class="la la-arrow-left la-24"></i>
-                            </div><!-- .city-slider__prev -->
-                            <div class="city-slider__next slick-nav__next">
-                                <i class="la la-arrow-right la-24"></i>
-                            </div><!-- .city-slider__next -->
-                        </div><!-- .city-slider__nav -->
-                    </div><!-- .city-slider -->
-                </div><!-- .city-content__item -->
-                @endforeach
-            @endif
-            </div><!-- .city-content__panel -->
-        </div><!-- .mw-box -->
-    </main><!-- .site-main -->
-@stop
+        @endforeach
+
+
+
+    </div>
+</div>
+@endsection

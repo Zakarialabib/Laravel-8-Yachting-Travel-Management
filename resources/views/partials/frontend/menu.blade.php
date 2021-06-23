@@ -27,7 +27,7 @@
     <ul class="navbar-nav">
         <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">{{__('Home')}}</a></li>
         <li class="nav-item "><a class="nav-link" href="about.html">About</a></li>
-        <li class="nav-item "><a class="nav-link" href="listing.html">Boats Listing</a></li>
+        <li class="nav-item "><a class="nav-link" href="{{route('offer.index')}}">Our Fleet</a></li>
         <li class="nav-item "><a class="nav-link" href="tours.html">Tours</a></li>
         <li class="nav-item "><a class="nav-link" href="blog.html">News</a></li>
         <li class="nav-item"><a class="nav-link" href="contacts.html">Contact</a></li>
@@ -46,7 +46,7 @@
                         <li class="header-soc__item"><a class="header-soc__link" href="{{setting('social_linkedin')}}" target="_blank"><i class="ic fab fa-linkedin"></i></a></li>
                         <li class="header-soc__item"><a class="header-soc__link" href="{{setting('social_facebook')}}" target="_blank"><i class="ic fab fa-facebook-f"></i></a></li>
                         <li class="header-soc__item"><a class="header-soc__link" href="{{setting('social_instagram')}}" target="_blank"><i class="ic fab fa-instagram"></i></a></li>
-                        <li class="header-soc__item"><a class="header-soc__link" href="{{setting('social_youtube')}}" target="_blank"><i class="ic fab fa-youtube"></i></a></li>
+                        <li class="header-soc__item"><a class="header-soc__link" href="{{setting('social_youtube')}}"  target="_blank"><i class="ic fab fa-youtube"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -56,8 +56,8 @@
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-auto">
-                    <a class="navbar-brand navbar-brand_light scroll" href="{{url('/')}}"> <img class="normal-logo img-fluid" src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="logo" /> </a>
-                    <a class="navbar-brand navbar-brand_dark scroll" href="{{url('/')}}"><img class="normal-logo img-fluid" src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="logo" /></a>
+                    <a class="navbar-brand navbar-brand_light scroll" href="{{url('/')}}"> <img class="normal-logo img-fluid" src="{{getImageUrl(setting('logo'))}}" alt="logo" /> </a>
+                    <a class="navbar-brand navbar-brand_dark scroll" href="{{url('/')}}"><img class="normal-logo img-fluid" src="{{getImageUrl(setting('logo'))}}" style="-webkit-filter: invert(1);filter: invert(1);" alt="logo" /></a>
                 </div>
                 <div class="col-auto d-xl-none">
                     <!-- Mobile Trigger Start-->
@@ -68,17 +68,9 @@
                     <nav class="navbar navbar-expand-lg justify-content-end" id="nav">
                         <ul class="yamm main-menu navbar-nav">
                             <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">{{__('Home')}}</a> </li>
-                            <li class="nav-item "><a class="nav-link" href="about.html">About Us</a> </li>
-                            {{-- {!! $sidebar !!} --}}
-                            <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#">Our Fleet</a>
-                                <div class="dropdown-menu"> 
-                                    <a class="dropdown-item" href="listing.html">Boats Listing 1</a> 
-                                    <a class="dropdown-item" href="listing-sidebar.html">Boats Listing 2</a> 
-                                    <a class="dropdown-item" href="details.html">Boats Details</a> 
-                                </div>
-                            </li>
-                            
-                            <li class="nav-item"><a class="nav-link" href="contacts.html">Contact</a></li>
+                            <li class="nav-item "><a class="nav-link" href="{{route('offer.index')}}">{{__('Our Fleet')}}</a> </li>
+                            <li class="nav-item "><a class="nav-link" href="about.html">{{__('About Us')}}</a> </li>                            
+                            <li class="nav-item"><a class="nav-link" href="contacts.html">{{__('Contact')}}</a></li>
                           
                             <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#">{{ (app()->getLocale()) }}</a>
                                 @if(count($languages) > 1)
@@ -105,11 +97,7 @@
                                 <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{route('dashboard')}}">{{__('Dashboard')}}</a>
                                 <a class="dropdown-item" href="{{route('user_wishlist')}}">{{__('Wishlist')}}</a>
-                                <a class="dropdown-item" href=""
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{__('Logout')}}</a>
-                                <form class="d-none" id="logout-form" action="" method="POST">
-                                    @csrf
-                                </form>
+                                <a class="dropdown-item" href="{{url('/logout')}}">{{__('Logout')}}</a>
                                 </div>
                             </li>
                             @endguest

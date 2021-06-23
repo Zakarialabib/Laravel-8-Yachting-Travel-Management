@@ -19,12 +19,30 @@ use Illuminate\Support\Str;
 
 class OfferController extends Controller
 {
+    public function list() 
+    {
+
+        $offers = Offer::query()
+        ->paginate(10);
+
+        return view('pages.frontend.offer.index', [ 
+            'offers' => $offers 
+        ]);
+
+    }
+
     public function show($slug) 
     {
         $offer = Offer::where('slug', $slug)->first();
         
         if (!$offer) abort(404);
 
-        return view('pages.frontend.offer.show', compact('offer'));
+        $reviews = Review::query()
+        ->with('user')
+        ->where('offer_id', $offer->id)
+        ->where('status', Review::STATUS_ACTIVE)
+        ->get();
+
+        return view('pages.frontend.offer.show', compact('offer','reviews'));
     }
 }

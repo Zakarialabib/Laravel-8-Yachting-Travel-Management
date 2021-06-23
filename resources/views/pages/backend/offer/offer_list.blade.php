@@ -25,8 +25,8 @@
                             <th >ID</th>
                             <th >Image</th>
                             <th>{{__('Offer name')}}</th>
-                            <th>{{__('City')}}</th>
-                            <th>{{__('Activity')}}</th>
+                            <th>{{__('Is Featured')}}</th>
+                            <th>{{__('Category')}}</th>
                             <th>{{__('Status')}}</th>
                              <th>{{__('Action')}}</th>
                         </tr>
@@ -35,10 +35,20 @@
                         @foreach($offers as $offer)
                             <tr>
                                 <td>{{$offer->id}}</td>
-                                <td><img class="offer_list_thumb" src="{{getImageUrl($offer->thumb)}}" alt="page thumb"></td>
-                                <td>{{$offer->name}}</td>
                                 <td>
-                                {{$offer->city->name}}
+                                    @php
+                                    $photos=explode(',',$offer->thumb);
+                                    // dd($photo);
+                                    @endphp
+                                    <img class="offer_list_thumb" src="{{$photos[0]}}" alt="{{$offer->name}}" />
+                                </td>
+                                <td>
+                                    <a href="{{route('offer.show', $offer->slug)}}">
+                                        {{$offer->name}}
+                                    </a>
+                                </td>
+                                <td>
+                                {{(($offer->is_featured==1)? 'Yes': 'No')}}
                                 </td>
                                 <td>
                                 {{$offer->categories->name}}

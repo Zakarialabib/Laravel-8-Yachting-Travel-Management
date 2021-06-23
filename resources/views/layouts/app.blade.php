@@ -34,18 +34,8 @@
     <!-- END: FOOTER -->
 </div>
 <!-- END: SITE-WRAPPER -->
-{!! Toastr::render() !!}
 
-<!-- BEGIN : LOADING PAGE -->
-@include('partials.frontend.flight_booking_loader')
-@include('partials.frontend.flight_information_loader')
-@include('partials.frontend.flight_search_loader')
-@include('partials.frontend.flight_multi_search_loader')
-@include('partials.frontend.hotel_booking_loader')
-@include('partials.frontend.hotel_information_loader')
-@include('partials.frontend.hotel_room_information')
-@include('partials.frontend.hotel_search_loader')
-<!-- END : LOADING PAGE -->
+{!! Toastr::render() !!}
 
 <!-- Load Scripts -->
 @include('partials.frontend.javascript')

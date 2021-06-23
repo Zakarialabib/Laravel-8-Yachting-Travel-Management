@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{asset('backend/app-assets/images/logo/logo.png')}}" />
+    <link rel="icon" type="image/png" href="{{getImageUrl(setting('logo'))}}" />
     <title>{{setting('app_name')}}</title>
     <style>
         #invoice{

@@ -33,7 +33,6 @@ class ProfileController extends Controller
         $this->validate($r,[
             'customer_sur_name'    => 'required|string|max:255',
             'customer_first_name'   => 'required|string|max:255',
-            'customer_other_name'     => 'required|string|max:255',
             'customer_phone_number'  => 'required|digits:11',
             'customer_address'       => 'required',
         ]);
@@ -41,7 +40,6 @@ class ProfileController extends Controller
         $profile = Profile::where('user_id',auth()->user()->id)->first();
         $profile->sur_name = $r->customer_sur_name;
         $profile->first_name = $r->customer_first_name;
-        $profile->other_name = $r->customer_other_name;
         $profile->phone_number = $r->customer_phone_number;
         $profile->address = $r->customer_address;
         $update = $profile->update();

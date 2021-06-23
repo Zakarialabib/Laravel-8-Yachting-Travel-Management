@@ -19,7 +19,9 @@ Route::get('clear-translations', 'ClearCacheController@clear_translations')
       ->name('clear-translations');
 Route::get('clean', 'ClearCacheController@clear_cache')
       ->name('clear-cache');
-      
+
+   Route::post('/upload-image', 'ImageController@upload')->name('upload_image');
+
   // User Notification
   Route::get('/user/notf/show', 'NotificationController@user_notf_show')->name('user-notf-show');
   Route::get('/user/notf/count','NotificationController@user_notf_count')->name('user-notf-count');
@@ -82,6 +84,7 @@ Route::group([
         Route::get('/ajax-search', 'ViewController@ajaxSearch');
         Route::get('/ajax-search-listing', 'ViewController@searchListing');
         Route::get('/search', 'ViewController@search')->name('search');
+        Route::post('/home-booking', 'ViewController@booking')->name('home_booking');
 
 
         Route::post('/searchHotel','HotelController@searchHotel');
@@ -102,9 +105,8 @@ Route::group([
         Route::get('/offre-special/{slug}', 'PlaceController@detail')->name('place_detail');
         Route::get('/offres/filter', 'PlaceController@getListFilter')->name('place_get_list_filter');
 
+        Route::get('/offers', 'OfferController@list')->name('offer.index');
         Route::get('/offers/{slug}', 'OfferController@show')->name('offer.show');
-        
-   
         
         Route::get('/ville-a-visiter', 'CityController@list')->name('cities_list');
         Route::get('/ville/{slug}', 'CityController@detail')->name('city_detail');
@@ -165,6 +167,7 @@ Route::group([
         Route::delete('/{id}', 'CustomerController@destroy')->name('customer_delete');
     
         });
+
 
       
         Route::group(['prefix' => 'facture'], function() {
@@ -327,12 +330,16 @@ Route::group([
 Route::middleware(['auth'])->group(function(){
 
     Route::get('/dashboard','BackEndViewController@dashboard')->name('dashboard');
+    Route::get('/home-settings','BackEndViewController@settings')->name('home_settings');
+    Route::post('/home-settings/update','BackEndViewController@settingsUpdate')->name('settings.update');
 
     Route::group(['prefix' => 'settings'],function(){
         Route::get('vats','BackEndViewController@vat')->name('vats');
         Route::post('vat', 'VatController@saveVat')->name('backend-save-vat');
         Route::get('getVat/{type}','VatController@getVat');
         Route::get('markups', 'BackEndViewController@markupView');
+        // Settings
+        
         Route::post('markup/admin', 'MarkupController@saveAdminMarkup')->name('backend-save-markup');
         Route::get('getMarkup/{id}','MarkupController@getMarkupById');
         Route::get('markdown', 'BackEndViewController@index');
@@ -344,10 +351,6 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/update/user/image','ProfileController@updateUserProfileImage')->name('update-profile-image');
         Route::post('/update/user/password','ProfileController@updateUserProfilePassword')->name('update-profile-password');
         Route::get('visa-application-requests','BackEndViewController@visaApplicationRequests');
-
-    //    Route::get('subscribers','BackEndViewController@emailSubscriptions');
-  ///   Route::get('/', 'SettingController@index')->name('settings');
-  ///   Route::post('/update', 'SettingController@update')->name('settings.update');
 
         Route::group(['prefix' => 'bank-details'],function(){
             Route::get('/fetch/{id}', 'BankDetailController@getBankDetail')->name('backend-bank-details');
@@ -410,6 +413,9 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/requery/{id}','OnlinePaymentController@requery');
     });
 
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 
 Auth::routes();
 

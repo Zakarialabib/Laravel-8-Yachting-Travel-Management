@@ -19,16 +19,15 @@ class Offer extends Model  implements TranslatableContract
     protected $table = 'offers';
 
     protected $casts = [
-        'gallery' => 'json',
         'itinerary' => 'json',
         'user_id' => 'integer',
         'price' => 'double',
-        'status' => 'integer'
+        'status' => 'integer',
     ];
 
     protected $fillable = [
         'user_id', 'category_id', 'city_id', 'slug',  'price', 'reference',
-        'thumb', 'gallery', 'status', 'seo_title', 'seo_description', 'itinerary'
+        'thumb', 'status','is_featured', 'seo_title', 'seo_description', 'itinerary'
     ];
 
     protected $hidden = [];

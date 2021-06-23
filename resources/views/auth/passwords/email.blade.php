@@ -31,7 +31,7 @@
                 <div class="card border-grey border-lighten-3 px-2 py-2 m-0">
                     <div class="card-header border-0 pb-0">
                         <div class="card-title text-center">
-                            <img style="width: 150px;" src="{{asset('backend/app-assets/images/logo/logo.png')}}" alt="{{config('app.name')}}">
+                            <img style="width: 150px;" src="{{getImageUrl(setting('logo'))}}" alt="{{config('app.name')}}">
                         </div>
                         <h6 class="card-subtitle line-on-side text-muted text-center font-small-3 pt-2"><span>{{__('We will send you a link to reset password.')}}</span></h6>
                     </div>

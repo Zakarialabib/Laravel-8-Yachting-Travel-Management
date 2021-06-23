@@ -165,8 +165,12 @@ return [
         /*
          * Package Service Providers...
          */
+        UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         nilsenj\Toastr\ToastrServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
+        RenatoMarinho\LaravelPageSpeed\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -230,6 +234,13 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Toastr' => nilsenj\Toastr\Facades\Toastr::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'Flash' => Laracasts\Flash\Flash::class,
+        'SEOMeta' => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 

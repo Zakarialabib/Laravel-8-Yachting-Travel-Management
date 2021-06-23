@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use nilsenj\Toastr\Facades\Toastr;
 use App\Commons\Response;
+use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
@@ -102,7 +103,7 @@ class UserController extends Controller
 
         $user = User::store($request);
 
-        $user->attachRole(3);
+        $user->assignRole('customer');
 
         $request['user'] = $user;
 
@@ -131,7 +132,6 @@ class UserController extends Controller
             'user_id'       => $user->id,
             'sur_name'      => $data['sur_name'],
             'first_name'    => $data['first_name'],
-            'other_name'    => Arr::get($data,'first_name',''),
             'phone_number'  => $data['phone'],
             'address'       => $data['address'],
             'photo'         => Arr::get($data,'photo',''),
@@ -187,7 +187,7 @@ class UserController extends Controller
 
         $user = User::store($request);
 
-        $user->attachRole(3);
+        $user->assignRole('customer');
 
         $request['user'] = $user;
 
@@ -250,7 +250,6 @@ class UserController extends Controller
         $profile = Profile::where('user_id',$request->user_id)->first();
         $profile->sur_name     = $request->sur_name;
         $profile->first_name   = $request->first_name;
-        $profile->other_name   = $request->other_name;
         $profile->phone_number = $request->phone;
         $profile->address      = $request->address;
         $updateProfile = $profile->update();
@@ -277,7 +276,6 @@ class UserController extends Controller
         $this->validate($r,[
             'customer_sur_name'    => 'required|string|max:255',
             'customer_first_name'   => 'required|string|max:255',
-            'customer_other_name'     => 'required|string|max:255',
             'customer_phone_number'  => 'required|digits:11',
             'customer_address'       => 'required',
         ]);
@@ -285,7 +283,6 @@ class UserController extends Controller
         $profile = Profile::where('user_id',auth()->user()->id)->first();
         $profile->sur_name = $r->customer_sur_name;
         $profile->first_name = $r->customer_first_name;
-        $profile->other_name = $r->customer_other_name;
         $profile->phone_number = $r->customer_phone_number;
         $profile->address = $r->customer_address;
         $update = $profile->update();

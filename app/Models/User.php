@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'title',  'first_name', 'last_name', 'other_name','customer_id',
+        'title',  'first_name', 'last_name','customer_id',
         'date_of_birth', 'email',  'phone_number',
         'address', 'gender', 'password', 'account_status',
         'agency_name', 'agency_id', 'office_number',"is_admin"
@@ -290,7 +290,7 @@ class User extends Authenticatable
         $user = static::where('id', $id)->first();
 
         $data = [
-            'full_name' => $user->first_name." ".$user->last_name." ".$user->other_name,
+            'full_name' => $user->first_name." ".$user->last_name,
             'date_of_birth' => Carbon::parse($user->date_of_birth)->toFormattedDateString(),
             'email' => $user->email,
             'phone_number' => $user->phone_number,
