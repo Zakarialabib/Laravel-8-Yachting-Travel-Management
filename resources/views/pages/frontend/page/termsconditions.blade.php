@@ -1,23 +1,21 @@
 @extends('layouts.app')
-@php
-$about_title_bg = "style='background-image:url(/assets/images/about-01.png)'";
-@endphp
-
 @section('content')
-<main id="main" class="site-main" >
-    <section class="breadcrumbs-custom bg-image context-dark">
-            <div class="breadcrumbs-custom-inner">
-                <div class="container breadcrumbs-custom-container">
-                    <div class="breadcrumbs-custom-main" >
-                        <h1 class="breadcrumbs-custom-title">{{__('Terms and Conditions')}}</h1>
-                    </div>
-                    <ul class="breadcrumbs-custom-path">
-                        <li><a href="{{ route('home')}}">{{__('Home')}}</a></li>
-                        <li class="active"><a href=""></a>{{__('Terms and Conditions')}}</li>
-                    </ul>
-                </div>
-             </div>
-        </section>
+
+<div class="section-title-page area-bg area-bg_dark area-bg_op_60">
+  <div class="area-bg__inner">
+    <div class="container text-center">
+      <h1 class="b-title-page">{{__('Terms and Conditions')}}</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{ route('home')}}">{{__('Home')}}</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{__('Terms and Conditions')}}</li>
+        </ol>
+      </nav>
+      <!-- end .breadcrumb-->
+    </div>
+  </div>
+</div>
+<!-- end .b-title-page-->
     
     <!-- Faq Area Start -->
  <section id="faq" class="faq">
@@ -46,7 +44,6 @@ $about_title_bg = "style='background-image:url(/assets/images/about-01.png)'";
 </section>
 <!-- Faq Area End -->
 
-</main><!-- .site-main -->
 @endsection
 
 @section('css')

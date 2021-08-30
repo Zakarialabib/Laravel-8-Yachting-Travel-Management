@@ -14,7 +14,7 @@ class Offer extends Model  implements TranslatableContract
         Translatable::getAttribute insteadof HasJsonRelationships;
     }
 
-    public $translatedAttributes = ['name', 'description'];
+    public $translatedAttributes = ['name', 'description', 'short_desc'];
 
     protected $table = 'offers';
 
@@ -23,6 +23,7 @@ class Offer extends Model  implements TranslatableContract
         'user_id' => 'integer',
         'price' => 'double',
         'status' => 'integer',
+        'thumb' => 'array',
     ];
 
     protected $fillable = [

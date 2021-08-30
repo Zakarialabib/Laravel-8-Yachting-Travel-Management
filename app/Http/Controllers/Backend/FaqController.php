@@ -33,12 +33,14 @@ class FaqController extends Controller
         $request->validate([
             'title' => 'required|max:150',
             'content' => 'required',
+            'type' => 'required',
         ]);
 
         $faq = new Faq();
         $faq->status = $request->status;
         $faq->title = $request->title;
         $faq->content = $request->content;
+        $faq->type = $request->type;
         $faq->save();
        
         $notification = array(
@@ -72,12 +74,14 @@ class FaqController extends Controller
          $request->validate([
             'title' => 'required|max:150',
             'content' => 'required',
+            'type' => 'required',
         ]);
 
         $faq = Faq::find($id);
         $faq->status = $request->status;
         $faq->title = $request->title;
         $faq->content = $request->content;
+        $faq->type = $request->type;
         $faq->save();
 
       

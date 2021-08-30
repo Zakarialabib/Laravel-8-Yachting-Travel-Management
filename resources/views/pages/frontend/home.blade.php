@@ -163,50 +163,31 @@
                         @foreach ($home_settings as $home)
                         {!!$home->short_des!!}
                         @endforeach
-                        <div class="gap25"></div> <img src="assets/img/sign.jpg" alt="sign" class="sign"> <span class="sign">CEO, Autlines Boat Rentals</span> </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-6"> <img src="@foreach($home_settings as $home){{$home->section_photo_1}}@endforeach" alt="photo" class="about-image"> </div>
+            <div class="col-lg-6"> 
+                <img src="@foreach($home_settings as $home){{$home->section_photo_1}}@endforeach" alt="photo" class="about-image">
+             </div>
         </div>
     </div>
 </div>
 
 <div class="section-advantages">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="b-advantages">
-                    <div class="ic flaticon-rudder-1 text-secondary"></div>
-                    <div class="b-advantages__main">
-                        <div class="b-advantages__title">SEMI-PRIVATE CRUISES</div>
-                        <div class="decore01"></div>
-                        <div class="b-advantages__info">Explore the mesmerizing Santorinian seas, sail towards the volcano and float on the blue seas of the island. Book now your semi private cruise and enjoy the ride with one of our fleet’s vessels.</div>
-                    </div>
+        <div class="row bg-counters py-5">
+            <!-- Counter -->
+            @foreach ($categories as $category)
+            <div class="col-12 col-md-6 col-lg-4">                   
+                 <a href="{{route('category_detail', $category->slug)}}">
+                <div class="b-progress-list cr-counters bg-accent-1 " style="background:url({{getImageUrl($category->image)}}) {{$category->color_code}};  background-blend-mode: luminosity;  background-size:cover;height:38vh" >
+                    <div class="cr-counters__description ">{{$category->name}}</div>
                 </div>
+            </a>
             </div>
-            <div class="col-lg-4">
-                <div class="b-advantages">
-                    <div class="ic flaticon-snorkel text-secondary"></div>
-                    <div class="b-advantages__main">
-                        <div class="b-advantages__title">PRIVATE CRUISES</div>
-                        <div class="decore01"></div>
-                        <div class="b-advantages__info">Indulge yourself with the absolute sailing experience. Book one of our vessels and sail into the absolute bliss surrounded by the beauties of the island and your beloved ones.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="b-advantages">
-                    <div class="ic flaticon-sailor text-secondary"></div>
-                    <div class="b-advantages__main">
-                        <div class="b-advantages__title">SPECIAL OCCASIONS</div>
-                        <div class="decore01"></div>
-                        <div class="b-advantages__info">Our team’s knowledge and dedication will attend your special moments. Spend your unique day on board, surrounded by the sea and the energy of Santorini.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @endforeach
+        <!-- End of Counters -->
+      </div>
     </div>
 </div>
 <section class="section-goods">
@@ -214,7 +195,7 @@
         <div class="ui-decor ui-decor_mirror ui-decor_center"></div>
         <div class="container">
             <div class="text-center">
-                <h2 class="ui-title ui-title_light">Fleet of Luxury Boats</h2>
+                <h2 class="ui-title ui-title_light">{{__('Fleet of Luxury Boats')}}</h2>
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
                         <p>Dolore magna aliqua enim ad minim veniam, quis nostrud exercitation aliquip duis aute irure dolorin  <br>  reprehenderits vol dolore fugiat nulla pariatur excepteur sint occaecat cupidatat.</p> <img src="assets/img/decore03.png" alt="photo"> </div>
@@ -229,11 +210,15 @@
                 <div class="col-xl-3 col-md-6">
                     <div class="b-goods">
                         <a class="b-goods__img" href="{{route('offer.show', $offer->slug)}}">
+
                             @php
-                            $photos=explode(',',$offer->thumb);
-                            // dd($photo);
+                            $photos = json_decode($offer['thumb'] ,true)
                             @endphp
-                            <img class="img-scale" src="{{$photos[0]}}" alt="{{$offer->name}}" />
+                            
+                            {{-- @dd($offer->thumb) --}}
+                             @foreach ($photos as $photo)   
+                            <img class="img-scale" src="{{ asset('photos/'.$photo) }}" alt="{{$offer->name}}" />
+                            @endforeach
                         </a>
                         <div class="b-goods__main">
                             <div class="row no-gutters">
@@ -242,26 +227,17 @@
                                 </div>
                                 <div class="col-auto">
                                     <div class="b-goods__price text-primary">
-                                        <span class="b-goods__price-title">PRICE</span>
+                                        <span class="b-goods__price-title">{{__('Price')}}</span>
                                         <span class="b-goods__price-number">{{$offer->price}}</span>
                                         <span class="b-goods__price-after-price">Starting from</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="b-goods-descrip_nev_wrap">
-                                @foreach ($offer->packages as $key => $package)
-                        
-                                    @foreach ($package->features->take(2) as $feature)    
-                                    <div class="b-goods-descrip__nev"><span class="b-goods-descrip__info">{{$feature->title}}</span> </div>
-                                  @endforeach
-
-                                    @foreach ($package->conditions->take(2) as $condition)    
-                                    <div class="b-goods-descrip__nev"> <span class="b-goods-descrip__info"> {{$condition->title}}</span> </div>
-                                    @endforeach
-                              
-                                @endforeach
+                            <div class="b-goods-descrip_nev_wrap">                        
+                                    <div class="b-goods-descrip__nev">
+                                        <span class="b-goods-descrip__info">{{$offer->short_desc}}</span>
+                                     </div>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
@@ -278,36 +254,29 @@
         <div class="dw-wrap">
             <div class="row">
                 <div class="col-xs-12 col-md-4">
-                    <div class="dw-img"><img src="assets/img/deal-weak.jpg" alt="photo"></div>
+                    <div class="dw-img">
+                        @foreach ($featured_offer as $offer)
+                        @php
+                        $photos=explode(',',$offer->thumb);
+                        // dd($photo);
+                        @endphp
+                        <img src="{{$photos[0]}}" alt="{{$offer->name}}" />
+                        @endforeach
+                    </div>
                 </div>
                 <div class="col-xs-12 col-md-8">
                     <div class="dw-info">
-                        <h5 class="decore-title">Deal Of The Week
-
-                        </h5>
-                        <h3>DayDream Boat <span>Rent For $800 / HRS</span></h3>
-                        <div class="dw-text">Builder /Model: French Waves | Type/Year: House Boat 2019 | Length: 105 FT 32 M Charter Guests: 200 | Crew Members: 6</div>
-                        <div class="dw-footer"><i class="fas fa-phone-square"></i> Booking a Charter Boat <strong>+1 755 302 8549</strong></div>
+                        <h5 class="decore-title">{{__('Deal of the')}}</h5>
+                        @foreach ($featured_offer as $offer)
+                        <h3>{{$offer->name}} <span>Starting from / ${{$offer->price}} </span></h3>
+                        <div class="dw-text">{{$offer->short_desc}}</div>
+                        @endforeach
+                        <div class="dw-footer"><i class="fas fa-phone-square"></i> {{__('Booking Now')}} <strong>{{setting('home_phone')}}</strong></div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Counters -->
-        <div class="row bg-counters py-5">
-            <!-- Counter -->
-            @foreach ($categories as $category)
-            <div class="col-12 col-md-6 col-lg-4">                   
-                 <a href="{{route('category_detail', $category->slug)}}">
-                <div class="b-progress-list cr-counters bg-accent-1 " style="background:url({{getImageUrl($category->image)}}) {{$category->color_code}};  background-blend-mode: luminosity;  background-size:cover;height:38vh" >
-                    <div class="cr-counters__description">{{$category->name}}</div>
-                </div>
-            </a>
-            </div>
-            @endforeach
-        <!-- End of Counters -->
-      </div>
 </section>
-
 
 <section class="section-video section-default section-goods__inner bg-dark ">
     <div class="ui-decor ui-decor_mirror ui-decor_center"></div>
@@ -325,7 +294,7 @@
                 </div>
             </div>
             <div class="col-12 col-md-2 col-lg-2"> 
-                <a class="video-btn venobox ternary-video-btn-style vbox-item popup-youtube" data-vbtype="video" data-autoplay="true" href="https://youtu.be/ZHsROGnEmb8?list=TLGGjh4C7bM5_w0xODA2MjAyMQ"><i class="fa fa-play"></i>
+                <a class="video-btn venobox ternary-video-btn-style vbox-item popup-youtube" data-vbtype="video" data-autoplay="true" href="https://youtu.be/ZHsROGnEmb8"><i class="fa fa-play"></i>
                     <div class="pulsing-bg"></div>
                        <span>Watch A Tour</span> 
                 </a> 
@@ -333,19 +302,15 @@
         </div>
     </div>
 </section>
+
 <section class="section-gallery">
     <div class="container">
         <div class="text-center">
-            <h2 class="ui-title">Picture Gallery</h2>
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <p>Dolore magna aliqua enim ad minim veniam, quis nostrud exercitation aliquip duis aute irure dolorin <br> reprehenderits vol dolore fugiat nulla pariatur excepteur sint occaecat cupidatat.</p> <img src="assets/img/decore03.png" alt="photo"> </div>
-            </div>
+            <h2 class="ui-title">{{__('Picture Gallery')}}</h2>
         </div>
     </div>
     <div class="ui-gallery js-zoom-gallery">
         <div class="row no-gutters">
-           
             @foreach ($home_settings as $home)
             @php
             $photos=explode(',',$home->section_photo_2);
@@ -360,14 +325,14 @@
         </div>
     </div>
 </section>
+
 <section class="section-form">
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-lg-6">
                 <div class="text-left">
-                    <h2 class="ui-title">Booking Form</h2>
-                    <p>Dolore magna aliqua enim ad minim veniam, quis nostrudreprehenderits
-                        <br> dolore fugiat nulla pariatur lorem ipsum dolor sit amet. </p> <img src="assets/img/decore03.png" alt="photo">
+                    <h2 class="ui-title">{{__('Booking Form')}}</h2>
+                        <img src="assets/img/decore03.png" alt="photo">
                     <form action="{{route('home_booking')}}" method="POST">
                         @csrf
                         <input type="hidden" name="type" value="{{\App\Models\Booking::TYPE_BOOKING_FORM}}">
@@ -402,36 +367,30 @@
                     </form>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6">
-                <div class="text-left title-padding-m-top">
-                    <h2 class="ui-title">Boat Rental FAQ’s</h2>
-                    <p>Dolore magna aliqua enim ad minim veniam, quis nostrudreprehenderits
-                        <br> dolore fugiat nulla pariatur lorem ipsum dolor sit amet. </p> <img src="assets/img/decore03.png" alt="photo"> </div>
-        
-        @foreach ($faqs as $faq)
-            
-        <div class="ui-accordion accordion" id="accordion-{{$faq->id}}">
-          <div class="card">
-            <div class="card-header" id="heading1">
-              <h3 class="mb-0">
-                <button class="ui-accordion__link collapsed" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"><span class="ui-accordion__number">{{$faq->id}}</span>{{$faq->title}}<i class="ic fas fa-chevron-down"></i></button>
-              </h3>
-            </div>
-            <div class="collapse show" id="collapse1" data-aria-labelledby="heading1" data-parent="#accordion-{{$faq->id}}">
-              <div class="card-body">{!! $faq->content !!}</div>
-            </div>
-          </div>
-          @endforeach
-
-                       
-        </div>
-        <!-- end .accordion-->
-                
+<div class="col-md-6 col-lg-6">
+    <div class="text-left title-padding-m-top">
+        <h2 class="ui-title">{{__('Boat Rental FAQ')}}</h2>
+                <img src="assets/img/decore03.png" alt="photo"> </div>
+                @foreach ($faqs as $faq)
+                <div class="ui-accordion accordion" id="accordion-{{$faq->id}}">
+                    <div class="card">
+                    <div class="card-header" id="heading1">
+                        <h3 class="mb-0">
+                        <button class="ui-accordion__link collapsed" type="button" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1"><span class="ui-accordion__number">*</span>{{$faq->title}}<i class="ic fas fa-chevron-down"></i></button>
+                        </h3>
+                    </div>
+                    <div class="collapse show" id="collapse1" data-aria-labelledby="heading1" data-parent="#accordion-{{$faq->id}}">
+                        <div class="card-body">{!! $faq->content !!}</div>
+                    </div>
+                    </div>
+                    @endforeach         
+                </div>
+                <!-- end .accordion-->
             </div>
         </div>
     </div>
 </section>
-<section class="section-reviews area-bg area-bg_dark area-bg_op_90">
+{{-- <section class="section-reviews area-bg area-bg_dark area-bg_op_90">
     <div class="area-bg__inner section-default">
         <div class="container text-center">
             <div class="text-center">
@@ -475,19 +434,16 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
+
 <section class="section-article section-default">
     <div class="container">
         <div class="text-center">
-            <h2 class="ui-title">Industry News</h2>
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    <p>Dolore magna aliqua enim ad minim veniam, quis nostrud exercitation aliquip duis aute irure dolorin <br> reprehenderits vol dolore fugiat nulla pariatur excepteur sint occaecat cupidatat.</p> <img src="assets/img/decore04.png" alt="photo"> </div>
-            </div>
+            <h2 class="ui-title">{{__('Industry News')}}</h2>
         </div>
         <div class="pt-2 row">
             @foreach($blog_posts as $post)
-            <div class="col-xl-4 col-md-4">
+            <div class="col-xl-4 col-md-4 col-sm-4">
                 <section class="b-post b-post-3">
                     <div class="entry-media">
                         <a href="{{route('post_detail', [$post->slug, $post->id])}}"><img class="img-scale" src="{{getImageUrl($post->thumb)}}" alt="{{$post->title}}" /></a>
@@ -503,21 +459,13 @@
                         <div class="entry-header">
                             <h2 class="entry-title"><a href="{{route('post_detail', [$post->slug, $post->id])}}">{{$post->title}}</a></h2> </div>
                         <div class="entry-content"> {!! Str::limit($post->content, 150) !!} </div>
-                    </div> <a class="btn-post" href="{{route('post_detail', [$post->slug, $post->id])}}">Read More</a> </section>
+                    </div> <a class="btn-post" href="{{route('post_detail', [$post->slug, $post->id])}}">{{__('Read More')}}</a> </section>
                 <!-- end .b-post-->
             </div>
             @endforeach
-
         </div>
     </div>
 </section>
-<section class="section-default section-banners">
-    <div class="container">
-        <div class="text-center"> <img src="assets/img/banners.jpg" alt="photo"> </div>
-    </div>
-</section>
-
-
 
 @endsection
 

@@ -346,7 +346,7 @@
                         </small>
                         <input type="hidden" name="score" value="">
                         <input type="hidden" name="place_id" value="{{$place->id}}">
-                        <button type="submit" class="btn" id="btn_submit_review">{{__('Submit')}}
+                        <button type="submit" class="btn" id="btn_submit_review">{{__('Save')}}
                         </button>
                       </div>
                     </form>

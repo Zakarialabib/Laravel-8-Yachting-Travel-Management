@@ -199,7 +199,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-20">{{ __('Submit') }}</button>
+                            <button type="submit" class="btn btn-primary mt-20">{{ __('Save') }}</button>
                         </form>
                     </div>
                     <div class="clearfix"></div>

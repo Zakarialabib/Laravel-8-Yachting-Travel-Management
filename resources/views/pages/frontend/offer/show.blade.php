@@ -25,21 +25,18 @@
     <section class="b-goods-f">
       <div class="row">
         <div class="col-lg-8">
-          @php
-          $photos=explode(',',$offer->thumb);
-          // dd($photo);
-          @endphp
+         
           <div class="b-goods-f__slider">
               <div class="ui-slider-main js-slider-for">
-                @foreach ($photos as $photo)
-                <img class="img-scale" src="{{$photo}}" alt="{{$photo}}"/>
+                @foreach (json_decode($offer->thumb, true) as $photo)
+                <img class="img-scale" src="{{ asset('photos/' . $photo) }}" alt="{{$photo}}"/>
                 @endforeach
 
               </div>
              
               <div class="ui-slider-nav js-slider-nav">
-                @foreach ($photos as $photo)
-                <img class="img-scale" src="{{$photo}}" alt="{{$photo}}"/>
+                @foreach (json_decode($offer->thumb, true) as $photo)
+                <img class="img-scale" src="{{ asset('photos/' . $photo) }}" alt="{{$photo}}"/>
                 @endforeach
                 </div>
           </div>
@@ -145,38 +142,11 @@
             <div class="col-lg-4">
               <aside class="l-sidebar">
                 <div class="b-goods-f-price">
-                  <h5><i class="fa fa-heart"></i>{{__('Offer')}}</h5>
-                  <p>{{$offer->name}}</p>
-                  <h5><i class="fa fa-map-marker"></i>{{__('Package')}}</h5>
-                  <p><span id="package-title">
-                    {{$offer->packages ?? $offer->packages->first()->title}}
-                  </span></p>
-                  <h5><i class="fa fa-globe"></i>{{__('City')}}</h5>
-                  <p>{{$offer->city->name}}</p>
-                  <h5><i class="fa fa-globe"></i>{{__('Min Stay')}}</h5>
-                  <p><span id="min-stay">{{$offer->packages ?? $offer->packages->first()->period}}</span> {{__('nights')}}</p>
-                  <div class="b-goods-f-price__header bg-secondary">Starting from<span class="b-goods-f-price__main">$ {{$offer->price}}</span></div>
+                  <div class="b-goods-f-price__header bg-secondary">                  <h5>{{$offer->name}}</h5>Starting from<span class="b-goods-f-price__main">$ {{$offer->price}}</span></div>
                 </div>
-                
-                <div class="b-goods__wrap-bnrs">
-                    
-                    <img class="b-goods__bnr" src="assets/img/payment-icon_02.png" alt="photo"/>
-                    
-                     <div class="b-goods-f-price__note">Included Taxes & Checkup*</div>
-                  
-                  </div>
 
-                  <div class="b-seller">
-                    <div class="b-seller__header bg-primary">
-                      <div class="b-seller__title">
-                        <div class="b-seller__name">{{__('Need Assistance')}}</div>
-                      </div>
-                    </div>
-                    <div class="b-seller__main"><i class="b-seller__ic flaticon-phone-call text-primary"></i>
-                      <div class="b-seller__contact"><span class="d-block">Contact Us</span><a class="b-seller__phone" href="tel:{{setting('home_phone')}}">{{setting('home_phone')}}</a></div>
-                    </div>
-                  </div>
-                  <!-- end .b-seller-->
+
+                 
 
                   <div class="widget-2 section-sidebar bg-gray">
                     <h3 class="widget-title-2"><span class="widget-title__inner">Book Now</span></h3>
@@ -261,6 +231,17 @@
                       </div>
                     </div>
                   </div>
+                   <div class="b-seller">
+                    <div class="b-seller__header bg-primary">
+                      <div class="b-seller__title">
+                        <div class="b-seller__name">{{__('Need Assistance')}}</div>
+                      </div>
+                    </div>
+                    <div class="b-seller__main"><i class="b-seller__ic flaticon-phone-call text-primary"></i>
+                      <div class="b-seller__contact"><span class="d-block">Contact Us</span><a class="b-seller__phone" href="tel:{{setting('home_phone')}}">{{setting('home_phone')}}</a></div>
+                    </div>
+                  </div>
+                  <!-- end .b-seller-->
                 </aside>
               </div>
             </div>

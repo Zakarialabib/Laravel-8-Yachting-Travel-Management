@@ -54,12 +54,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         $validator = Validator::make($data, [
-            'sur_name'   => 'required|string|max:255',
-            'first_name' => 'string|max:255',
-            'email'      => 'required|string|email|max:255|unique:users',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone'      => 'required',
             'password'   => 'required|string|min:6|confirmed',
-            'booking_id' => '',
         ]);
 
         if ($validator->fails()) {
@@ -93,22 +91,16 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
+            'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-
+    
         $user->assignRole('customer');
 
         $data['user'] = $user;
 
-        Profile::store($data);
-
-        if($data['booking_id'])
-        {
-            $booking = Booking::find($data['booking_id']);
-            $booking->update(['user_id' => $user->id]);
-            PortalCustomNotificationHandler::bookingAttachedToUser($booking);
-        }
+    
 
         PortalCustomNotificationHandler::registrationSuccessful($user);
 

@@ -9,7 +9,7 @@
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 bg-white"> 
-        <form method="POST" action="{{ route('return_update' , $return->id) }}" class="form-horizontal" role="form" id="update-form" data-return="{{$return->id}}" enctype="multipart/form-data" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('return_update' , $return->id) }}" class="form-horizontal" role="form" id="update-form" data-return="{{$return->id}}" enctype="multipart/form-data">
             <input type="hidden" name="_method" value="put">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                           <div class="row mb-2">

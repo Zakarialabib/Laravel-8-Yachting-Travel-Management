@@ -19,6 +19,7 @@ class CreateSlidersTable extends Migration
             $table->string('photo');
             $table->string('slogan');
             $table->string('label');
+            $table->string('link')->nullable();
             $table->timestamps();
         });
     }

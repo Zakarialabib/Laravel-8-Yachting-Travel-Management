@@ -25,7 +25,7 @@
             <li class="@yield('activePlace') nav-item"><a href="#"><i class="la la-users"></i><span
                         class="menu-title">{{ __('Offers') }}</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="#">{{ __('Special Offers') }}</a>
+                    {{-- <li><a class="menu-item" href="#">{{ __('Special Offers') }}</a>
                         <ul class="menu-content">
                             <li><a class="menu-item"
                                     href="{{ route('place_list') }}">{{ __('Special Offers List') }}</a>
@@ -37,17 +37,17 @@
                                     href="{{ route('amenities_list') }}">{{ __('Amenities List') }}</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li><a class="menu-item" href="#">{{ __('Offers') }}</a>
                         <ul class="menu-content">
                             <li><a class="menu-item"
                                     href="{{ route('offer_list') }}">{{ __('Offers List') }}</a>
                             </li>
                             <li><a class="menu-item"
-                                    href="{{ route('category_list', \App\Models\Category::TYPE_OFFER) }}">{{ __('Offers Category List') }}</a>
+                                    href="{{ route('category_list', \App\Models\Category::TYPE_OFFER) }}">{{ __('Category List') }}</a>
                             </li>
                             <li><a class="menu-item"
-                                    href="{{ route('category_type_list') }}">{{ __('Offers Category Type List') }}</a>
+                                    href="{{ route('category_type_list') }}">{{ __('Category Type List') }}</a>
                             </li>
                         </ul>
                     </li>
@@ -63,6 +63,12 @@
             <li class="@yield('activePost') nav-item"><a href="#"><i class="la la-bank"></i><span
                         class="menu-title">{{ __('Manage Pages') }} </span></a>
                 <ul class="menu-content">
+                    <li><a class="menu-item" href="{{ route('home_settings') }}">
+                        {{ __('Home Settings') }}</a>
+                    </li>
+                    <li><a class="menu-item"
+                    href="{{ route('slides.index') }}">{{ __('Home Slides') }}</a>
+                    </li>  
                     <li><a class="menu-item"
                             href="{{ route('post_list_blog') }}">{{ __('All Posts') }}</a>
                     </li>
@@ -73,14 +79,10 @@
                             href="{{ route('post_list_page') }}">{{ __('Pages Management') }}</a>
                     </li>
                     <li><a class="menu-item"
-                            href="{{ route('faq') }}">{{ __('Termes et Conditions') }}</a>
-                    </li>
-                    <li><a class="menu-item"
-                            href="{{ route('slides.index') }}">{{ __('Slides') }}</a>
+                            href="{{ route('faq') }}">{{ __('Faq') }}</a>
                     </li>
                 </ul>
             </li>
-
         
             <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main"><i
                         class="la la-money"></i>{{ __('Subscribers') }}</a>
@@ -97,21 +99,19 @@
                 <a href="#"><i class="la la-cogs"></i>
                     <span class="menu-title">{{ __('Settings') }}</span></a>
                 <ul class="menu-content">
-                    <li><a class="menu-item" href="{{ route('users.management') }}">
+                    <li><a class="menu-item" href="{{ route('clear-cache') }}">
+                        {{ __('Clear Cache') }}</a>
+                     </li>
+                    <li><a class="menu-item" href="{{ route('users.index') }}">
                            {{ __('Users List') }}</a>
                     </li>
                     <li><a class="menu-item" href="{{ route('settings') }}">
                             {{ __('General Settings') }}</a>
                     </li>
-                    <li><a class="menu-item" href="{{ route('home_settings') }}">
-                            {{ __('Home Settings') }}</a>
-                    </li>
                     <li class="menu-item"><a href="{{ route('profile') }}">
                             {{ __('Manage Profile') }}</a>
                     </li>
-                    <li><a class="menu-item" href="{{ route('clear-cache') }}">
-                            {{ __('Clear Cache') }}</a>
-                    </li>           
+                               
                      <li><a href="{{ url('settings/language') }}">
                             {{ __('Language') }}</a>
                     </li>

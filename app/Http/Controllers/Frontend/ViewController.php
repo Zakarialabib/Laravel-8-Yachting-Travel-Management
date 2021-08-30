@@ -90,6 +90,11 @@ class ViewController extends Controller
              ->where('status', Offer::STATUS_ACTIVE)
             ->get();
 
+            $featured_offer = Offer::query()
+            ->where('is_featured', 1)
+            ->limit(1)
+             ->get();
+
             $sliders = Slider::all();
 
             $categories = Category::query()
@@ -97,13 +102,13 @@ class ViewController extends Controller
             ->get();
 
             $faqs = Faq::query()
-            ->where('status', 1)
+            ->where('type', Faq::TYPE_FAQ)
             ->limit(2)
             ->get();
 
             $home_settings = HomeSettings::all();
 
-        return view('pages.frontend.home',compact('blog_posts','faqs','home_settings','offers','places','sliders','categories'));
+        return view('pages.frontend.home',compact('blog_posts','featured_offer','faqs','home_settings','offers','places','sliders','categories'));
 
     }
 
@@ -182,6 +187,44 @@ class ViewController extends Controller
             'keyword' => $keyword
         ]);
     }
+    public function sendAbout(Request $request)
+    {
+        Mail::send('pages.frontend.mail.contact_form', [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'note' => $request->note
+        ], function ($message) use ($request) {
+            $message->to(config('default_email_address'), "{$request->first_name}")->subject('Contact from ' . $request->first_name);
+        });
+
+
+        return back()->with('success', 'Contact has been send!');
+    }
+    public function contact()
+    {
+        return view('pages.frontend.page.contact');
+    }
+    public function about()
+    {
+        return view('pages.frontend.page.about');
+    }
+    public function sendContact(Request $request)
+    {
+        Mail::send('pages.frontend.mail.contact_form', [
+            'username' => $request->username,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'message' => $request->message
+        ], function ($message) use ($request) {
+            $message->to(config('default_email_address'), "{$request->first_name}")->subject('Contact from ' . $request->first_name);
+        });
+
+
+        return back()->with('success', 'Contact has been send!');
+    }
+    
     public function termsConditions()
     {
         
@@ -193,6 +236,9 @@ class ViewController extends Controller
 
     public function saleConditions()
     {
+        $faqs = Faq::query()
+        ->where('type', Faq::TYPE_SALE)
+        ->get();
         return view('pages.frontend.page.saleconditions');
     }
 
@@ -286,20 +332,13 @@ class ViewController extends Controller
     {
         $keyword = $request->keyword;
         $filter_category = $request->category;
-        $filter_city = $request->city;
 
         $categories = Category::query()
             ->where('type', Category::TYPE_PLACE)
             ->orWhere('type', Category::TYPE_OFFER)
             ->get();
 
-        $cities = City::query()
-            ->get();
-
         $offers = Offer::query()
-            ->with(['city' => function ($query) {
-                return $query->select('id', 'name', 'slug');
-            }])
             ->with('categories')
             ->whereTranslationLike('name', "%{$keyword}%")
             ->where('status', Offer::STATUS_ACTIVE);
@@ -314,30 +353,6 @@ class ViewController extends Controller
             }
         }
 
-        if ($filter_city) {
-            $offers->whereIn('city_id', $filter_city);
-        }
-
-   
-
-        if ($request->ajax == '1') {
-            $offers = $offers->get();
-
-            $city = null;
-            if (isset($filter_city)) {
-                $city = City::query()
-                    ->whereIn('id', $filter_city)
-                    ->first();
-            }
-
-            $data = [
-                'city' => $city,
-                'offers' => $offers
-            ];
-
-            return $this->response->formatResponse(200, $data, 'success');
-        }
-
         $offers = $offers->paginate();
 
 //        return $places;
@@ -346,26 +361,8 @@ class ViewController extends Controller
             'keyword' => $keyword,
             'categories' => $categories,
             'offers' => $offers,
-            'cities' => $cities,
             'filter_category' => $filter_category,
-            'filter_city' => $request->city,
         ]);
-    }
-
-    public function sendAbout(Request $request)
-    {
-        Mail::send('pages.frontend.mail.contact_form', [
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'phone_number' => $request->phone_number,
-            'email' => $request->email,
-            'note' => $request->note
-        ], function ($message) use ($request) {
-            $message->to(config('default_email_address'), "{$request->first_name}")->subject('Contact from ' . $request->first_name);
-        });
-
-
-        return back()->with('success', 'Contact has been send!');
     }
 
 
@@ -416,374 +413,6 @@ class ViewController extends Controller
     }
 
 
-    public function availableItineraries(){
-
-        $availableItineraries = session()->get('availableItineraries');
-        $availableAirlines    = $this->AmadeusHelper->lowFarePlusResponseAvailableAirline($availableItineraries);
-        $availableCabins      = $this->AmadeusHelper->lowFarePlusResponseAvailableCabin($availableItineraries);
-        $availableStops       = $this->AmadeusHelper->lowFarePlusResponseAvailableStops($availableItineraries);
-        $availablePrices      = json_encode($this->AmadeusHelper->lowFarePlusResponseAvailablePrice($availableItineraries));
-        $minimumPrice         = round($availableItineraries[0]['displayTotal'] /100);
-        $lastItinerary        = count($availableItineraries) - 1;
-        $maximumPrice         = round($availableItineraries[$lastItinerary]['displayTotal'] / 100);
-
-        return view('pages.frontend.flight.search_result',compact('availableItineraries','availableCabins','availableAirlines','minimumPrice','maximumPrice','availableStops','availablePrices'));
-    }
-
-    public function itineraryBooking(){
-
-        $itineraryPricingInfo = session()->get('itineraryPricingInfo');
-        $selectedItinerary    = session()->get('selectedItinerary');
-        $flightSearchParam    = session()->get('flightSearchParam');
-
-        $months = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December'
-        ];
-
-        return view('pages.frontend.flight.itinerary_booking',compact('itineraryPricingInfo','selectedItinerary','flightSearchParam','months'));
-
-    }
-
-    public function flightBookingPayment(){
-
-        $itineraryPricingInfo   = session()->get('itineraryPricingInfo');
-        $selectedItinerary      = session()->get('selectedItinerary');
-        $flightSearchParam      = session()->get('flightSearchParam');
-        $pnr = session()->get('pnr');
-        $booking = FlightBooking::where('pnr',$pnr)->first();
-        $banks = BankDetail::where('status',1)->get();
-
-        return view('pages.frontend.flight.payment_option',compact('itineraryPricingInfo','selectedItinerary','flightSearchParam','booking','banks'));
-
-    }
-
-    public function flightPaymentConfirmation(){
-
-          $paymentInfo            = session()->get('paymentInfo');
-          $itineraryPricingInfo   = session()->get('itineraryPricingInfo');
-          $selectedItinerary      = session()->get('selectedItinerary');
-          $flightSearchParam      = session()->get('flightSearchParam');
-          $pnr = session()->get('pnr');
-          $booking = FlightBooking::where('pnr',$pnr)->first();
-          $profile = Profile::getUserInfo(auth()->user()->id);
-          return view('pages.frontend.flight.payment_confirmation',compact('paymentInfo','itineraryPricingInfo','selectedItinerary','flightSearchParam','booking','profile'));
-
-    }
-
-    public function palindrome($string){
-        $cleanString = preg_replace("/[^a-zA-Z]+/","",$string);
-        $stringLength = strlen($cleanString);
-        $validator = 0;
-        for($i = 0; $i < $stringLength; $i++){
-            $initial = strtolower(substr($cleanString,$i,1));
-            $later = strtolower(substr($cleanString,(-1-$i),1));
-            if($initial != $later){
-                $validator = $validator + 1;
-            }
-        }
-        if($validator > 0){
-            return "It is not a palindrome";
-        }
-        return "It is a palindrome";
-    }
-
-    public function availableHotels(){
-
-
-        $hotels = session()->get('availableHotels');
-
-        $hotelSearchParam = session()->get('hotelSearchParam');
-
-        $availableHotels =  $this->AmadeusHelper->hotelAvailResponseSort($hotels);
-
-        $ratings = [];
-        $prices = [];
-        foreach($availableHotels as $serial => $availableHotel){
-            array_push($ratings,$availableHotel['hotelStarRating']);
-            array_push($prices,round($availableHotel['minimumRate'] / 100));
-        }
-
-        $starRatings = array_values(array_unique($ratings));
-        $minimumPrice = round(min($availableHotels)['minimumRate'] / 100);
-        $maximumPrice = round(max($availableHotels)['minimumRate'] / 100);
-        $availablePrices = json_encode(array_values(array_unique($prices)));
-        return view('pages.frontend.hotel.search_result',compact('availableHotels','hotelSearchParam','minimumPrice','maximumPrice','starRatings','availablePrices'));
-
-    }
-
-    public function hotelInformation(){
-        $selectedHotel = session()->get('selectedHotelInformation');
-        $hotelInformation = $this->AmadeusHelper->hotelAvailRoomResponseSort($selectedHotel);
-        return view('pages.frontend.hotel.hotel_details',compact('hotelInformation'));
-    }
-
-    public function hotelRoomBooking($id){
-
-        $hotelInformation = $this->HotelController->selectedHotel();
-        $searchParam      = session()->get('hotelSearchParam');
-        $selectedRoom     = $hotelInformation['availableRooms'][$id];
-        $hotelRoomInformation = session()->get('selectedHotelRoomInformation');
-        $vat = 0;
-        $adminMarkDown = 0;
-        $agentMarkDown = 0;
-        $agentMarkup = 0;
-        $customerMarkDown = 0;
-        $customerMarkup = 0;
-        $voucherId = 0;
-        $voucherAmount = 0;
-        $totalAmount = 0;
-
-        $agentMarkupInfo    = Markup::where('role_id', 2)->first();
-        $customerMarkupInfo = Markup::where('role_id', 3)->first();
-        $vatInfo            = Vat::where('id',1)->first();
-
-        $agentMarkup    = $this->AmadeusHelper->priceTypeCalculator($agentMarkupInfo->hotel_markup_type,$agentMarkupInfo->hotel_markup_type,$selectedRoom['roomPrice']);
-        $customerMarkup = $this->AmadeusHelper->priceTypeCalculator($customerMarkupInfo->hotel_markup_type,$customerMarkupInfo->hotel_markup_type,$selectedRoom['roomPrice']);
-        $adminMarkup    = 0;
-        $vat            = $this->AmadeusHelper->priceTypeCalculator($vatInfo->hotel_vat_type,$vatInfo->hotel_vat_type,$selectedRoom['roomPrice']);
-
-        $adminTotalAmount = $selectedRoom['roomPrice'];
-        $agentTotalAmount = $selectedRoom['roomPrice'] + $agentMarkup - $agentMarkDown + $vat;
-        $customerTotalAmount = $selectedRoom['roomPrice'] + $customerMarkup - $customerMarkDown + $vat;
-
-        $selectedRoom['vat'] = round($vat);
-        $selectedRoom['agentMarkDown'] = round($agentMarkDown);
-        $selectedRoom['agentMarkUp'] = round($agentMarkup);
-        $selectedRoom['customerMarkDown'] = round($customerMarkDown);
-        $selectedRoom['customerMarkUp'] = round($customerMarkup);
-        $selectedRoom['adminMarkDown'] = round($adminMarkDown);
-        $selectedRoom['adminMarkUp'] = round($adminMarkup);
-        $selectedRoom['voucherId'] = $voucherId;
-        $selectedRoom['voucherAmount'] = $voucherAmount;
-        $selectedRoom['adminTotalAmount']    = round($adminTotalAmount);
-        $selectedRoom['agentTotalAmount']    = round($agentTotalAmount);
-        $selectedRoom['customerTotalAmount'] = round($customerTotalAmount);
-
-        session()->put('selectedRoom',$selectedRoom);
-        $titles = Title::all();
-        return view('pages.frontend.hotel.hotel_booking',compact('hotelRoomInformation','searchParam','selectedRoom','hotelInformation','titles'));
-
-    }
-
-    public function hotelBookingPaymentPage(){
-        $hotelInformation = $this->HotelController->selectedHotel();
-        $searchParam      = session()->get('hotelSearchParam');
-        $selectedRoom     = session()->get('selectedRoom');
-        $hotelRoomInformation = session()->get('selectedHotelRoomInformation');
-        $banks = BankDetail::where('status',1)->get();
-        $titles = Title::all();
-        return view('pages.frontend.hotel.hotel_payment_option',compact('hotelRoomInformation','searchParam','selectedRoom','hotelInformation','banks','titles'));
-    }
-
-    public function hotelBookingCompletion(){
-        $hotelInformation = $this->HotelController->selectedHotel();
-        $searchParam      = session()->get('hotelSearchParam');
-        $selectedRoom     = session()->get('selectedRoom');
-        $paymentInfo      = session()->get('paymentInfo');
-        $bookingInfo      = HotelBooking::where('reference',$selectedRoom['bookingReference'])->first();
-
-
-        return view('pages.frontend.hotel.hotel_payment_confirmation',compact('hotelInformation','searchParam','selectedRoom','paymentInfo','bookingInfo'));
-    }
-
-    public function flightDeals(){
-
-        $flights = TravelPackage::where('attraction',0)
-            ->where('hotel', 0)
-            ->where('flight', 1)
-            ->where('status', 1)
-            ->orderBy('id','desc')
-            ->paginate(8);
-
-        return view('pages.frontend.deal.flight',compact('flights'));
-    }
-
-    public function hotelDeals(){
-
-        $hotelDeals = TravelPackage::orderBy('id','desc')
-            ->where('attraction',0)
-            ->where('hotel', 1)
-            ->where('flight', 0)
-            ->where('status', 1)
-            ->with('images')
-            ->with('hotelDeal')
-            ->get();
-        return view('pages.frontend.deal.hotel',compact('hotelDeals'));
-    }
-
-    public function attractionDeals(){
-
-        $attractionDeals = TravelPackage::where('attraction',1)
-            ->where('hotel', 0)
-            ->where('flight', 0)
-            ->where('status', 1)
-            ->orderBy('id','desc')
-            ->with('images')
-            ->with('sightSeeing')
-            ->orderBy('id','desc')
-            ->paginate(8);
-        return view('pages.frontend.deal.attraction',compact('attractionDeals'));
-
-    }
-
-    public function hotDeals(){
-
-        $hotDeals = TravelPackage::where('status', 1)
-            ->with('flightDeal')
-            ->with('hotelDeal')
-            ->with('attractionDeal')
-            ->with('sightSeeing')
-            ->with('images')
-            ->orderBy('id','desc')
-            ->paginate(8);
-        return view('pages.frontend.deal.attraction',compact('hotDeals'));
-    }
-
-
-    public function dealDetails($slug){
-        
-        $place = $this->place->getBySlug($slug);
-        if (!$place) abort(404);
-
-        $city = City::query()
-        ->with('country')
-        ->where('id', $place->city_id)
-        ->first();
-
-    $amenities = Amenities::query()
-        ->whereIn('id', $place->amenities ? $place->amenities : [])
-        ->get(['id', 'name', 'icon']);
-
-    $categories = Category::query()
-        ->whereIn('id', $place->category ? $place->category : [])
-        ->get(['id', 'name', 'slug', 'icon_map_marker']);
-
-    $place_types = PlaceType::query()
-        ->whereIn('id', $place->place_type ? $place->place_type : [])
-        ->get(['id', 'name']);
-
-    $reviews = Review::query()
-        ->with('user')
-        ->where('place_id', $place->id)
-        ->where('status', Review::STATUS_ACTIVE)
-        ->get();
-
-    $review_score_avg = Review::query()
-        ->where('place_id', $place->id)
-        ->where('status', Review::STATUS_ACTIVE)
-        ->avg('score');
-
-    $similar_places = Place::query()
-        ->with('place_types')
-        ->with('avgReview')
-        ->withCount('reviews')
-        ->withCount('wishList')
-        ->where('city_id', $city->id)
-        ->where('id', '<>', $place->id);
-
-    foreach ($place->category as $cat_id):
-        $similar_places->where('category', 'like', "%{$cat_id}%");
-    endforeach;
-    
-    $similar_places = $similar_places->limit(4)->get();
-
-        $deal = TravelPackage::where('id',$id)
-            ->with('hotelDeal')
-            ->with('flightDeal')
-            ->with('attractionDeal')
-            ->with('sightSeeing')
-            ->with('images')
-            ->first();
-
-        if($deal->status != 1){
-            Toastr::error("The package you are trying to get is not active.");
-            return back();
-        }
-
-        return view('pages.frontend.deal.details',compact('deal','place'), [
-            'place' => $place,
-            'city' => $city,
-            'amenities' => $amenities,
-            'categories' => $categories,
-            'place_types' => $place_types,
-            'reviews' => $reviews,
-            'review_score_avg' => $review_score_avg,
-            'similar_places' => $similar_places
-        ]);
-    }
-
-    public function dealBooking($id){
-
-        $deal = TravelPackage::where('id',$id)
-            ->with('hotelDeal')
-            ->with('flightDeal')
-            ->with('attractionDeal')
-            ->with('sightSeeing')
-            ->with('images')
-            ->first();
-
-        $titles = Title::all();
-
-        if($deal->status != 1){
-            Toastr::error("The package you are trying to get is not active.");
-            return back();
-        }
-
-        return view('pages.frontend.deal.bookings',compact('deal','titles'));
-
-    }
-
-    public function dealPaymentOptions(){
-
-        $booking_id = session()->get('deal_booking_id');
-
-        $booking = PackageBooking::find($booking_id);
-
-        $deal = TravelPackage::where('id',$booking->package_id)
-            ->with('hotelDeal')
-            ->with('flightDeal')
-            ->with('attractionDeal')
-            ->with('sightSeeing')
-            ->with('images')
-            ->first();
-
-        $banks = BankDetail::where('status',1)->get();
-
-        $titles = Title::all();
-
-        return view('pages.frontend.deal.payment_options',compact('booking','deal','banks','titles'));
-
-    }
-
-    public function dealBookingConfirmation(){
-
-        $booking_id = session()->get('deal_booking_id');
-
-        $booking = PackageBooking::find($booking_id);
-
-        $deal = TravelPackage::where('id',$booking->package_id)
-            ->with('hotelDeal')
-            ->with('flightDeal')
-            ->with('attractionDeal')
-            ->with('sightSeeing')
-            ->with('images')
-            ->first();
-
-        $paymentInfo = session()->get('paymentInfo');
-
-        return view('pages.frontend.deal.booking_confirmation',compact('booking','deal','paymentInfo'));
-
-    }
+ 
 
 }

@@ -8,7 +8,7 @@
 <script src="{{asset('backend/app-assets/vendors/js/charts/raphael-min.js')}}" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
 <script src="{{asset('backend/js/switchery.min.js')}}" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.14.0/ckeditor.js" integrity="sha512-ebJXEOpH9OBzSAqZIs7asHh12zsuvjtdn3bhUwCIDB8HnfpAexqgTp6a5as1WEy80EciTZ89l+EzxYs1jBI2gw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{asset('backend/app-assets/vendors/js/editors/ckeditor/ckeditor.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chosen-jquery@0.1.1/lib/chosen.jquery.min.js" type="text/javascript"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/dropzone@5.7.6/dist/dropzone.min.js" type="text/javascript"></script>
@@ -40,8 +40,6 @@
 <script src="{{asset('backend/app-assets/js/core/app-menu.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend/app-assets/js/core/app.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend/app-assets/js/scripts/customizer.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('backend/app-assets/js/scripts/customizer.min.js')}}" type="text/javascript"></script>
-
 <!-- BEGIN TOOLS FROM FRONTEND-->
 <script src="{{asset('frontend/assets/js/axios.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('frontend/assets/js/iziModal.js')}}" type="text/javascript"></script>

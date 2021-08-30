@@ -36,11 +36,19 @@
                                         {{ $index !== 0 ?: "required" }}>
                                 </div>
                                 <div class="form-group">
-                                    <label for="offer_description">Description
+                                    <label for="short_desc">{{ __('Short Description') }}
+                                        <small>({{ $language->code }})</small> : *</label>
+                                    <textarea type="text" class="form-control" 
+                                    name="{{ $language->code }}[short_desc]" 
+                                    id="{{ $language->code }}[short_desc]"   
+                                        {{ $index !== 0 ?: "" }}></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="offer_description">{{ __('Description') }}
                                         <small>({{ $language->code }})</small>
                                         : *</label>
-                                    <textarea type="text" class="form-control" id="ckeditor" required
-                                        name="{{ $language->code }}[description]" rows="6"
+                                    <textarea type="text" class="form-control" required
+                                        name="{{ $language->code }}[description]" id="{{ $language->code }}[description]" rows="6"
                                         {{ $index !== 0 ?: "required" }}></textarea>
                                 </div>
                             </div>
@@ -66,11 +74,20 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
+         <div class="row ">
+            <div class="form-group col-lg-6">
                 <label for="price">{{ __('Price') }}: *</label>
                 <input type="text" class="form-control" id="price" name="price"
                     placeholder="{{ __('Price') }}" autocomplete="off" required>
             </div>
+            <div class="form-group col-lg-6">
+                <label for="is_featured">{{ __('Is Featured')}}</label><br>
+               <select class="form-control" name="is_featured" id="is_featured">
+                   <option value="1">{{ __('Active')}}</option>
+                   <option value="0">{{ __('Inactive')}}</option>
+               </select>
+            </div>
+        </div>
             <div class="form-group">
                 <p class="lead">{{ __('itinerary') }}</p>
                 <div id="itinerary_list">
@@ -95,28 +112,16 @@
             </div>
 
             <div class="form-group">
-                <div class="form-group">
-                    <label for="inputthumb" class="col-form-label">{{ __('thumb') }} <span
-                            class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-                                <i class="fa fa-picture-o"></i> {{ __('Choose') }}
-                            </a>
-                        </span>
-                        <input id="thumbnail" class="form-control" type="text" name="thumb"
-                            value="{{ old('thumb') }}">
-                    </div>
-                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-                    @error('thumb')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+                    <div class="user-image mb-3 text-center">
+                        <div class="imgPreview"> </div>
+                    </div>            
+        
+                    <div class="custom-file">
+                        <input type="file" name="thumb[]" class="custom-file-input" id="images" multiple="multiple">
+                        <label class="custom-file-label" for="images">Choose image</label>
+                    </div>    
             </div>
-            <div class="form-group">
-                <label for="is_featured">{{ __('Is Featured')}}</label><br>
-                <input type="checkbox" name='is_featured' id='is_featured' value='1' checked> Yes                        
-              </div>
+         
                 <div class="form-group">
                     <label for="seo_title">{{ __('SEO title') }} -
                         <small>{{ __('60 characters or less') }}</small>:</label>
@@ -137,11 +142,37 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary mt-20">{{ __('Submit') }}</button>
+        <button type="submit" class="btn btn-primary mt-20">{{ __('Save') }}</button>
     </form>
 </div>
 @endsection
 
 @push('scripts')
     <script src="{{ asset('admin/js/page_offer.js') }}"></script>
+    <script type="text/javascript">
+        $(function() {
+             // Multiple images preview with JavaScript
+             var multiImgPreview = function(input, imgPreviewPlaceholder) {
+     
+                 if (input.files) {
+                     var filesAmount = input.files.length;
+     
+                     for (i = 0; i < filesAmount; i++) {
+                         var reader = new FileReader();
+     
+                         reader.onload = function(event) {
+                             $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
+                         }
+     
+                         reader.readAsDataURL(input.files[i]);
+                     }
+                 }
+     
+             };
+     
+             $('#images').on('change', function() {
+                 multiImgPreview(this, 'div.imgPreview');
+             });
+             });    
+          </script>
 @endpush

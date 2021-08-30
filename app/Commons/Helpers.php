@@ -8,6 +8,7 @@ function formatDate($date, $format)
     return Carbon::parse($date)->format($format);
 }
 
+
 if (!function_exists('setting')) {
     function setting($key, $default = null, $cache = false)
     {

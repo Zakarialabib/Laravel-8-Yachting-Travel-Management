@@ -29,9 +29,6 @@
                                    <div class="col-md-4">
                                        <label>{{__('User Type')}}</label>
                                        <select class="form-control" name="user_type" required>
-                                           @foreach($roles as $serial => $role)
-                                               <option value="{{$role->id}}">{{$role->display_name}}</option>
-                                           @endforeach
                                        </select>
                                    </div>
                                </div>
@@ -116,8 +113,6 @@
                                 <th>{{__('Name')}}</th>
                                 <th>{{__('Email')}}</th>
                                 <th>{{__('Phone')}}</th>
-                                <th>{{__('Profile Status')}}</th>
-                                <th>{{__('Role')}}</th>
                                 <th>{{__('Actions')}}</th>
                             </tr>
                             </thead>
@@ -197,22 +192,6 @@
                                          <td>{{$user->sur_name}} {{$user->first_name}}</td>
                                          <td>{{$user->email}}</td>
                                          <td>{{$user->phone_number}}</td>
-                                         <td>
-                                             @if($user->profile_complete_status == 0)
-                                                 <p class="warning"><i class="la la-warning"></i> {{__('Incomplete')}}</p>
-                                             @elseif($user->profile_complete_status == 0)
-                                                 <p class="success"><i class="la la-success"></i> {{__('Complete')}}</p>
-                                             @endif
-                                         </td>
-                                         <td>
-                                             @if($user->role_id == 1)
-                                                 <p class="danger">{{__('Super Admin')}}</p>
-                                             @elseif($user->role_id == 2)
-                                                 <p class="success">{{__('Agent')}}</p>
-                                             @elseif($user->role_id == 3)
-                                                 <p class="info"> {{__('Customer')}}</p>
-                                             @endif
-                                         </td>
                                          <td>
                                          <div class="dropdown">
                                          <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -9,7 +9,7 @@
         </div>
         <div class="title_right">
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{route('admin_testimonial_page_add')}}">{{__('Add new Testimonial')}}</a>
+                <a class="btn btn-primary" href="{{route('testimonial_page_add')}}">{{__('Add new Testimonial')}}</a>
             </div>
         </div>
     </div>
@@ -22,9 +22,6 @@
                         <table class="table table-striped jambo_table bulk_action">
                             <thead>
                             <tr class="headings">
-                                <th>
-                                    <input type="checkbox" id="check-all" class="flat">
-                                </th>
                                 <th class="column-title">{{__('Avatar')}}</th>
                                 <th class="column-title">{{__('Name')}}</th>
                                 <th class="column-title">{{__('Job title')}}</th>
@@ -39,9 +36,6 @@
 
                             @foreach($testimonials as $testimonial)
                                 <tr class="even pointer">
-                                    <td class="a-center ">
-                                        <input type="checkbox" class="flat" name="table_records">
-                                    </td>
                                     <td>
                                         @if($testimonial['avatar'])
                                             <img src="{{getImageUrl($testimonial['avatar'])}}" alt="no avt" style="width: 50px;height: 50px; border-radius: 50%">
@@ -61,7 +55,7 @@
                                     <td>{{$testimonial['content']}}</td>
                                     <td class="golo-flex">
                                 <div class="btn-group row">
-                                        <a href="{{route('admin_testimonial_page_edit', $testimonial['id'])}}" class="btn-sm btn-warning city_edit">{{__('Edit')}}</a>
+                                        <a href="{{route('testimonial_page_edit', $testimonial['id'])}}" class="btn-sm btn-warning city_edit">{{__('Edit')}}</a>
                                         <form class="d-inline" action="" method="POST">
                                             @method('DELETE')
                                             @csrf

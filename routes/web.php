@@ -17,10 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('clear-translations', 'ClearCacheController@clear_translations')
       ->name('clear-translations');
+      
 Route::get('clean', 'ClearCacheController@clear_cache')
       ->name('clear-cache');
 
    Route::post('/upload-image', 'ImageController@upload')->name('upload_image');
+   Route::post('/uploadImage', 'Controller@uploadImages');
 
   // User Notification
   Route::get('/user/notf/show', 'NotificationController@user_notf_show')->name('user-notf-show');
@@ -34,24 +36,9 @@ Route::get('clean', 'ClearCacheController@clear_cache')
   Route::get('/booking/notf/clear','NotificationController@booking_notf_clear')->name('booking-notf-clear');
   // booking Notification Ends
 
-Route::get('typeaheadJs', 'AirportController@typeAhead')->name('typeaheadJs');
-Route::get('airlineTypeAheadJs', 'AirlineController@typeAhead')->name('airlineTypeAheadJs');
-
-Route::post('/one-way-flight-search','FlightController@oneWayFlightSearch');
-Route::post('/round-trip-flight-search','FlightController@roundTripFlightSearch');
-Route::post('/multi-destination-flight-search','FlightController@multiDestinationFlightSearch');
-Route::get('/selected-itinerary-info/{id}','FlightController@selectedItineraryInfo');
-Route::get('/get-flight-information-and-pricing/{id}','FlightController@getItineraryInformationAndPricing');
-Route::post('/book-itinerary','FlightController@bookItinerary');
-Route::post('/bank-payment','BankPaymentController@itineraryBankPayment');
-Route::post('/hotel-bank-payment','BankPaymentController@hotelBankPayment');
 
 Route::get('/logout','Auth\LoginController@logout')->name('user.logout');
 
-
-Route::get('/cancel-pnr/{pnr}','FlightController@cancelPNR');
-Route::get('/issue-ticket/{pnr}','FlightController@issueTicket');
-Route::get('/void-ticket/{pnr}','FlightController@voidTicket');
 Route::post('/custom-sign-in','UserController@signIn');
 Route::post('/custom-sign-up','UserController@signUp');
 Route::post('/wishlist', 'UserController@addWishlist')->name('add_wishlist')->middleware('auth');
@@ -70,12 +57,12 @@ Route::group([
               'middleware' => []], function(){
                   
         Route::get('/', 'ViewController@home');
-        Route::get('/accueil', 'ViewController@home')->name('home');                
-        Route::get('/langue/{locale}', 'ViewController@changeLanguage')->name('change_language');
-        Route::get('/recherche', 'ViewController@search')->name('search');
-        Route::get('/termes-et-conditions', 'ViewController@termsConditions')->name('page_terms_conditions');
-        Route::get('/cgv', 'ViewController@saleConditions')->name('page_sale_conditions');
-        Route::get('/blog/tout', 'PostController@list')->name('post_list_all');
+        Route::get('/home', 'ViewController@home')->name('home');                
+        Route::get('/languague/{locale}', 'ViewController@changeLanguage')->name('change_language');
+        Route::get('/search', 'ViewController@search')->name('search');
+        Route::get('/terms-and-conditions', 'ViewController@termsConditions')->name('page_terms_conditions');
+        Route::get('/sale-conditions', 'ViewController@saleConditions')->name('page_sale_conditions');
+        Route::get('/blog/all', 'PostController@list')->name('post_list_all');
         Route::post('/post', 'PostController@send')->name('send');
         Route::get('/blog/{cat_slug}', 'PostController@list')->where('cat_slug', '[a-zA-Z0-9-_]+')->name('post_list');
         Route::get('{slug}-{id}', 'PostController@detail')
@@ -85,43 +72,38 @@ Route::group([
         Route::get('/ajax-search-listing', 'ViewController@searchListing');
         Route::get('/search', 'ViewController@search')->name('search');
         Route::post('/home-booking', 'ViewController@booking')->name('home_booking');
+        Route::get('/contact', 'ViewController@contact')->name('contact_page');
+        Route::get('/about-us', 'ViewController@contact')->name('about_page');
+        Route::post('/contact/send', 'ViewController@sendContact')->name('contact_send');
 
+         Route::get('/changecurrency/{currId}', 'ViewController@changeCurrency')->name('changeCurrency');
 
-        Route::post('/searchHotel','HotelController@searchHotel');
-        Route::get('/get-selected-hotel-information/{id}','HotelController@getSelectedHotelInformation');
-        Route::get('/get-selected-hotel-rooms-information/{id}','HotelController@getSelectHotelRoomsInformation');
-        Route::get('/get-selected-hotel-room-information/{id}','HotelController@getSelectedHotelRoomInformation');
-        Route::get('/selected-hotel-information','HotelController@selectedHotel');
-        Route::get('/hotel-room-information/{id}','HotelController@hotelRoomInformation');
-        Route::post('/hold-customer-hotel-booking-information','HotelController@holdCustomerHotelBookingInfo');
-        Route::get('/hotel-booking-confirmation','HotelController@hotelPaymentConfirmation');
 
         Route::get('/search-listing-input', 'ViewController@searchListing')->name('search_listing');
         Route::get('/search-listing', 'ViewController@pageSearchListing')->name('page_search_listing');
         Route::get('/hotel-booking-payment-page','ViewController@hotelBookingPaymentPage')->middleware('hotel.search.param','hotel.room.selected');
         Route::get('/hotel-booking-completion','ViewCOntroller@hotelBookingCompletion')->middleware('hotel.search.param','hotel.room.selected','payment.info');
 
-        Route::get('/meilleures-offres', 'PlaceController@list')->name('best_offers');
-        Route::get('/offre-special/{slug}', 'PlaceController@detail')->name('place_detail');
-        Route::get('/offres/filter', 'PlaceController@getListFilter')->name('place_get_list_filter');
+        // Route::get('/meilleures-offres', 'PlaceController@list')->name('best_offers');
+        // Route::get('/offre-special/{slug}', 'PlaceController@detail')->name('place_detail');
+        // Route::get('/offres/filter', 'PlaceController@getListFilter')->name('place_get_list_filter');
 
         Route::get('/offers', 'OfferController@list')->name('offer.index');
         Route::get('/offers/{slug}', 'OfferController@show')->name('offer.show');
         
-        Route::get('/ville-a-visiter', 'CityController@list')->name('cities_list');
-        Route::get('/ville/{slug}', 'CityController@detail')->name('city_detail');
-        Route::get('/ville/{slug}/{cat_slug}', 'CityController@detail')->name('city_category_detail');
+        Route::get('/cities', 'CityController@list')->name('cities_list');
+        Route::get('/city/{slug}', 'CityController@detail')->name('city_detail');
+        Route::get('/city/{slug}/{cat_slug}', 'CityController@detail')->name('city_category_detail');
 
         Route::get('/categorie', 'CategoryController@listPlace')->name('category_list');
         Route::get('/categorie/{slug}', 'CategoryController@detail')->name('category_detail');
         Route::get('/categorie/type/{slug}', 'CategoryController@typeDetail')->name('category_type_detail');
         Route::get('/categories', 'CategoryController@search')->name('category_search');
-        Route::post('/avis', 'ReviewController@create')->name('review_create')->middleware('auth');
+        Route::post('/reviews', 'ReviewController@create')->name('review_create')->middleware('auth');
        
-        
-        Route::get('/offres/map', 'PlaceController@getListMap')->name('place_get_list_map');
-        Route::get('/villes/{country_id}', 'CityController@getListByCountry')->name('city_get_list');
-        Route::get('/villes', 'CityController@search')->name('city_search');
+        Route::get('/offer/map', 'PlaceController@getListMap')->name('place_get_list_map');
+        Route::get('/cities/{country_id}', 'CityController@getListByCountry')->name('city_get_list');
+        Route::get('/cities-search', 'CityController@search')->name('city_search');
 
         Route::get('/cart', 'BookingController@cart')->name('booking_cart');
 
@@ -143,9 +125,18 @@ Route::group([
      });
 
 Route::group([
-    'prefix' => 'backoffice',
+    'prefix' => 'dashboard',
     'namespace' => 'Backend', 
     'middleware' => ['auth']], function(){
+        
+        Route::get('/users', 'UserController@index')->name('users.index');
+        Route::get('/users/show/{id}/', 'UserController@show')->name('users.show');
+        Route::get('/users/add', 'UserController@create')->name('users.create');
+        Route::post('/users/store', 'UserController@store')->name('users.store');
+        Route::get('/users/edit/{id}/', 'UserController@edit')->name('users.edit');
+        Route::patch('/users/update/{id}/', 'UserController@update')->name('users.update');
+        Route::patch('/users-update/{id}/', 'UserController@updateUser')->name('users_update');
+        Route::delete('/users/{id}/', 'UserController@destroy')->name('users.destroy');
         
         Route::get('/country', 'CountryController@list')->name('country_list');
         Route::post('/country', 'CountryController@create')->name('country_create');
@@ -157,24 +148,22 @@ Route::group([
         Route::put('/city', 'CityController@update')->name('city_update');
         Route::put('/city/status', 'CityController@updateStatus')->name('city_update_status');
         Route::delete('/city/{id}', 'CityController@destroy')->name('city_delete');
-
-        Route::group(['prefix' => 'customers'],function(){
-        Route::get('/', 'CustomerController@list')->name('customer_list');
-        Route::get('/add', 'CustomerController@create')->name('customer_create_view');
-        Route::post('/', 'CustomerController@store')->name('customer_create');
-        Route::get('/edit/{id}', 'CustomerController@edit')->name('customer_edit');
-        Route::put('/update/{id}', 'CustomerController@update')->name('customer_update');
-        Route::delete('/{id}', 'CustomerController@destroy')->name('customer_delete');
-    
-        });
-
-
       
         Route::group(['prefix' => 'facture'], function() {
         Route::get('create/{type}/{id}', 'InvoiceController@create')->name('invoice_create');
         Route::get('action/{action}/{type}/{id}/{template}', 'InvoiceController@action')->name('invoice_action');
         Route::post('send/{id}', 'InvoiceController@sendEmail')->name('invoice_send');
         });
+
+       // Currency  Route
+       Route::get('/currency', 'CurrencyController@currency')->name('currency');
+       Route::get('/currency/add', 'CurrencyController@add')->name('currency.add');
+       Route::post('/currency/store', 'CurrencyController@store')->name('currency.store');
+       Route::post('/currency/delete/{id}/', 'CurrencyController@delete')->name('currency.delete');
+       Route::get('/currency/edit/{id}/', 'CurrencyController@edit')->name('currency.edit');
+       Route::post('/currency/update/{id}/', 'CurrencyController@update')->name('currency.update');
+       Route::get('/currency/status/set/{id}', 'CurrencyController@status')->name('currency.status');
+     
 
          // FAQ Route
          Route::get('/faq', 'FaqController@faq')->name('faq');
@@ -288,7 +277,7 @@ Route::group([
             Route::get('/status', 'ReturnController@updateStatus');
             });
 
-        Route::get('/avis', 'TestimonialController@list')->name('testimonial_list');
+        Route::get('/testimonials', 'TestimonialController@list')->name('testimonial_list');
         Route::get('/testimonials/add', 'TestimonialController@pageCreate')->name('testimonial_page_add');
         Route::get('/testimonials/edit/{id}', 'TestimonialController@pageCreate')->name('testimonial_page_edit');
         Route::post('/testimonials', 'TestimonialController@create')->name('testimonial_action');
@@ -361,12 +350,6 @@ Route::middleware(['auth'])->group(function(){
             Route::post('/delete','BankDetailController@deleteBankDetails');
         });
 
-        Route::group(['prefix' => 'users'],function(){
-            Route::get('/', 'BackEndViewController@usersManagement')->name('users.management');
-            Route::post('/add-new','UserController@addNew');
-            Route::get('/delete-user/{id}','UserController@deleteUser');
-            Route::post('/update-user','UserController@updateUser');
-        });
 
         Route::group(['prefix' => 'language'],function(){
             Route::get('/', 'LanguageController@pageLanguage')->name('language');
@@ -376,42 +359,7 @@ Route::middleware(['auth'])->group(function(){
     });
 });
 
-      
-    Route::group(['prefix' => 'bookings'],function(){
-
-        Route::group(['prefix' => 'flight'],function(){
-            Route::get('user','BackEndViewController@userFlightBookings');
-            Route::get('agent','BackEndViewController@agentFlightBookings');
-            Route::get('customer','BackEndViewController@customerFlightBookings');
-            Route::get('itinerary-booking-information/{reference}','BackEndViewController@itineraryBookingInformation');
-        });
-
-        Route::group(['prefix' => 'hotel'],function(){
-            Route::get('user','BackEndViewController@userHotelBookings');
-            Route::get('agent','BackEndViewController@agentHotelBookings');
-            Route::get('customer','BackEndViewController@customerHotelBookings');
-            Route::get('hotel-reservation-information/{reference}','BackEndViewController@hotelBookingInformation');
-            Route::get('rebook-hotel-room/{reference}','HotelController@reBookHotelRoom');
-        });
-
-        Route::group(['prefix' => 'package'],function(){
-            Route::get('user','BackEndViewController@userPackageBookings');
-            Route::get('agent','BackEndViewController@agentPackageBookings');
-            Route::get('customer','BackEndViewController@customerPackageBookings');
-            Route::get('package-reservation-information/{reference}','BackEndViewController@packageBookingInformation');
-        });
-    });
-
-
-    Route::group(['prefix' => 'transactions'],function(){
-        Route::get('/online-payment','BackEndViewController@onlinePayment');
-        Route::get('/bank-payment','BackEndViewController@bankPayment');
-        Route::get('/user/online-payment','BackEndViewController@userOnlinePayment');
-        Route::get('/user/bank-payment','BackEndViewController@userBankPayment');
-        Route::post('/update-payment-proof','BankPaymentController@updatePaymentProof');
-        Route::get('/update-payment-status/{id}/{type}','BankPaymentController@updatePaymentStatus');
-        Route::get('/requery/{id}','OnlinePaymentController@requery');
-    });
+    
 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();

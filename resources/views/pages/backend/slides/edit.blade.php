@@ -19,6 +19,9 @@
         {{ Form::label('label', 'Label') }}
         {{ Form::text('label', null, ['class' => 'form-control']) }}
         <br>
+        {{ Form::label('link', 'Link') }}
+        {{ Form::text('link', null, ['class' => 'form-control']) }}
+        <br>
 
         {{ Form::label('photo', 'Image') }}
         {{ Form::file('photo', ['class' => 'form-control']) }}

@@ -3,7 +3,7 @@
 @section('content')
     <div class="page-title">
         <div class="title_left">
-            @if(isRoute('admin_testimonial_page_edit'))
+            @if(isRoute('testimonial_page_edit'))
                 <h3>{{__('Edit testimonial')}}</h3>
             @else
                 <h3>{{__('Add testimonial')}}</h3>
@@ -23,9 +23,9 @@
 
                 <div class="x_content">
 
-                    <form class="" action="{{route('admin_testimonial_action')}}" method="post" enctype="multipart/form-data">
+                    <form class="" action="{{route('testimonial_action')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        @if(isRoute('admin_testimonial_page_edit'))
+                        @if(isRoute('testimonial_page_edit'))
                             @method('put')
                         @endif
 
@@ -50,7 +50,7 @@
                                                     <label for="name">Name
                                                         <small>({{$language->code}})</small>
                                                         : *</label>
-                                                    @if(isRoute('admin_testimonial_page_add'))
+                                                    @if(isRoute('testimonial_page_add'))
                                                         <input type="text" class="form-control" id="name" name="{{$language->code}}[name]" placeholder="Enter name of customer" autocomplete="off">
                                                     @else
                                                         <input type="text" class="form-control" id="name" name="{{$language->code}}[name]" value="{{$trans['name']}}" placeholder="Enter name of customer" autocomplete="off">
@@ -61,7 +61,7 @@
                                                     <label for="job_title">Job title
                                                         <small>({{$language->code}})</small>
                                                         : *</label>
-                                                    @if(isRoute('admin_testimonial_page_add'))
+                                                    @if(isRoute('testimonial_page_add'))
                                                         <input type="text" class="form-control" id="job_title" name="{{$language->code}}[job_title]" placeholder="Enter job title of customer" autocomplete="off">
                                                     @else
                                                         <input type="text" class="form-control" id="job_title" name="{{$language->code}}[job_title]" value="{{$trans['job_title']}}" placeholder="Enter job title of customer" autocomplete="off">
@@ -72,7 +72,7 @@
                                                     <label for="content">Content
                                                         <small>({{$language->code}})</small>
                                                         : *</label>
-                                                    @if(isRoute('admin_testimonial_page_add'))
+                                                    @if(isRoute('testimonial_page_add'))
                                                         <textarea type="text" class="form-control" id="content" name="{{$language->code}}[content]" placeholder="Enter content of customer" autocomplete="off"></textarea>
                                                     @else
                                                         <textarea type="text" class="form-control" id="content" name="{{$language->code}}[content]" placeholder="Enter content of customer" autocomplete="off">{{$trans['content']}}</textarea>
@@ -96,7 +96,7 @@
                             </div>
 
                             <div>
-                                @if(isRoute('admin_testimonial_page_edit'))
+                                @if(isRoute('testimonial_page_edit'))
                                     <input type="hidden" name="id" value="{{$testimonial['id']}}">
                                     <button type="submit" class="btn btn-primary mt-20">{{__('Save')}}</button>
                                 @else

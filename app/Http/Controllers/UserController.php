@@ -217,58 +217,8 @@ class UserController extends Controller
         return $user->changePassword($r);
     }
 
-    public function deleteUser($id){
-        $user = User::find($id);
-        $user->delete_status = 1;
-        $user->update();
-        return $user;
-    }
 
-    public function updateUser(Request $request){
-
-
-        $this->validate($request, [
-            'sur_name'   => 'required|string|max:255',
-            'first_name' => 'required|string|max:255',
-            'phone'      => 'required',
-            'address'    => 'required'
-        ]);
-
-
-
-        $user = User::find($request->user_id);
-
-        if($request->email != $user->email){
-            $this->validate($request, [
-                'email'      => 'required|string|email|max:255|unique:users',
-            ]);
-        }
-
-        $user->email = $request->email;
-        $updateUser = $user->update();
-
-        $profile = Profile::where('user_id',$request->user_id)->first();
-        $profile->sur_name     = $request->sur_name;
-        $profile->first_name   = $request->first_name;
-        $profile->phone_number = $request->phone;
-        $profile->address      = $request->address;
-        $updateProfile = $profile->update();
-
-        if($userRole != $request->user_type){
-            $user->detachRole($userRole);
-           $user->attachRole($request->user_type);
-        }
-
-        if($updateUser AND $updateProfile){
-            Toastr::success('Les informations sont à jour');
-        }
-        else{
-            Toastr::error('Erreur lors de la mise à jour des nouvelles informations');
-        }
-
-        return back();
-    }
-
+ 
 
     public function pageProfile(Request $r)
     {

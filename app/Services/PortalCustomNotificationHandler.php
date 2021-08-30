@@ -16,8 +16,6 @@ use App\Mail\ReservationCancelled;
 use App\Mail\SuccessfulRegistration;
 use App\Mail\TicketIssued;
 use App\Mail\TicketVoid;
-use App\Mail\WalletCredit;
-use App\Mail\WalletDebit;
 use App\Mail\VisaApplicationRequest;
 use App\Mail\PackageReservationComplete;
 use Exception;
@@ -148,21 +146,6 @@ class PortalCustomNotificationHandler
         }
     }
 
-    public static function walletCredit($user, $walletLog){
-        try{
-            Mail::to($user->email)->send(new WalletCredit($user,$walletLog));
-        }catch(Exception $e){
-            Toastr::error('Unable to send wallet credit alert email');
-        }
-    }
-
-    public static function walletDebit($user, $walletLog){
-        try{
-            Mail::to($user->email)->send(new WalletDebit($user,$walletLog));
-        }catch(Exception $e){
-            TOastr::error('Unable to send wallet debit email');
-        }
-    }
 
     public static function visaApplicationRequest($details){
         try{

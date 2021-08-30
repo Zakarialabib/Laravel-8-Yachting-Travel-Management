@@ -29,8 +29,8 @@
         <li class="nav-item "><a class="nav-link" href="about.html">About</a></li>
         <li class="nav-item "><a class="nav-link" href="{{route('offer.index')}}">Our Fleet</a></li>
         <li class="nav-item "><a class="nav-link" href="tours.html">Tours</a></li>
-        <li class="nav-item "><a class="nav-link" href="blog.html">News</a></li>
-        <li class="nav-item"><a class="nav-link" href="contacts.html">Contact</a></li>
+        <li class="nav-item "><a class="nav-link" href="{{route('post_list_blog')}}">News</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{route('contact_page')}}">Contact</a></li>
     </ul>
 </div>
 <header class="header header-slider">
@@ -70,7 +70,7 @@
                             <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">{{__('Home')}}</a> </li>
                             <li class="nav-item "><a class="nav-link" href="{{route('offer.index')}}">{{__('Our Fleet')}}</a> </li>
                             <li class="nav-item "><a class="nav-link" href="about.html">{{__('About Us')}}</a> </li>                            
-                            <li class="nav-item"><a class="nav-link" href="contacts.html">{{__('Contact')}}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{route('contact_page')}}">{{__('Contact')}}</a></li>
                           
                             <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#">{{ (app()->getLocale()) }}</a>
                                 @if(count($languages) > 1)

@@ -45,12 +45,14 @@ class SliderController extends Controller
             'photo'=>'',
             'slogan' =>'',
             'label'=>'',
+            'link'=>'',
           ));
 
           $slider = new Slider;
           $slider->title = $request->input('title');
           $slider->slogan = $request->input('slogan');
           $slider->label = $request->input('label');
+          $slider->link = $request->input('link');
 
 
           if ($request->hasFile('photo')) {
@@ -109,6 +111,7 @@ class SliderController extends Controller
           'photo'=>'',
           'slogan' =>'',
           'label'=>'',
+          'link'=>'',
        ));
  
         $slider = Slider::where('id',$id)->first();
@@ -116,6 +119,7 @@ class SliderController extends Controller
         $slider->title = $request->input('title');
         $slider->slogan = $request->input('slogan');
         $slider->label = $request->input('label');
+        $slider->link = $request->input('link');
 
         if ($request->hasFile('photo')) {
          $photo = $request->file('photo');

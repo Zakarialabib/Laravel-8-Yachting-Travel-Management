@@ -38,15 +38,12 @@
     });
 
 
+
     $(document).on("click", ".itinerary_item_remove", function (event) {
         let id = event.currentTarget.getAttribute('id');
         $(`#itinerary_item_${id}`).remove();
     });
-    
-    $('#lfm').filemanager('image');
-
-
-        
+            
     $('#page_thumb').change(function () {
         previewUploadImage(this, 'preview_thumb')
     });

@@ -9,6 +9,6 @@ class OfferTranslation extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description','short_desc'];
 
 }

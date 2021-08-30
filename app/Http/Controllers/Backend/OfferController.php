@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use nilsenj\Toastr\Facades\Toastr;
-
+use Storage;
 
 class OfferController extends Controller
 {
@@ -78,11 +78,12 @@ class OfferController extends Controller
             'user_id' => '',
             '%name%' => 'required',
             '%description%' => 'required',
+            '%short_desc%' => '',
             'slug' => '',
             'price' => 'required|numeric',
             'category_id' => '',
             'city_id' => '',
-            'thumb' => '',
+            'thumb.*' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
             'seo_title' => '',
             'seo_description' => '',
             'itinerary' => '',
@@ -95,12 +96,18 @@ class OfferController extends Controller
         if (!isset($data['itinerary'])) {
             $data['itinerary'] = null;
         }
-        
+
+
         if ($request->hasFile('thumb')) {
             $thumb = $request->file('thumb');
-            $thumb_file = $this->uploadImage($thumb, '');
-            $data['thumb'] = $thumb_file;
+            foreach ($image as $thumb) {
+            $thumb_file = time() . "." . $thumb->getClientOriginalExtension();
+            $thumb->move($destinationPath, $thumb_file);
+            
+            $data[] = $thumb_file;
+          }
         }
+
 
         // generate offer reference
         $latest = Offer::latest()->first();
@@ -142,11 +149,13 @@ class OfferController extends Controller
             'user_id' => '',
             '%name%' => 'required',
             '%description%' => 'required',
+            '%short_desc%' => '',
             'slug' => '',
             'price' => 'required|numeric',
             'category_id' => '',
             'city_id' => '',
-            'thumb' => '',
+            'thumb' => 'required',
+            'thumb.*' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
             'seo_title' => '',
             'seo_description' => '',
             'itinerary' => '',
@@ -155,19 +164,22 @@ class OfferController extends Controller
 
         $data = $this->validate($request, $rule_factory);
 
-        dd($data);
         if (!isset($data['itinerary'])) {
             $data['itinerary'] = null;
         }
 
-        if ($request->hasFile('thumb')) {
-            $thumb = $request->file('thumb');
-            $thumb_file = $this->uploadImage($thumb, '');
-            $data['thumb'] = $thumb_file;
+      if($request->hasfile('thumb')){
+          $data = array();
+            foreach($request->file('thumb') as $file)
+            {
+                $name = $file->getClientOriginalName();
+                $file->move(public_path().'/photos/', $name);  
+                $dataImg[] = $name;  
+            }
         }
+        $data['thumb'] = json_encode($dataImg);
 
         $offer = Offer::find($request->id);
-
         $offer->fill($data)->save();
 
         return redirect()->route('offer_list')->with('success', 'Destination à jour!');

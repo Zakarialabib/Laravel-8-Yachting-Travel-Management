@@ -41,9 +41,16 @@
                                         {{ $index !== 0 ?: "required" }}>
                                 </div>
                                 <div class="form-group">
-                                    <label for="name">{{ __('Description') }}
+                                    <label for="short_desc">{{ __('Short Description') }}
                                         <small>({{ $language->code }})</small>: *</label>
-                                    <textarea type="text" class="form-control" id="ckeditor"
+                                    <textarea type="text" class="form-control" name="{{ $language->code }}[short_desc]"
+                                        id="{{ $language->code }}[short_desc]" rows="6"
+                                        {{ $index !== 0 ?: "" }}>{{ $trans ? $trans['short_desc'] : '' }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">{{ __('Description') }}
+                                        <small>({{ $language->code }})</small>: *</label>
+                                    <textarea type="text" class="form-control" id="{{ $language->code }}[description]"
                                         name="{{ $language->code }}[description]" rows="6"
                                         {{ $index !== 0 ?: "required" }}>{{ $trans ? $trans['description'] : '' }}</textarea>
                                 </div>
@@ -72,12 +79,25 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="row">
+            <div class="form-group col-lg-6">
                 <label for="price">{{ __('Price') }}: *</label>
                 <input type="text" class="form-control" id="price" name="price" value="{{ $offer->price }}"
                     placeholder="{{ __('Price') }}" autocomplete="off" required>
             </div>
+            <div class="form-group col-lg-6">
+                <label for="is_featured">{{ __('Is Featured')}}</label><br>
+               <select class="form-control" name="is_featured" id="is_featured">
+                @if($offer->is_featured === 1)
+                    <option value="1" disabled>{{ __('Active')}}</option>
+                @endif
+                   <option value="1">{{ __('Active')}}</option>
+                   <option value="0">{{ __('Inactive')}}</option>
+               </select>
+            </div>
+            </div>
             <div class="form-group">
+                <p>Itinerary</p>
                 <div id="itinerary_list">
                     @if($offer->itinerary)
                         @foreach($offer->itinerary as $key => $menu)
@@ -86,13 +106,13 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="itinerary[{{ $key }}][title]"
                                             value="{{ $menu['title'] }}"
-                                            placeholder="{{ __('Title') }}">
+                                            >
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="ckeditor"
                                             name="itinerary[{{ $key }}][description]"
                                             value="{{ $menu['description'] }}" rows="3"
-                                            placeholder="{{ __('Description') }}">
+                                            >
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -107,27 +127,16 @@
                     id="itinerary_addmore">+{{ __('Add more') }}</button>
             </div>
             <div class="form-group">
-                    <label for="inputthumb" class="col-form-label">{{ __('Image') }} <span
-                                class="text-danger">*</span></label>
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <a id="lfm" data-input="thumbnail" data-preview="holder"
-                                    class="btn btn-primary text-white">
-                                    <i class="fas fa-image"></i> {{ __('Choose') }}
-                                </a>
-                            </span>
-                            <input id="thumbnail" class="form-control" type="text" name="thumb"
-                                value="{{ $offer->thumb }}">
-                        </div>
-                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
-                        @error('thumb')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                <div class="user-image mb-3 text-center">
+                    <div class="imgPreview"> </div>
+                </div>            
+    
+                <div class="custom-file">
+                    <input type="file" name="thumb[]" value="{{$offer->thumb}}" class="custom-file-input" id="images" multiple="multiple">
+                    <label class="custom-file-label" for="images">Choose image</label>
+                </div>    
             </div>
-        <div class="form-group">
-            <label for="is_featured">{{ __('Is Featured')}}</label><br>
-            <input type="checkbox" name="is_featured" id="is_featured" value="{{$offer->is_featured}}" {{($offer->is_featured ? 'checked' : '')}}> Yes                        
-          </div>
+  
             <div class="form-group">
                 <div class="form-group">
                     <label for="seo_title">{{ __('SEO title') }} -
@@ -151,11 +160,44 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary mt-20">{{ __('Submit') }}</button>
+        <button type="submit" class="btn btn-primary mt-20">{{ __('Save') }}</button>
     </form>
 </div>
+<style>
+     .imgPreview img {
+            padding: 8px;
+            max-width: 100px;
+        } 
+</style>
 @endsection
 
 @push('scripts')
     <script src="{{ asset('admin/js/page_offer.js') }}"></script>
+
+    <script type="text/javascript">
+   $(function() {
+        // Multiple images preview with JavaScript
+        var multiImgPreview = function(input, imgPreviewPlaceholder) {
+
+            if (input.files) {
+                var filesAmount = input.files.length;
+
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(event) {
+                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
+                    }
+
+                    reader.readAsDataURL(input.files[i]);
+                }
+            }
+
+        };
+
+        $('#images').on('change', function() {
+            multiImgPreview(this, 'div.imgPreview');
+        });
+        });    
+     </script>
 @endpush

@@ -12,7 +12,7 @@
                     @endif
                 </div>
                 <div class="card-body">
-                    <h4 class="card-title customer_full_name">{{$profile->sur_name}} {{$profile->first_name}}</h4>
+                    <h4 class="card-title customer_full_name">{{$user->name}}</h4>
                 </div>
             </div>
         </div>
@@ -38,13 +38,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Surname</label>
-                                        <input type="text" name="customer_sur_name" required class="form-control" value="{{$profile->sur_name}}"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>First Name</label>
-                                        <input type="text" name="customer_first_name" required class="form-control" value="{{$profile->first_name}}"/>
+                                        <input type="text" name="customer_sur_name" required class="form-control" value="{{$user->name}}"/>
                                     </div>
                                 </div>
                             </div>
@@ -52,19 +46,13 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Phone Number</label>
-                                        <input type="text" name="customer_phone_number" required class="form-control" value="{{$profile->phone_number}}"/>
+                                        <input type="text" name="customer_phone_number" required class="form-control" value="{{$user->phone}}"/>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Email</label>
                                         <input type="email" name="customer_email" required disabled class="form-control" value="{{$user->email}}"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <textarea class="form-control" name="customer_address" required placeholder="Enter your address to help use serve you better">{{$profile->address}}</textarea>
                                     </div>
                                 </div>
                             </div>

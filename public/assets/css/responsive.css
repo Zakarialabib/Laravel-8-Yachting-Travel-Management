@@ -576,8 +576,7 @@
     }
     
     html .section-default {
-    padding-top: 70px;
-    padding-bottom: 70px;
+    padding: 50px 0;
 }
     
     html .b-goods-2-descrip__item {
@@ -981,6 +980,19 @@ html .b-post-full .entry-meta {
   .comments-list .children .comment {
     padding-left: 40px;
   }
+  .b-post-3 .entry-title{
+    font-size: 20px;
+  }
+  .dw-info h3{
+    font-size: 30px;
+  }
+  .dw-footer{
+    font-size: 18px;
+  }
+  .footer{
+    padding: 50px 0;
+  }
+
 }
 /* end 767px */
 

@@ -2,7 +2,7 @@
 
 @section('page-title') {{__('User Profile')}}  @endsection
 
-@section('activeSettings') open hover  @endsection
+@section('activeSettings') Profil  @endsection
 
 @section('content')
 
@@ -18,7 +18,7 @@
                         @endif
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title customer_full_name">{{$profile->sur_name}} {{$profile->first_name}}</h4>
+                        <h4 class="card-title customer_full_name">{{$user->name}}</h4>
                     </div>
                 </div>
             </div>
@@ -37,114 +37,61 @@
                         <div class="col-md-12">
                             <h3><strong> {{__('Manage Your Information')}}</strong></h3>
                         </div>
-                        <div class="col-md-12">
-                            <form method="post" action="{{route('update-profile')}}">
-                                @csrf
+                        <div class="col-md-12"> 
+                            {!! Form::model($user, ['method' => 'PATCH', 'route' => ['users_update', $user->id], 'enctype' => 'multipart/form-data' ,'files' => true]) !!}
+
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
-                                            <label>{{__('Surname')}}</label>
-                                            <input type="text" name="customer_sur_name" required class="form-control" value="{{$profile->sur_name}}"/>
+                                            <label>{{__('Name')}}</label>
+                                            {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control']) !!}
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>{{__('First Name')}}</label>
-                                            <input type="text" name="customer_first_name" required class="form-control" value="{{$profile->first_name}}"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>{{__('Phone Number')}}</label>
-                                            <input type="text" name="customer_phone_number" required class="form-control" value="{{$profile->phone_number}}"/>
+                                            {!! Form::text('phone', null, ['placeholder' => 'Phone', 'class' => 'form-control']) !!}
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label>{{__('Email')}}</label>
-                                            <input type="email" name="customer_email" required disabled class="form-control" value="{{$user->email}}"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>{{__('Address')}}</label>
-                                            <textarea class="form-control" name="customer_address" required placeholder="{{__('Enter your address to help use serve you better')}}">{{$profile->address}}</textarea>
+                                            {!! Form::text('email', null, ['placeholder' => 'Email', 'class' => 'form-control']) !!}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-
-                                </div>
-                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>{{__('Enter New Password')}}</label>
+                                                {!! Form::password('password', ['placeholder' => 'Password', 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>{{__('Confirm New Password')}}</label>
+                                                {!! Form::password('confirm-password', ['placeholder' => 'Confirm Password', 'class' => 'form-control']) !!}
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
-                                        <button class="btn btn-primary pull-left" type="button" id="update_customer_information">{{__('Update Customer Information')}}</button>
-                                    </div>
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3><strong> {{__('Edit Your Profile Image')}}</strong></h3>
-                        </div>
-                        <div class="col-md-12">
-                            <form method="post" id="profile_image_form" enctype="multipart/form-data" action="{{route('update-profile-image')}}">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-8">
                                         <div class="form-group">
                                             <label>{{__('Enter New Image')}}</label>
-                                            <input class="form-control" type="file" id="customer_profile_photo" name="customer_profile_photo" required/>
+                                            {!! Form::file('photo', ['class' => 'form-control']) !!}
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label>&nbsp;</label>
-                                            <button class="btn btn-primary btn-block" name="profile_upload" id="update_image" type="button">{{__('Update')}}</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h3><strong> {{__('Change Password')}}</strong></h3>
-                        </div>
-                        <div class="col-md-12">
-                            <form>
                                 <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label>{{__('Enter New Password')}}</label>
-                                            <input class="form-control" type="password" name="customer_new_password" required/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label>{{__('Confirm New Password')}}</label>
-                                            <input class="form-control" type="password" name="customer_new_password_confirm" required/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label>&nbsp;</label>
-                                            <button class="btn btn-primary btn-block" type="button" id="update_password">{{__('Update')}}</button>
-                                        </div>
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary pull-left" type="submit">{{__('Update Information')}}</button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
+                                {!! Form::close() !!}
+                            </div>
+                    </div>                   
+                    <br/>
                 </div><!-- .card-body -->
             </div><!-- .card -->
             <!-- /End Main Profile card -->
-
         </div><!-- .col -->
     </div>
 

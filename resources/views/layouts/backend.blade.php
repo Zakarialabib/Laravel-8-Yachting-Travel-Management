@@ -9,11 +9,6 @@
     <meta name="author" content="{{config('app.name')}}">
     <title> {{config('app.name')}} - @yield('page-title')</title>
 
-    <script type="text/javascript">
-        var baseUrl = "{{url("/")}}";
-        var path = "{{ route('typeaheadJs') }}";
-        var airline_path = "{{ route('airlineTypeAheadJs') }}";
-    </script>
 @include('partials.backend.css')
 @yield('css')
 <!-- END Custom CSS-->
@@ -47,6 +42,5 @@
 <!-- BEGIN VENDOR JS-->
 @include('partials.backend.js')
 @yield('javascript')
-
 <!-- END PAGE LEVEL JS-->
 </body>

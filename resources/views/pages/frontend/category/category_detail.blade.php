@@ -45,7 +45,7 @@
                         <div class="fl-events-excerpt">
                             <p> {!!Str::limit($offer->description) !!}</p>
                         </div>
-                        <a class="btn btn-primary" href="{{ route('offer.show', $offer->slug) }}">Join This Tour</a>
+                        <a class="btn btn-primary" href="{{ route('offer.show', $offer->slug) }}">{{__('Read More')}}</a>
                     </div>
                 </div>
             </div>

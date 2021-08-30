@@ -25,6 +25,11 @@
 <input type="text" class="form-control" name="label" id="label">  
   </div>
 
+  <div class="form-group">
+    <label for="Link">Link</label>
+<input type="text" class="form-control" name="link" id="link">  
+  </div>
+
 <div class="form-group">
   <label for="photo">photo</label>
         <div class="input-group">

@@ -69,7 +69,7 @@
                       </div>
                       <div class="entry-content">{!! Str::limit($post->content, 200) !!}
                         </div>
-                      <div class="entry-footer"><a class="btn text-primary" href="{{route('post_detail', [$post->slug, $post->id])}}">Read More</a></div>
+                      <div class="entry-footer"><a class="btn text-primary" href="{{route('post_detail', [$post->slug, $post->id])}}">{{__('Read More')}}</a></div>
                     </div>
                 </section>
                   @endforeach                 

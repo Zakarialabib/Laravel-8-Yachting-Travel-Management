@@ -2253,7 +2253,6 @@ body {
 .b-goods-flip-info {
     padding-top: 0;
     background-color: #f2f6f7;
-    height: 347px;
     overflow: scroll;
 }
 
@@ -3006,11 +3005,6 @@ html .b-goods-slider .slick-list {
     -webkit-transition: all .3s;
     transition: all .3s;
 }
-
-
-
-
-
 
 @supports ((-webkit-clip-path: polygon(0 0)) or (clip-path: polygon(0 0))) {
     .b-main-slider__label:after {
@@ -5533,7 +5527,7 @@ span.sign {
 }
 
 .b-goods-descrip__nev:last-child {
-    float: right;
+    float:left;
     width: 59%;
 }
 
@@ -5624,9 +5618,23 @@ span.sign {
 }
 
 .cr-counters__description {
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 1.6em;
+    font-weight: 700;
     color: #fff;
+}
+
+.cr-counters__description:after {
+    display: inline-block;
+    margin-bottom: 20px;
+    content: '';
+    cursor: pointer;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    background: #e4d183 !important;
+    height: 6px;
+    -webkit-clip-path: polygon(0 100%, 0 0%, 100% 10%);
+    clip-path: polygon(0 100%, 0 0%, 100% 10%);
+    width: 100%;
 }
 
 
@@ -5641,7 +5649,7 @@ span.sign {
     overflow: hidden;
     width: 100%;
     color: #fff;
-    margin-bottom: 145px;
+    margin-bottom: 100px;
     -webkit-transition: all .3s;
     transition: all .3s;
 }
@@ -6046,7 +6054,7 @@ span.sign {
 
 
 .section-form {
-    padding: 110px 0;
+    padding: 100px 0;
 }
 
 .section-progress {
