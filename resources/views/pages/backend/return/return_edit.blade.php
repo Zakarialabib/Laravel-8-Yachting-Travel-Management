@@ -98,8 +98,8 @@
                                         <div class="form-group">
                                             <label>{{__('Purchase Status')}} *</label>
                                             <select name="status" class="form-control">
-                                                <option value="{{App\Purchase::STATUS_COMPLETE}}" {{$return->status === App\Returns::STATUS_COMPLETE ? 'selected="selected"' : ''}}>{{__('Completed')}}</option>
-                                                <option value="{{App\Purchase::STATUS_PENDING}}" {{$return->status === App\Returns::STATUS_PENDING ? 'selected="selected"' : ''}}>{{__('Pending')}}</option>
+                                                <option value="{{App\Models\Purchase::STATUS_COMPLETE}}" {{$return->status === App\Models\Returns::STATUS_COMPLETE ? 'selected="selected"' : ''}}>{{__('Completed')}}</option>
+                                                <option value="{{App\Models\Purchase::STATUS_PENDING}}" {{$return->status === App\Models\Returns::STATUS_PENDING ? 'selected="selected"' : ''}}>{{__('Pending')}}</option>
                                             </select>
                                         </div>
                                     </div>

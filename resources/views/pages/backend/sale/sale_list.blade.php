@@ -167,7 +167,7 @@
                                             @if(!$sale->is_locked)    
                                     <a class="dropdown-item" href="{{route('sale_edit', $sale->id)}}">{{__('Edit')}}</a>
                                     @endif
-                                    <a class="dropdown-item" href="{{route('invoice_create', ['type' => App\Invoice::SALE_TYPE, 'id' => $sale->id])}}">{{__('Invoice')}}</a>
+                                    <a class="dropdown-item" href="{{route('invoice_create', ['type' => App\Models\Invoice::SALE_TYPE, 'id' => $sale->id])}}">{{__('Invoice')}}</a>
                                     <a class="dropdown-item" href="{{route('sale_quotation', $sale->id)}}">{{__('Quotation')}}</a>
                                     <form class="d-inline" action="{{route('return_create')}}" method="POST">
                                         @csrf

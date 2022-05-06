@@ -67,7 +67,7 @@
                         {{ __('Home Settings') }}</a>
                     </li>
                     <li><a class="menu-item"
-                    href="{{ route('slides.index') }}">{{ __('Home Slides') }}</a>
+                            href="{{ route('slides.index') }}">{{ __('Home Slides') }}</a>
                     </li>  
                     <li><a class="menu-item"
                             href="{{ route('post_list_blog') }}">{{ __('All Posts') }}</a>

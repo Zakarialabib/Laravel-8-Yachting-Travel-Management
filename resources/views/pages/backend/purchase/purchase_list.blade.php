@@ -35,8 +35,8 @@
                                 <td>{{$purchase->id}}</td>
                                 <td>{{$purchase->supplier->company_name}}</td>
                                 <td>
-                                    @if($purchase->status == App\Purchase::STATUS_PENDING)<span class="status-pending">{{__('Pending')}}</span>
-                                    @elseif($purchase->status == App\Purchase::STATUS_COMPLETE)<span class="status-approved">{{__('Complete')}}</span>
+                                    @if($purchase->status == App\Models\Purchase::STATUS_PENDING)<span class="status-pending">{{__('Pending')}}</span>
+                                    @elseif($purchase->status == App\Models\Purchase::STATUS_COMPLETE)<span class="status-approved">{{__('Complete')}}</span>
                                     @endif    
                                 </td>
                                 <td>{{$purchase->grand_total}}</td>
@@ -68,8 +68,8 @@
                                                         <p><strong>{{__('User')}}: </strong>{{$purchase->user->profile->sur_name}}</p>
                                                         <p>
                                                             <strong>{{__('purchase Status')}}: </strong>
-                                                            @if($purchase->status== App\Purchase::STATUS_PENDING){{'Pending'}}
-                                                            @elseif($purchase->status== App\Purchase::STATUS_COMPLETE){{'Complete'}}
+                                                            @if($purchase->status== App\Models\Purchase::STATUS_PENDING){{'Pending'}}
+                                                            @elseif($purchase->status== App\Models\Purchase::STATUS_COMPLETE){{'Complete'}}
                                                             @endif
                                                         </p>
                                                         <p>
@@ -168,7 +168,7 @@
                                            @if(!$purchase->is_locked)    
                                     <a class="dropdown-item" href="{{route('purchase_edit', $purchase->id)}}">{{__('Edit')}}</a>
                                      @endif
-                                    <a class="dropdown-item" href="{{route('invoice_create', ['type' => App\Invoice::PURCHASE_TYPE, 'id' => $purchase->id])}}">{{__('Invoice')}}</a>
+                                    <a class="dropdown-item" href="{{route('invoice_create', ['type' => App\Models\Invoice::PURCHASE_TYPE, 'id' => $purchase->id])}}">{{__('Invoice')}}</a>
                                     <a class="dropdown-item" href="{{route('purchase_quotation', $purchase->id)}}">{{__('Bon de Commande')}}</a>
                                         @role('admin')
                                     <form action="{{route('purchase_delete',$purchase->id)}}" method="POST">

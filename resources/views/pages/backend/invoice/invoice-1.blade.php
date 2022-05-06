@@ -223,7 +223,7 @@
             <main>
                 <div class="row contacts">
                     <div class="col invoice-to">
-                        @if ($type == App\Invoice::PURCHASE_TYPE)
+                        @if ($type == App\Models\Invoice::PURCHASE_TYPE)
                         <h4 class="to"> {{$beneficiary->name}}</h4>
                         <div class="address">{{$beneficiary->company_name}}</div>
                         <div class="address"> {{$beneficiary->address}}</div>

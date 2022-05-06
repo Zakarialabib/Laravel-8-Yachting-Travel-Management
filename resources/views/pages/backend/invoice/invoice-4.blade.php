@@ -12,7 +12,7 @@
 	<div class="row">
 			<div class="col-xs-4">
 			<div class="panel panel-default">
-				@if ($type == App\Invoice::PURCHASE_TYPE)		
+				@if ($type == App\Models\Invoice::PURCHASE_TYPE)		
 				<div class="panel-heading">
 					<h4>To : <a href="#"> {{$beneficiary->name}}</a></h4>
 				</div>

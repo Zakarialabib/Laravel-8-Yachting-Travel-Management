@@ -14,8 +14,8 @@ $id= request()->route('id');
                   <img class="card-img-top" src="{{asset($template->image)}}">
                   <div class="card-block text-center">
                     <h4 class="card-title" style="text-align:center;">{{$template->name}}</h4>
-                    <button type="button" class="btn btn-success" ><a href="{{route('invoice_action', ['action' => \App\Invoice::PREVIEW_ACTION,'type' => $type, 'id' => $id, 'template' => $template->id])}}" style='text-decoration:none;color:white;'><i class="fa fa-eye"></i></a></button>
-                    <button type="button" class="btn btn-dark js-send-download" data-invoice="{{$template->id}}">  <a href="{{route('invoice_action', ['action' => \App\Invoice::DOWNLOAD_ACTION,'type' => $type, 'id' => $id, 'template' => $template->id])}}" style='text-decoration:none;color:white;'><i class="fa fa-download"></i></a></button>
+                    <button type="button" class="btn btn-success" ><a href="{{route('invoice_action', ['action' => \App\Models\Invoice::PREVIEW_ACTION,'type' => $type, 'id' => $id, 'template' => $template->id])}}" style='text-decoration:none;color:white;'><i class="fa fa-eye"></i></a></button>
+                    <button type="button" class="btn btn-dark js-send-download" data-invoice="{{$template->id}}">  <a href="{{route('invoice_action', ['action' => \App\Models\Invoice::DOWNLOAD_ACTION,'type' => $type, 'id' => $id, 'template' => $template->id])}}" style='text-decoration:none;color:white;'><i class="fa fa-download"></i></a></button>
                     <button type="button" class="btn btn-warning js-send-invoice" data-toggle="modal" data-target="#invoice-modal" data-invoice="1" data-whatever="@mdo"  id='ok'><i class="fa fa-envelope"></i></button>
                   </div>
                 </div>

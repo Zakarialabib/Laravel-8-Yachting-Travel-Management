@@ -105,8 +105,8 @@
                                         <div class="form-group">
                                             <label>{{__('Purchase Status')}} *</label>
                                             <select name="status" class="form-control">
-                                                <option value="{{App\Purchase::STATUS_COMPLETE}}">{{__('Completed')}}</option>
-                                                <option value="{{App\Purchase::STATUS_PENDING}}">{{__('Pending')}}</option>
+                                                <option value="{{App\Models\Purchase::STATUS_COMPLETE}}">{{__('Completed')}}</option>
+                                                <option value="{{App\Models\Purchase::STATUS_PENDING}}">{{__('Pending')}}</option>
                                             </select>
                                         </div>
                                     </div>

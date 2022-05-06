@@ -93,8 +93,8 @@
                                         <div class="form-group">
                                             <label>{{__('Return Status')}} *</label>
                                             <select name="status" class="form-control">
-                                                <option value="{{App\Returns::STATUS_COMPLETE}}">{{__('Completed')}}</option>
-                                                <option value="{{App\Returns::STATUS_PENDING}}">{{__('Pending')}}</option>
+                                                <option value="{{App\Models\Returns::STATUS_COMPLETE}}">{{__('Completed')}}</option>
+                                                <option value="{{App\Models\Returns::STATUS_PENDING}}">{{__('Pending')}}</option>
                                             </select>
                                         </div>
                                     </div>

@@ -39,8 +39,8 @@
                             <tr>
                                 <td>{{$return->id}}</td>
                                 <td>
-                                    @if($return->status == App\Returns::STATUS_PENDING)<span class="status-pending">{{__('Pending')}}</span>
-                                    @elseif($return->status == App\Returns::STATUS_COMPLETE)<span class="status-approved">{{__('Complete')}}</span>
+                                    @if($return->status == App\Models\Returns::STATUS_PENDING)<span class="status-pending">{{__('Pending')}}</span>
+                                    @elseif($return->status == App\Models\Returns::STATUS_COMPLETE)<span class="status-approved">{{__('Complete')}}</span>
                                     @endif    
                                 </td>
                                 <td>{{$return->grand_total}}</td>
@@ -71,8 +71,8 @@
                                                         <p><strong>{{__('User')}}: </strong>{{$return->user->profile->sur_name}}</p>
                                                         <p>
                                                             <strong>{{__('return Status')}}: </strong>
-                                                            @if($return->status== App\Returns::STATUS_PENDING){{'Pending'}}
-                                                            @elseif($return->status== App\Returns::STATUS_COMPLETE){{'Complete'}}
+                                                            @if($return->status== App\Models\Returns::STATUS_PENDING){{'Pending'}}
+                                                            @elseif($return->status== App\Models\Returns::STATUS_COMPLETE){{'Complete'}}
                                                             @endif
                                                         </p>
                                                         <p>
@@ -171,7 +171,7 @@
                                        @if(!$return->is_locked)            
                                     <a class="dropdown-item" href="{{route('return_edit', $return->id)}}">{{__('Edit')}}</a>
                                     @endif
-                                    <a class="dropdown-item" href="{{route('invoice_create', ['type' => App\Invoice::RETURN_TYPE, 'id' => $return->id])}}">{{__('Invoice')}}</a>
+                                    <a class="dropdown-item" href="{{route('invoice_create', ['type' => App\Models\Invoice::RETURN_TYPE, 'id' => $return->id])}}">{{__('Invoice')}}</a>
                                     <a class="dropdown-item" href="{{route('return_quotation', $return->id)}}">{{__('Bon de Commande')}}</a>
                                     @role('admin')
                                     <form action="{{route('return_delete',$return->id)}}" method="POST">
