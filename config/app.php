@@ -238,7 +238,6 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash' => Laracasts\Flash\Flash::class,
         'SEOMeta' => Artesaos\SEOTools\Facades\SEOMeta::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
 
