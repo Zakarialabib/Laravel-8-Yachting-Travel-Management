@@ -13,16 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web']], function () {
+        \UniSharp\LaravelFilemanager\Lfm::routes();
+    });
 
+    Route::get('clear-translations', 'ClearCacheController@clear_translations')
+        ->name('clear-translations');
+        
+    Route::get('clean', 'ClearCacheController@clear_cache')
+        ->name('clear-cache');
 
-Route::get('clear-translations', 'ClearCacheController@clear_translations')
-      ->name('clear-translations');
-      
-Route::get('clean', 'ClearCacheController@clear_cache')
-      ->name('clear-cache');
-
-   Route::post('/upload-image', 'ImageController@upload')->name('upload_image');
-   Route::post('/uploadImage', 'Controller@uploadImages');
+    Route::post('/upload-image', 'ImageController@upload')->name('upload_image');
+    Route::post('/uploadImage', 'Controller@uploadImages');
 
   // User Notification
   Route::get('/user/notf/show', 'NotificationController@user_notf_show')->name('user-notf-show');
@@ -73,7 +75,7 @@ Route::group([
         Route::get('/search', 'ViewController@search')->name('search');
         Route::post('/home-booking', 'ViewController@booking')->name('home_booking');
         Route::get('/contact', 'ViewController@contact')->name('contact_page');
-        Route::get('/about-us', 'ViewController@contact')->name('about_page');
+        Route::get('/about-us', 'ViewController@about')->name('about_page');
         Route::post('/contact/send', 'ViewController@sendContact')->name('contact_send');
 
          Route::get('/changecurrency/{currId}', 'ViewController@changeCurrency')->name('changeCurrency');
@@ -351,11 +353,5 @@ Route::middleware(['auth'])->group(function(){
         });
     });
 });
-
-    
-
-    Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
-    });
 
 Auth::routes();
