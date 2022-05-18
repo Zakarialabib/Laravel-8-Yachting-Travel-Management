@@ -44,7 +44,7 @@
                                     href="{{ route('offer_list') }}">{{ __('Offers List') }}</a>
                             </li>
                             <li><a class="menu-item"
-                                    href="{{ route('category_list', \App\Models\Category::TYPE_OFFER) }}">{{ __('Category List') }}</a>
+                                    href="{{ route('category.list', \App\Models\Category::TYPE_OFFER) }}">{{ __('Category List') }}</a>
                             </li>
                             <li><a class="menu-item"
                                     href="{{ route('category_type_list') }}">{{ __('Category Type List') }}</a>
@@ -73,7 +73,7 @@
                             href="{{ route('post_list_blog') }}">{{ __('All Posts') }}</a>
                     </li>
                     <li><a class="menu-item"
-                            href="{{ route('category_list', \App\Models\Category::TYPE_POST) }}">{{ __('Categories List') }}</a>
+                            href="{{ route('category.list', \App\Models\Category::TYPE_POST) }}">{{ __('Categories List') }}</a>
                     </li>
                     <li><a class="menu-item"
                             href="{{ route('post_list_page') }}">{{ __('Pages Management') }}</a>

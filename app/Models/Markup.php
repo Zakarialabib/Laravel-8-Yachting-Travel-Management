@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Markup extends Model
 {
-    public $flight = 1;
     public $hotel = 2;
     public $car = 3;
     public $package = 4;
@@ -31,12 +30,7 @@ class Markup extends Model
             $markup->user_id = auth()->id();
             $markup->role_id = $data['role'];
 
-            if ($data['markup_type'] == $this->flight)
-            {
-                $markup->flight_markup_type = $data['markup_value_type'];
-                $markup->flight_markup_value = $data['markup_value'];
-            }
-            elseif ($data['markup_type'] == $this->hotel)
+            if ($data['markup_type'] == $this->hotel)
             {
                 $markup->hotel_markup_type = $data['markup_value_type'];
                 $markup->hotel_markup_value = $data['markup_value'];
@@ -60,12 +54,7 @@ class Markup extends Model
         }
         else
         {
-            if ($data['markup_type'] == $this->flight)
-            {
-                $markup->flight_markup_type = $data['markup_value_type'];
-                $markup->flight_markup_value = $data['markup_value'];
-            }
-            elseif ($data['markup_type'] == $this->hotel)
+           if ($data['markup_type'] == $this->hotel)
             {
                 $markup->hotel_markup_type = $data['markup_value_type'];
                 $markup->hotel_markup_value = $data['markup_value'];

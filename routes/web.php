@@ -110,10 +110,6 @@ Route::group([
         //Route::get('/checkout', 'CheckoutController@show')->name('checkout_show');
         Route::post('/checkout', 'CheckoutController@store')->name('checkout_store');
 
-        Route::post('/cmi/callback', 'CmiController@cmiCallback')->name('cmi_callback');
-        Route::post('/cmi/ok', 'CmiController@ok')->name('cmi_ok');
-        Route::post('/cmi/fail', 'CmiController@fail')->name('cmi_fail');
-
         Route::get('/add-to-cart/{id}', 'BookingController@addToCart')->name('add-to-cart');
         Route::put('/update-cart', 'BookingController@update');
         Route::delete('/remove-from-cart', 'BookingController@remove')->name('remove-from-cart');
@@ -173,7 +169,7 @@ Route::group([
          Route::get('/faq/edit/{id}/', 'FaqController@edit')->name('faq.edit');
          Route::post('/faq/update/{id}/', 'FaqController@update')->name('faq.update');
 
-        Route::get('/category/{type}', 'CategoryController@list')->name('category_list');
+        Route::get('/category/{type}', 'CategoryController@list')->name('category.list');
         Route::post('/category', 'CategoryController@create')->name('category_create');
         Route::put('/category', 'CategoryController@update')->name('category_update');
         Route::delete('/category/{id}', 'CategoryController@destroy')->name('category_delete');
@@ -254,8 +250,7 @@ Route::group([
             Route::get('/', 'SaleController@list')->name('sale_list');
             Route::get('/ajax-delete-file', 'SaleController@deleteSaleFile');
             Route::get('/add', 'SaleController@createView')->name('sale_create_view');
-            Route::post('/add', 'SaleController@createView')->name('sale_create_view');
-            Route::post('/', 'SaleController@create')->name('sale_create');
+            Route::post('/add', 'SaleController@create')->name('sale_create');
             Route::get('/edit/{id}', 'SaleController@edit')->name('sale_edit');
             Route::put('/update/{id}', 'SaleController@update')->name('sale_update');
             Route::delete('/{id}', 'SaleController@destroy')->name('sale_delete');
@@ -263,12 +258,11 @@ Route::group([
             Route::get('/status', 'SaleController@updateStatus');
             });
         
-        Route::group(['prefix' => 'avoirs'],function(){
+        Route::group(['prefix' => 'ruturn'],function(){
     
             Route::get('/', 'ReturnController@list')->name('return_list');
             Route::get('/ajax-delete-file', 'ReturnController@deleteSaleFile');
             Route::get('/add', 'ReturnController@createView')->name('return_create_view');
-            Route::post('/add', 'ReturnController@createView')->name('return_create_view');
             Route::post('/', 'ReturnController@create')->name('return_create');
             Route::get('/edit/{id}', 'ReturnController@edit')->name('return_edit');
             Route::put('/update/{id}', 'ReturnController@update')->name('return_update');
@@ -280,7 +274,7 @@ Route::group([
         Route::get('/testimonials', 'TestimonialController@list')->name('testimonial_list');
         Route::get('/testimonials/add', 'TestimonialController@pageCreate')->name('testimonial_page_add');
         Route::get('/testimonials/edit/{id}', 'TestimonialController@pageCreate')->name('testimonial_page_edit');
-        Route::post('/testimonials', 'TestimonialController@create')->name('testimonial_action');
+        Route::post('/testimonials', 'TestimonialController@create')->name('testimonial_create');
         Route::put('/testimonials', 'TestimonialController@update')->name('testimonial_action');
    
         Route::get('/settings', 'SettingController@index')->name('settings');
@@ -339,7 +333,6 @@ Route::middleware(['auth'])->group(function(){
         Route::post('/update/user/profile','ProfileController@updateUserProfile')->name('update-profile');
         Route::post('/update/user/image','ProfileController@updateUserProfileImage')->name('update-profile-image');
         Route::post('/update/user/password','ProfileController@updateUserProfilePassword')->name('update-profile-password');
-        Route::get('visa-application-requests','BackEndViewController@visaApplicationRequests');
 
         Route::group(['prefix' => 'bank-details'],function(){
             Route::get('/fetch/{id}', 'BankDetailController@getBankDetail')->name('backend-bank-details');
@@ -366,5 +359,3 @@ Route::middleware(['auth'])->group(function(){
     });
 
 Auth::routes();
-
-

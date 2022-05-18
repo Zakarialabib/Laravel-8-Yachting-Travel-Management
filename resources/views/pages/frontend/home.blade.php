@@ -210,15 +210,11 @@
                 <div class="col-xl-3 col-md-6">
                     <div class="b-goods">
                         <a class="b-goods__img" href="{{route('offer.show', $offer->slug)}}">
-
                             @php
-                            $photos = json_decode($offer['thumb'] ,true)
+                            $photos=explode(',',$offer->thumb);
+                            // dd($photo);
                             @endphp
-                            
-                            {{-- @dd($offer->thumb) --}}
-                             @foreach ($photos as $photo)   
-                            <img class="img-scale" src="{{ asset('photos/'.$photo) }}" alt="{{$offer->name}}" />
-                            @endforeach
+                            <img class="img-scale" src="{{$photos[0]}}" alt="{{$offer->name}}" />
                         </a>
                         <div class="b-goods__main">
                             <div class="row no-gutters">

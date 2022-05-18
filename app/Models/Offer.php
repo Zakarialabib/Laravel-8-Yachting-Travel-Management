@@ -24,6 +24,7 @@ class Offer extends Model  implements TranslatableContract
         'price' => 'double',
         'status' => 'integer',
         'thumb' => 'array',
+        'is_featured' => 'integer',
     ];
 
     protected $fillable = [

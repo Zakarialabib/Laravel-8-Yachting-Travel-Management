@@ -23,7 +23,7 @@
 
                 <div class="x_content">
 
-                    <form class="" action="{{route('testimonial_action')}}" method="post" enctype="multipart/form-data">
+                    <form class="" action="{{route('testimonial_create')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @if(isRoute('testimonial_page_edit'))
                             @method('put')

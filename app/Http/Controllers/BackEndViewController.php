@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FlightBooking;
 use App\Models\HotelBooking;
 use App\Models\OnlinePayment;
 use App\Models\PackageBooking;

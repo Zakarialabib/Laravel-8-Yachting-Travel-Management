@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Models\BankDetail;
-use App\Models\FlightBooking;
 use App\Models\HotelBooking;
 use App\Models\Profile;
-use App\Services\AmadeusConfig;
-use App\Services\AmadeusHelper;
 use App\Models\Markup;
 use App\Models\Title;
 use App\Models\Vat;
@@ -42,9 +39,6 @@ use App\Services\PortalCustomNotificationHandler;
 
 class ViewController extends Controller
 { 
-    private $AmadeusHelper;
-    private $AmadeusConfig;
-    private $HotelController;
     private $place;
     private $country;
     private $city;
@@ -53,9 +47,6 @@ class ViewController extends Controller
     private $response;
 
     public function __construct(Place $place, Country $country, City $city, Category $category, Amenities $amenities, Response $response){
-        $this->AmadeusHelper = new AmadeusHelper();
-        $this->AmadeusConfig = new AmadeusConfig();
-        $this->HotelController = new HotelController();
         $this->place = $place;
         $this->country = $country;
         $this->city = $city;
@@ -98,7 +89,7 @@ class ViewController extends Controller
             $sliders = Slider::all();
 
             $categories = Category::query()
-            ->where('categories.type', Category::TYPE_OFFER)
+            ->where('type', Category::TYPE_OFFER)
             ->get();
 
             $faqs = Faq::query()
@@ -411,8 +402,5 @@ class ViewController extends Controller
 
         return response($html, 200);
     }
-
-
- 
 
 }
