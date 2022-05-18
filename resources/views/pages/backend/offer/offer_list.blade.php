@@ -23,6 +23,7 @@
                         <thead>
                         <tr>
                             <th >ID</th>
+                            <th >Image</th>
                             <th>{{__('Offer name')}}</th>
                             <th>{{__('Is Featured')}}</th>
                             <th>{{__('Category')}}</th>
@@ -34,7 +35,13 @@
                         @foreach($offers as $offer)
                             <tr>
                                 <td>{{$offer->id}}</td>
-                               
+                                <td>
+                                    @php
+                                    $photos=explode(',',$offer->thumb);
+                                    // dd($photo);
+                                    @endphp
+                                    <img class="offer_list_thumb" src="{{$photos[0]}}" alt="{{$offer->name}}" />
+                                </td>
                                 <td>
                                     <a href="{{route('offer.show', $offer->slug)}}">
                                         {{$offer->name}}

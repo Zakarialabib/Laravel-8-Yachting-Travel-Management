@@ -29,8 +29,7 @@
                     <h3 class="footer-section__title">About Saint Yachting</h3>
                     <ul class="footer-list list-unstyled">
                         <li><a href="{{url('/')}}"> {{__('Home')}}</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="#">About us</a></li>
+                        <li><a href="{{route('about_page')}}">About us</a></li>
                         <li><a href="{{route('offer.index')}}">{{__('Our Fleet')}}</a></li>
                         <li><a href="{{route('contact_page')}}">{{__('Contact us')}}</a></li>
                         <li><a href="{{url('/termes-et-conditions')}}">{{__('Terms and conditions')}}</a></li>
@@ -52,7 +51,7 @@
                         <li class="footer-soc__item"><a class="footer-soc__link"  href="{{setting('social_facebook')}}"  target="_blank"><i class="ic fab fa-facebook-f"></i></a></li>
                         <li class="footer-soc__item"><a class="footer-soc__link"  href="{{setting('social_instagram')}}" target="_blank"><i class="ic fab fa-instagram"></i></a></li>
                         <li class="footer-soc__item"><a class="footer-soc__link"  href="{{setting('social_youtube')}}"   target="_blank"><i class="ic fab fa-youtube"></i></a></li>
-                    </ul><a class="btn btn-white" href="#">confirm booking</a> </section>
+                    </ul> </section>
             </div>
         </div>
     </div>

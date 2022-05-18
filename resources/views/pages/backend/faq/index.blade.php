@@ -18,9 +18,10 @@
                     <table class="table table-striped table-bordered col-4-datatable">
                         <thead>
                             <tr>
-                                <th>{{ __('Type') }}</th>
+                                <th>{{ __('#') }}</th>
                                 <th>{{ __('Title') }}</th>
                                 <th>{{ __('Status') }}</th>
+                                <th>{{ __('Type') }}</th>
                                 <th>{{ __('Action') }}</th>
                             </tr>
                         </thead>
@@ -29,13 +30,7 @@
                             @foreach ($faqs as $id=>$faq)
                             <tr>
                                 <td>
-                                    @if($faq->type === \App\Models\FAQ::TYPE_SALE)
-                                    <span class="badge badge-success">{{ $faq->type }}</span>
-                                    @elseif($faq->type === \App\Models\FAQ::TYPE_FAQ)
-                                    <span class="badge badge-warning">{{ $faq->type }}</span>
-                                    @elseif($faq->type === \App\Models\FAQ::TYPE_PRIVACY)
-                                    <span class="badge badge-primary">{{ $faq->type }}</span>
-                                    @endif
+                                    {{ $id }}
                                 </td>
                                 <td>
                                     {{ $faq->title }}
@@ -49,7 +44,15 @@
                                     @endif
 
                                 </td>
-                               
+                                <td>
+                                    @if($faq->type === \App\Models\FAQ::TYPE_SALE)
+                                    <span class="badge badge-success">{{ $faq->type }}</span>
+                                    @elseif($faq->type === \App\Models\FAQ::TYPE_FAQ)
+                                    <span class="badge badge-warning">{{ $faq->type }}</span>
+                                    @elseif($faq->type === \App\Models\FAQ::TYPE_PRIVACY)
+                                    <span class="badge badge-primary">{{ $faq->type }}</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="{{ route('faq.edit', $faq->id) }}" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i>{{ __('Edit') }}</a>
                                     @if($user->is_admin === 1)

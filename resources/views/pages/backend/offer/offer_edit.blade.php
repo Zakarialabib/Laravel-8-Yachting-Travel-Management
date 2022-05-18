@@ -106,13 +106,13 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="itinerary[{{ $key }}][title]"
                                             value="{{ $menu['title'] }}"
-                                            >
+                                            placeholder="{{ __('Title') }}">
                                     </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="ckeditor"
                                             name="itinerary[{{ $key }}][description]"
                                             value="{{ $menu['description'] }}" rows="3"
-                                            >
+                                            placeholder="{{ __('Description') }}">
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -127,14 +127,22 @@
                     id="itinerary_addmore">+{{ __('Add more') }}</button>
             </div>
             <div class="form-group">
-                <div class="user-image mb-3 text-center">
-                    <div class="imgPreview"> </div>
-                </div>            
-    
-                <div class="custom-file">
-                    <input type="file" name="thumb[]" value="{{$offer->thumb}}" class="custom-file-input" id="images" multiple="multiple">
-                    <label class="custom-file-label" for="images">Choose image</label>
-                </div>    
+                    <label for="inputthumb" class="col-form-label">{{ __('Image') }} <span
+                                class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <a id="lfm" data-input="thumbnail" data-preview="holder"
+                                    class="btn btn-primary text-white">
+                                    <i class="fas fa-image"></i> {{ __('Choose') }}
+                                </a>
+                            </span>
+                            <input id="thumbnail" class="form-control" type="text" name="thumb"
+                                value="{{ $offer->thumb }}">
+                        </div>
+                        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                        @error('thumb')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
             </div>
   
             <div class="form-group">
@@ -163,41 +171,8 @@
         <button type="submit" class="btn btn-primary mt-20">{{ __('Save') }}</button>
     </form>
 </div>
-<style>
-     .imgPreview img {
-            padding: 8px;
-            max-width: 100px;
-        } 
-</style>
 @endsection
 
 @push('scripts')
     <script src="{{ asset('admin/js/page_offer.js') }}"></script>
-
-    <script type="text/javascript">
-   $(function() {
-        // Multiple images preview with JavaScript
-        var multiImgPreview = function(input, imgPreviewPlaceholder) {
-
-            if (input.files) {
-                var filesAmount = input.files.length;
-
-                for (i = 0; i < filesAmount; i++) {
-                    var reader = new FileReader();
-
-                    reader.onload = function(event) {
-                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
-                    }
-
-                    reader.readAsDataURL(input.files[i]);
-                }
-            }
-
-        };
-
-        $('#images').on('change', function() {
-            multiImgPreview(this, 'div.imgPreview');
-        });
-        });    
-     </script>
 @endpush

@@ -1,7 +1,7 @@
 <!-- STYLES -->
-<link rel="apple-touch-icon" href="{{asset('images/favicon-apple.png')}}">
+{{--<link rel="apple-touch-icon" href="{{asset('images/favicon-apple.png')}}">
 <link rel="shortcut icon" type="image/x-icon" href="{{asset('images/favicon.png')}}">
-{{-- <link href="{{asset('frontend/assets/css/all.css')}}" rel="stylesheet" type="text/css"> --}}
+ <link href="{{asset('frontend/assets/css/all.css')}}" rel="stylesheet" type="text/css"> --}}
 <link rel="stylesheet" href="{{asset('assets/css/master.css')}}" type="text/css">
 
 

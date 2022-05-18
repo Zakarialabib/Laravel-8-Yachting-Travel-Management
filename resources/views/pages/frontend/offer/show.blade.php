@@ -25,18 +25,21 @@
     <section class="b-goods-f">
       <div class="row">
         <div class="col-lg-8">
-         
+          @php
+          $photos=explode(',',$offer->thumb);
+          // dd($photo);
+          @endphp
           <div class="b-goods-f__slider">
               <div class="ui-slider-main js-slider-for">
-                @foreach (json_decode($offer->thumb, true) as $photo)
-                <img class="img-scale" src="{{ asset('photos/' . $photo) }}" alt="{{$photo}}"/>
+                @foreach ($photos as $photo)
+                <img class="img-scale" src="{{$photo}}" alt="{{$photo}}"/>
                 @endforeach
 
               </div>
              
               <div class="ui-slider-nav js-slider-nav">
-                @foreach (json_decode($offer->thumb, true) as $photo)
-                <img class="img-scale" src="{{ asset('photos/' . $photo) }}" alt="{{$photo}}"/>
+                @foreach ($photos as $photo)
+                <img class="img-scale" src="{{$photo}}" alt="{{$photo}}"/>
                 @endforeach
                 </div>
           </div>

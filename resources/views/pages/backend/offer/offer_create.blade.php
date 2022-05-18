@@ -112,14 +112,23 @@
             </div>
 
             <div class="form-group">
-                    <div class="user-image mb-3 text-center">
-                        <div class="imgPreview"> </div>
-                    </div>            
-        
-                    <div class="custom-file">
-                        <input type="file" name="thumb[]" class="custom-file-input" id="images" multiple="multiple">
-                        <label class="custom-file-label" for="images">Choose image</label>
-                    </div>    
+                <div class="form-group">
+                    <label for="inputthumb" class="col-form-label">{{ __('thumb') }} <span
+                            class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                <i class="fa fa-picture-o"></i> {{ __('Choose') }}
+                            </a>
+                        </span>
+                        <input id="thumbnail" class="form-control" type="text" name="thumb"
+                            value="{{ old('thumb') }}">
+                    </div>
+                    <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+                    @error('thumb')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
          
                 <div class="form-group">
@@ -149,30 +158,4 @@
 
 @push('scripts')
     <script src="{{ asset('admin/js/page_offer.js') }}"></script>
-    <script type="text/javascript">
-        $(function() {
-             // Multiple images preview with JavaScript
-             var multiImgPreview = function(input, imgPreviewPlaceholder) {
-     
-                 if (input.files) {
-                     var filesAmount = input.files.length;
-     
-                     for (i = 0; i < filesAmount; i++) {
-                         var reader = new FileReader();
-     
-                         reader.onload = function(event) {
-                             $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
-                         }
-     
-                         reader.readAsDataURL(input.files[i]);
-                     }
-                 }
-     
-             };
-     
-             $('#images').on('change', function() {
-                 multiImgPreview(this, 'div.imgPreview');
-             });
-             });    
-          </script>
 @endpush

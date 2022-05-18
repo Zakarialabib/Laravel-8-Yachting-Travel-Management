@@ -16,14 +16,20 @@
             @enderror
           </div>
           <div class="form-group col-6">
-              <div class="user-image mb-3 text-center">
-                  <div class="imgPreview"> </div>
-              </div>            
+            <label for="inputPhoto" class="col-form-label">Section photo 1 <span class="text-danger">*</span></label>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="btn btn-primary">
+                    <i class="fa fa-picture-o"></i> {{ __('Choose')}}
+                    </a>
+                </span>
+            <input id="thumbnail1" class="form-control" type="text" name="section_photo_1" value="{{$data->section_photo_1}}">
+          </div>
+          <div id="holder1" style="margin-top:15px;max-height:100px;"></div>
   
-              <div class="custom-file">
-                  <input type="file" name="section_photo_1[]" class="custom-file-input" id="images" multiple="multiple">
-                  <label class="custom-file-label" for="images">Choose image</label>
-              </div>    
+            @error('section_photo_1')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
           </div>
         </div>
        
@@ -34,15 +40,24 @@
           <span class="text-danger">{{$message}}</span>
           @enderror
         </div>
-        <div class="form-group">
-            <div class="user-image mb-3 text-center">
-              <div class="imgPreview"> </div>
-          </div>            
 
-          <div class="custom-file">
-              <input type="file" name="section_photo_2[]" class="custom-file-input" id="images" multiple="multiple">
-              <label class="custom-file-label" for="images">Choose image</label>
-          </div>  
+        
+
+        <div class="form-group">
+          <label for="inputPhoto" class="col-form-label">Gallery<span class="text-danger">*</span></label>
+          <div class="input-group">
+              <span class="input-group-btn">
+                  <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                  <i class="fa fa-picture-o"></i> {{ __('Choose')}}
+                  </a>
+              </span>
+          <input id="thumbnail" class="form-control" type="text" name="section_photo_2" value="{{$data->section_photo_2}}">
+        </div>
+        <div id="holder" style="margin-top:15px;max-height:100px;"></div>
+
+          @error('section_photo_2')
+          <span class="text-danger">{{$message}}</span>
+          @enderror
         </div>
 
         <div class="form-group">
@@ -78,32 +93,20 @@
 <script>
     $('#lfm').filemanager('image');
     $('#lfm1').filemanager('image');
-    
+
+    $(document).ready(function() {
+      $('#quote').summernote({
+        placeholder: "Write short Quote.....",
+          tabsize: 2,
+          height: 100
+      });
+    });
+    $(document).ready(function() {
+      $('#description').summernote({
+        placeholder: "Write detail description.....",
+          tabsize: 2,
+          height: 150
+      });
+    });
 </script>
-<script type="text/javascript">
-  $(function() {
-       // Multiple images preview with JavaScript
-       var multiImgPreview = function(input, imgPreviewPlaceholder) {
-
-           if (input.files) {
-               var filesAmount = input.files.length;
-
-               for (i = 0; i < filesAmount; i++) {
-                   var reader = new FileReader();
-
-                   reader.onload = function(event) {
-                       $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
-                   }
-
-                   reader.readAsDataURL(input.files[i]);
-               }
-           }
-
-       };
-
-       $('#images').on('change', function() {
-           multiImgPreview(this, 'div.imgPreview');
-       });
-       });    
-    </script>
 @endpush

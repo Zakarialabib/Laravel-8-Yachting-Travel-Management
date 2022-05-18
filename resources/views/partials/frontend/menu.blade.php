@@ -26,9 +26,8 @@
 <div data-off-canvas="mobile-slidebar left overlay">
     <ul class="navbar-nav">
         <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">{{__('Home')}}</a></li>
-        <li class="nav-item "><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item "><a class="nav-link" href="{{route('about_page')}}">About</a></li>
         <li class="nav-item "><a class="nav-link" href="{{route('offer.index')}}">Our Fleet</a></li>
-        <li class="nav-item "><a class="nav-link" href="tours.html">Tours</a></li>
         <li class="nav-item "><a class="nav-link" href="{{route('post_list_blog')}}">News</a></li>
         <li class="nav-item"><a class="nav-link" href="{{route('contact_page')}}">Contact</a></li>
     </ul>
@@ -69,7 +68,7 @@
                         <ul class="yamm main-menu navbar-nav">
                             <li class="nav-item active"><a class="nav-link" href="{{url('/')}}">{{__('Home')}}</a> </li>
                             <li class="nav-item "><a class="nav-link" href="{{route('offer.index')}}">{{__('Our Fleet')}}</a> </li>
-                            <li class="nav-item "><a class="nav-link" href="about.html">{{__('About Us')}}</a> </li>                            
+                            <li class="nav-item "><a class="nav-link" href="{{route('about_page')}}">{{__('About Us')}}</a> </li>                            
                             <li class="nav-item"><a class="nav-link" href="{{route('contact_page')}}">{{__('Contact')}}</a></li>
                           
                             <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#">{{ (app()->getLocale()) }}</a>
@@ -96,14 +95,13 @@
                             <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#"><i class="fa fa-user"></i>{{Auth::user()->name}}</a>
                                 <div class="dropdown-menu">
                                 <a class="dropdown-item" href="{{route('dashboard')}}">{{__('Dashboard')}}</a>
-                                <a class="dropdown-item" href="{{route('user_wishlist')}}">{{__('Wishlist')}}</a>
                                 <a class="dropdown-item" href="{{url('/logout')}}">{{__('Logout')}}</a>
                                 </div>
                             </li>
                             @endguest
 
                         </ul> <span class="header-main__link btn_header_search"><i class="ic icon-magnifier"></i></span>
-                        <button class="header-main__btn btn btn-secondary">Book Now</button>
+                        <a class="header-main__btn btn btn-secondary" href="{{route('offer.index')}}" >Book Now</a>
                     </nav>
                 </div>
             </div>

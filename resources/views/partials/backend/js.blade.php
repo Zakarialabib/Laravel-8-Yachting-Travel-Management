@@ -4,9 +4,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha512-TqmAh0/sSbwSuVBODEagAoiUIeGRo8u95a41zykGfq5iPkO9oie8IKCgx7yAr1bfiBjZeuapjLgMdp9UMpCVYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.4.0/js/bootstrap-colorpicker.min.js" integrity="sha512-94dgCw8xWrVcgkmOc2fwKjO4dqy/X3q7IjFru6MHJKeaAzCvhkVtOS6S+co+RbcZvvPBngLzuVMApmxkuWZGwQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset('admin/vendors/DateJS/build/date.js')}}" type="text/javascript"></script>
-<script src="{{asset('admin/vendors/laravel-filemanager/js/stand-alone-button.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend/app-assets/vendors/js/charts/raphael-min.js')}}" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{asset('backend/js/switchery.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend/app-assets/vendors/js/editors/ckeditor/ckeditor.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/chosen-jquery@0.1.1/lib/chosen.jquery.min.js" type="text/javascript"></script>
@@ -40,6 +39,8 @@
 <script src="{{asset('backend/app-assets/js/core/app-menu.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend/app-assets/js/core/app.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend/app-assets/js/scripts/customizer.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('backend/app-assets/js/scripts/customizer.min.js')}}" type="text/javascript"></script>
+
 <!-- BEGIN TOOLS FROM FRONTEND-->
 <script src="{{asset('frontend/assets/js/axios.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('frontend/assets/js/iziModal.js')}}" type="text/javascript"></script>
@@ -47,7 +48,11 @@
 <script src="{{asset('frontend/assets/js/materialize.js')}}" type="text/javascript"></script>
 <script src="{{asset('frontend/assets/js/bootstrap3-typeahead.js')}}" type="text/javascript"></script>
 <script src="{{asset('backend/js/required.js')}}" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="{{asset('admin/vendors/laravel-filemanager/js/stand-alone-button.js')}}" type="text/javascript"></script>
+
 <!-- END TOOLS FROM FRONTEND-->
 @stack('scripts')
 
